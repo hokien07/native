@@ -548,9 +548,11 @@ TEST(JavaLang, StringBuilderLastIndexOf) {
 }
 
 TEST(JavaLang, StringBuilderLength) {
-    String aString("Hello! I'm a String");
-    StringBuilder stringBuilder(aString);
-    ASSERT_EQUAL(aString.length(), stringBuilder.length());
+    String asciiString("Hello! I'm a String");
+    ASSERT_EQUAL(19, asciiString.length());
+
+    StringBuilder utf8String((const string)u8"Gà nướng lu 1.5 ki-lo-gam");
+    ASSERT_EQUAL(25, utf8String.length());
 }
 
 TEST(JavaLang, StringBuilderReplace) {

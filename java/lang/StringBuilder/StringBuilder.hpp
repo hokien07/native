@@ -36,8 +36,8 @@ namespace Java {
     namespace Lang {
         class StringBuilder :
                 public Object,
-                public virtual Serializable//,
-//              public virtual CharSequence
+                public virtual Serializable,
+                public virtual CharSequence
         {
         private:
             string original = NULL;
@@ -922,6 +922,13 @@ namespace Java {
              * This method helps reverses all valid surrogate pairs are produced by reverse method.
              */
             void reverseAllValidSurrogatePairs();
+
+            /**
+             * Returns the number of characters, not number of bytes.
+             *
+             * @return int
+             */
+            int lengthUtf8() const;
         };
     }
 }

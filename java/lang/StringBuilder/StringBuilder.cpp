@@ -562,7 +562,7 @@ int StringBuilder::lastIndexOf(const string target, int fromIndex) const {
 }
 
 int StringBuilder::length() const {
-    return this->currentLength;
+    return this->lengthUtf8();
 }
 
 int StringBuilder::offsetByCodePoints(int index, int codePointOffset) const {
@@ -866,4 +866,16 @@ void StringBuilder::reverseAllValidSurrogatePairs() {
             }
         }
     }
+}
+
+int StringBuilder::lengthUtf8() const {
+    int length = 0;
+    int index = 0;
+    while (index < this->currentLength) {
+        if ((this->original[index] & 0xc0) != 0x80) {
+            length = length + 1;
+        }
+        index = index + 1;
+    }
+    return length;
 }
