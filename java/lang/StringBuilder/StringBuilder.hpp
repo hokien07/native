@@ -40,7 +40,7 @@ namespace Java {
                 public virtual CharSequence
         {
         private:
-            string original = NULL;
+            string original = nullptr;
             mutable String backupOriginalForToString;
             int currentLength = 0;
             int currentCapacity = 0;
@@ -62,7 +62,7 @@ namespace Java {
              * @param capacity
              * @throw NegativeArraySizeException - if the capacity argument is less than 0.
              */
-            StringBuilder(int capacity);
+            explicit StringBuilder(int capacity);
 
             /**
              * StringBuilder Constructor
@@ -71,7 +71,7 @@ namespace Java {
              *
              * @param nullTerminatedString
              */
-            StringBuilder(const string target);
+            explicit StringBuilder(const string target);
 
             /**
              * StringBuilder Constructor
@@ -80,7 +80,7 @@ namespace Java {
              *
              * @param string
              */
-            StringBuilder(const String &target);
+            explicit StringBuilder(const String &target);
 
             /**
              * StringBuilder Constructor
@@ -97,7 +97,7 @@ namespace Java {
              *
              * @param charSequence
              */
-            StringBuilder(const CharSequence &charSequence);
+            explicit StringBuilder(const CharSequence &charSequence);
 
             /**
              * StringBuilder Constructor
@@ -929,6 +929,37 @@ namespace Java {
              * @return int
              */
             int lengthUtf8() const;
+
+            /**
+             * Converts index of character to index of first byte.
+             *
+             * @param indexOfCharacter
+             * @return int
+             */
+            int convertIndexOfCharacterToIndexOfFirstByte(int indexOfCharacter) const;
+
+            /**
+             * Gets number of trailing bytes after first byte.
+             * @param indexOfFirstByte
+             * @return int
+             */
+            int getNumberOfTrailingBytesAfterFirstByte(int indexOfFirstByte) const;
+
+            /**
+             * Gets index of first byte from any index.
+             *
+             * @param indexOfAnyByte
+             * @return int
+             */
+            int getIndexOfFirstByteFromAnyIndex(int indexOfAnyByte) const;
+
+            /**
+             * Checks target is first byte or not.
+             *
+             * @param target
+             * @return boolean
+             */
+            boolean isFirstByte(const char &target) const;
         };
     }
 }

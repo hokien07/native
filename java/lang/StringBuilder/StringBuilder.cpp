@@ -872,10 +872,65 @@ int StringBuilder::lengthUtf8() const {
     int length = 0;
     int index = 0;
     while (index < this->currentLength) {
-        if ((this->original[index] & 0xc0) != 0x80) {
+        if (this->isFirstByte(this->original[index])) {
             length = length + 1;
         }
         index = index + 1;
     }
     return length;
+}
+
+int StringBuilder::convertIndexOfCharacterToIndexOfFirstByte(int indexOfCharacter) const {
+    int index = 0;
+    int numberOfFirstByte = 0;
+    while (index < this->currentLength) {
+        if (this->isFirstByte(this->original[index])) {
+            numberOfFirstByte = numberOfFirstByte + 1;
+        }
+
+        if (numberOfFirstByte == indexOfCharacter + 1) {
+            return index;
+        }
+
+        index = index + 1;
+    }
+
+    return -1;
+}
+
+int StringBuilder::getNumberOfTrailingBytesAfterFirstByte(int indexOfFirstByte) const {
+    char firstByte = this->original[indexOfFirstByte];
+
+    if (!this->isFirstByte(firstByte)) {
+        return -1;
+    }
+
+    if ((firstByte & 0b10000000) == 0b00000000) {
+        return 0;
+    }
+
+    if ((firstByte & 0b11100000) == 0b11000000) {
+        return 1;
+    }
+
+    if ((firstByte & 0b11110000) == 0b11100000) {
+        return 2;
+    }
+
+    if ((firstByte & 0b11111000) == 0b11110000) {
+        return 3;
+    }
+
+    return -1;
+}
+
+int StringBuilder::getIndexOfFirstByteFromAnyIndex(int indexOfAnyByte) const {
+    while (!this->isFirstByte(this->original[indexOfAnyByte])) {
+        indexOfAnyByte = indexOfAnyByte - 1;
+    }
+    return indexOfAnyByte;
+}
+
+boolean StringBuilder::isFirstByte(const char &target) const {
+    return (target & 0b11000000) != 0b10000000;
 }

@@ -548,11 +548,11 @@ TEST(JavaLang, StringBuilderLastIndexOf) {
 }
 
 TEST(JavaLang, StringBuilderLength) {
-    String asciiString("Hello! I'm a String");
-    ASSERT_EQUAL(19, asciiString.length());
+    String asciiStringBuilder("Hello! I'm a String");
+    ASSERT_EQUAL(19, asciiStringBuilder.length());
 
-    StringBuilder utf8String((const string)u8"Gà nướng lu 1.5 ki-lo-gam");
-    ASSERT_EQUAL(25, utf8String.length());
+    StringBuilder utf8StringBuilder((const string)u8"\x56\x69\xE1\xBB\x87\x74\x20\x4E\x61\x6D");
+    ASSERT_EQUAL(8, utf8StringBuilder.length());
 }
 
 TEST(JavaLang, StringBuilderReplace) {
