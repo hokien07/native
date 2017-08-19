@@ -27,8 +27,9 @@
 #ifndef NATIVE_JAVA_LANG_STRINGBUILDER_HPP
 #define NATIVE_JAVA_LANG_STRINGBUILDER_HPP
 
-#include "../../Lang.hpp"
 #include <initializer_list>
+#include <string>
+#include "../../Lang.hpp"
 
 using namespace Java::IO;
 
@@ -40,8 +41,8 @@ namespace Java {
                 public virtual CharSequence
         {
         private:
-            string original = nullptr;
-            mutable String backupOriginalForToString;
+            char16_t *original = nullptr;
+            mutable String backupForToString;
             int currentLength = 0;
             int currentCapacity = 0;
 
@@ -62,7 +63,7 @@ namespace Java {
              * @param capacity
              * @throw NegativeArraySizeException - if the capacity argument is less than 0.
              */
-            explicit StringBuilder(int capacity);
+            StringBuilder(int capacity);
 
             /**
              * StringBuilder Constructor
@@ -71,7 +72,7 @@ namespace Java {
              *
              * @param nullTerminatedString
              */
-            explicit StringBuilder(const string target);
+            StringBuilder(const_string target);
 
             /**
              * StringBuilder Constructor
@@ -80,7 +81,7 @@ namespace Java {
              *
              * @param string
              */
-            explicit StringBuilder(const String &target);
+            StringBuilder(const String &target);
 
             /**
              * StringBuilder Constructor
@@ -97,7 +98,7 @@ namespace Java {
              *
              * @param charSequence
              */
-            explicit StringBuilder(const CharSequence &charSequence);
+            StringBuilder(const CharSequence &charSequence);
 
             /**
              * StringBuilder Constructor
@@ -191,7 +192,7 @@ namespace Java {
              * @return StringBuilder
              * @throw IndexOutOfBoundsException - if offset < 0 or length < 0 or offset+length > target.length
              */
-            StringBuilder &append(const Array<char> &target, int offset, int length);
+            StringBuilder &append(const Array<char16_t> &target, int offset, int length);
 
             /**
              * Appends the specified character sequence to this sequence.
@@ -218,7 +219,7 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(const std::initializer_list<char> &target);
+            StringBuilder &append(const std::initializer_list<char16_t> &target);
 
             /**
              * Appends the specified string to this character sequence.
@@ -226,7 +227,7 @@ namespace Java {
              * @param target
              * @return
              */
-            StringBuilder &append(const string target);
+            StringBuilder &append(const_string target);
 
             /**
              * Appends the string representation of the Double argument to this sequence.
@@ -456,7 +457,7 @@ namespace Java {
              * @param target
              * @return int
              */
-            int indexOf(const string target) const;
+            int indexOf(const_string target) const;
 
             /**
              * Returns the index within this string of the first occurrence of the specified substring, starting at the specified index.
@@ -474,7 +475,7 @@ namespace Java {
              * @param fromIndex
              * @return int
              */
-            int indexOf(const string target, int fromIndex) const;
+            int indexOf(const_string target, int fromIndex) const;
 
             /**
              * Inserts the string representation of the boolean argument into this sequence.
@@ -504,7 +505,7 @@ namespace Java {
              * @return StringBuilder
              * @throw IndexOutOfBoundsException - if the offset is invalid.
              */
-            StringBuilder &insert(int offset, char target);
+            StringBuilder &insert(int offset, char16_t target);
 
             /**
              * Inserts the string representation of the Character argument into this sequence.
@@ -524,7 +525,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if the offset is invalid.
              */
-            StringBuilder &insert(int offset, const Array<char> &target);
+            StringBuilder &insert(int offset, const Array<char16_t > &target);
 
             /**
              * Inserts the string representation of the Character array argument into this sequence.
@@ -549,7 +550,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if index is negative or greater than length(), or offset or length are negative, or (offset+length) is greater than target.length().
              */
-            StringBuilder &insert(int index, const Array<char> &target, int offset, int length);
+            StringBuilder &insert(int index, const Array<char16_t> &target, int offset, int length);
 
             /**
              * Inserts the string representation of a subarray of the 'target' array argument into this sequence.
@@ -707,7 +708,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if the offset is invalid.
              */
-            StringBuilder &insert(int offset, const string target);
+            StringBuilder &insert(int offset, const_string target);
 
             /**
              * This method accepts a String as an argument, if the string argument occurs one or more times as a substring within this object,
@@ -727,7 +728,7 @@ namespace Java {
              * @param target
              * @return int
              */
-            int lastIndexOf(const string target) const;
+            int lastIndexOf(const_string) const;
 
             /**
              * This method returns the index within this string of the last occurrence of the specified substring,
@@ -747,7 +748,7 @@ namespace Java {
              * @param fromIndex
              * @return int
              */
-            int lastIndexOf(const string target, int fromIndex) const;
+            int lastIndexOf(const_string target, int fromIndex) const;
 
             /**
              * Returns the length (character count).
@@ -796,7 +797,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if start is negative, greater than length(), or greater than end.
              */
-            StringBuilder replace(int start, int end, const string target);
+            StringBuilder replace(int start, int end, const_string target);
 
             /**
              * Causes this character sequence to be replaced by the reverse of the sequence.
@@ -886,7 +887,6 @@ namespace Java {
             void trimToSize();
 
         private:
-
             /**
              * This method builds a "Next Table" that depending on a specified 'pattern'.
              * "Next Table" is a friendly name of "partial match" table (also known as "failure function") in Knuth-Morris-Pratt algorithm.
@@ -894,7 +894,7 @@ namespace Java {
              * @param pattern
              * @return int *
              */
-            int *initializeNextTable(const string pattern) const;
+            int *initializeNextTable(const std::u16string &pattern) const;
 
             /**
              * This method returns the index within this string of the first occurrence of the specified substring,
@@ -905,7 +905,7 @@ namespace Java {
              * @param startIndex
              * @return int
              */
-            int stringMatches(const string target, const string pattern, int startIndex) const;
+            int stringMatches(const std::u16string &target, const std::u16string &pattern, int startIndex) const;
 
             /**
              * This method returns the index within this string of the last occurrence of the specified substring,
@@ -916,7 +916,7 @@ namespace Java {
              * @param startIndex
              * @return int
              */
-            int stringMatchesReverse(const string target, const string pattern, int startIndex) const;
+            int stringMatchesReverse(const std::u16string &target, const std::u16string &pattern, int startIndex) const;
 
             /**
              * This method helps reverses all valid surrogate pairs are produced by reverse method.
@@ -960,6 +960,20 @@ namespace Java {
              * @return boolean
              */
             boolean isFirstByte(const char &target) const;
+
+            /**
+             *
+             * @param utf8String
+             * @param utf16String
+             */
+            void convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) const;
+
+            /**
+             *
+             * @param utf16String
+             * @param utf8String
+             */
+            void convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) const;
         };
     }
 }
