@@ -269,7 +269,7 @@ TEST(JavaLang, StringBuilderEnsureCapacity) {
     // New capacity larger than current capacity but less than (2 * current + 2).
     stringBuilder.ensureCapacity(17);
     ASSERT_EQUAL(2 * 16 + 2, stringBuilder.capacity());
-    // New capacity larget than current capacity but larger than (2 * current + 2).
+    // New capacity larger than current capacity but larger than (2 * current + 2).
     stringBuilder.ensureCapacity(100);
     ASSERT_EQUAL(100, stringBuilder.capacity());
 }

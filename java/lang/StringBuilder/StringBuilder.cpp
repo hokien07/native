@@ -234,7 +234,7 @@ int StringBuilder::capacity() const {
     return this->currentCapacity;
 }
 
-char StringBuilder::charAt(int index) const {
+char16_t StringBuilder::charAt(int index) const {
     if (index < 0 || index >= this->currentLength) {
         throw IndexOutOfBoundsException(String::valueOf(index));
     }

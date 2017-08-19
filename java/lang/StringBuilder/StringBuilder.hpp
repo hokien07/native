@@ -37,8 +37,9 @@ namespace Java {
     namespace Lang {
         class StringBuilder :
                 public Object,
-                public virtual Serializable,
-                public virtual CharSequence
+                public virtual Serializable //,
+//              public virtual CharSequence
+                // FIXME(truongchauhien): Remove this comment when support unicode for CharSequence and String.
         {
         private:
             char16_t *original = nullptr;
@@ -343,7 +344,7 @@ namespace Java {
              * @return char
              * @throw IndexOutOfBoundsException - if index is negative or greater than or equal to length()
              */
-            char charAt(int index) const;
+            char16_t charAt(int index) const;
 
             /**
              * Returns the character (Unicode code point) at the specified index.
@@ -974,8 +975,8 @@ namespace Java {
              * @param utf8String
              */
             void convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) const;
-        };
-    }
-}
+        };  // class StringBuilder
+    }  // namespace Lang
+}  // namespace Java
 
-#endif //NATIVE_JAVA_LANG_STRINGBUILDER_HPP
+#endif  // NATIVE_JAVA_LANG_STRING_BUILDER_HPP
