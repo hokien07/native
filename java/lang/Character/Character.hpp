@@ -133,10 +133,7 @@ namespace Java {
             static boolean isSurrogate(unicode target);
 
         public:
-            friend std::ostream &operator<<(std::ostream &os, const Character &target) {
-                os << target.original;
-                return os;
-            }
+            friend std::ostream &operator<<(std::ostream &os, const Character &target);
         };  // class Character
     }  // namespace Lang
 }  // namespace Java

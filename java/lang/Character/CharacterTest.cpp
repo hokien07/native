@@ -33,23 +33,13 @@ extern "C" {
 using namespace Java::Lang;
 
 TEST (JavaLang, CharacterConstructor) {
-	// Create variable to test CharacterConstructor.
-	Character variableTestConstructor;
-	
-	// Test NULL value
-	ASSERT_TRUE(variableTestConstructor.charValue() == u'\0');
-	
-	// Test valid case
-	variableTestConstructor = 'M';
-	ASSERT_TRUE(variableTestConstructor.charValue() == u'M');
-	
-	// Test invalid case
-	variableTestConstructor = 'M';
-	ASSERT_FALSE(variableTestConstructor.charValue() == u'm');
+	Character character;
+	ASSERT_EQUAL(u'\0', character.charValue());
+    character = u'M';
+    ASSERT_EQUAL(u'M', character.charValue());
 }
 
 TEST (JavaLang, CharacterCharCount) {
-	// Create variable to test Character::charCount(int codePoint).
 	Character variableTestCharCount;
 	int expectedResultCharCount;
 	int actualResultCharCount;
@@ -364,92 +354,33 @@ TEST (JavaLang, CharacterCompareTo) {
 	ASSERT_EQUAL(expectedResultCompareTo, actualResultCompareTo);
 }
 
-// TEST sample
-TEST (JavaLang, CharacterTestSample) {
-	// Create variable to test
-	int expectedResultTestSample;
-	int actualResultTestSample;
-	
-	// Test valid case
-	
-	// Test invalid case
-	
-	// Test exception
-}
-
 TEST (JavaLang, CharacterToCodePoint) {
-	// Create variable to test
-	unicode variableTest1ToCodePoint;
-	unicode variableTest2ToCodePoint;
-	int expectedResultToCodePoint;
-	int actualResultToCodePoint;
-	
-	// Test valid case
-	variableTest1ToCodePoint = (unicode) '\u000D800';
-	variableTest2ToCodePoint = (unicode) '\u000DC00';
-	expectedResultToCodePoint = 65536;
-	actualResultToCodePoint = Character::toCodePoint(variableTest1ToCodePoint, variableTest2ToCodePoint);
-	ASSERT_EQUAL(expectedResultToCodePoint, actualResultToCodePoint);
-	
-	// Test invalid case
-	variableTest1ToCodePoint = (unicode) '\u000d800';
-	variableTest2ToCodePoint = (unicode) '\u000dc11';
-	expectedResultToCodePoint = 60000;
-	actualResultToCodePoint = Character::toCodePoint(variableTest1ToCodePoint, variableTest2ToCodePoint);
-	ASSERT_NOT_EQUAL(expectedResultToCodePoint, actualResultToCodePoint);
+    ASSERT_EQUAL(0x10437, Character::toCodePoint(u'\xD801', u'\xDC37'));
+    ASSERT_EQUAL(0x24B62, Character::toCodePoint(u'\xD852', u'\xDF62'));
 }
 
-#ifdef __linux__
 TEST (JavaLang, CharacterIsHighSurrogate) {
-	// Create variable to test
-	unicode variableTestIsHighSurrogate;
-	boolean actualResultIsHighSurrogate;
-	
 	// Test valid case
-	variableTestIsHighSurrogate = '\u000D800';
-	actualResultIsHighSurrogate = Character::isHighSurrogate(variableTestIsHighSurrogate);
-	ASSERT_TRUE(actualResultIsHighSurrogate);
+	ASSERT_TRUE(Character::isHighSurrogate(u'\xD852'));
 	
 	// Test invalid case
-	variableTestIsHighSurrogate = '\u000D777';
-	actualResultIsHighSurrogate = Character::isHighSurrogate(variableTestIsHighSurrogate);
-	ASSERT_FALSE(actualResultIsHighSurrogate);
+	ASSERT_FALSE(Character::isHighSurrogate(u'\xDF62'));
 }
-#endif
 
-#ifdef __linux__
 TEST (JavaLang, CharacterisLowSurrogate) {
-	// Create variable to test
-	unicode variableTestisLowSurrogate;
-	boolean actualResultisLowSurrogate;
-	
 	// Test valid case
-	variableTestisLowSurrogate = '\u000DC00';
-	actualResultisLowSurrogate = Character::isLowSurrogate(variableTestisLowSurrogate);
-	ASSERT_TRUE(actualResultisLowSurrogate);
+	ASSERT_TRUE(Character::isLowSurrogate(u'\xDF62'));
 	
 	// Test invalid case
-	variableTestisLowSurrogate = '\u000DB00';
-	actualResultisLowSurrogate = Character::isLowSurrogate(variableTestisLowSurrogate);
-	ASSERT_FALSE(actualResultisLowSurrogate);
+	ASSERT_FALSE(Character::isLowSurrogate(u'\xD852'));
 }
 
 TEST (JavaLang, CharacterIsSurrogate) {
-	// Create variable to test
-	unicode variableTestIsSurrogate;
-	boolean actualResultIsSurrogate;
-	
 	// Test valid case
-	variableTestIsSurrogate = '\u000DC00';
-	actualResultIsSurrogate = Character::isSurrogate(variableTestIsSurrogate);
-	ASSERT_TRUE(actualResultIsSurrogate);
-	
+	ASSERT_TRUE(Character::isSurrogate(u'\xD852'));
 	// Test invalid case
-	variableTestIsSurrogate = L'A';
-	actualResultIsSurrogate = Character::isSurrogate(variableTestIsSurrogate);
-	ASSERT_FALSE(actualResultIsSurrogate);
+	ASSERT_FALSE(Character::isSurrogate(u'\x0030'));
 }
-#endif
 
 TEST (JavaLang, CharacterDigit) {
     //Given valid and invalid value to test with digit(char char, int radix)

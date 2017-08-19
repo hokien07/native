@@ -208,3 +208,8 @@ int Character::digit(int codePoint, int radix) {
 		}
 	}
 }
+
+std::ostream &operator<<(std::ostream &os, const Character &target) {
+    os << target.charValue();
+    return os;
+}
