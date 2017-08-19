@@ -37,15 +37,15 @@ TEST (JavaLang, CharacterConstructor) {
 	Character variableTestConstructor;
 	
 	// Test NULL value
-	ASSERT_TRUE(variableTestConstructor.charValue() == '\0');
+	ASSERT_TRUE(variableTestConstructor.charValue() == u'\0');
 	
 	// Test valid case
 	variableTestConstructor = 'M';
-	ASSERT_TRUE(variableTestConstructor.charValue() == 'M');
+	ASSERT_TRUE(variableTestConstructor.charValue() == u'M');
 	
 	// Test invalid case
 	variableTestConstructor = 'M';
-	ASSERT_FALSE(variableTestConstructor.charValue() == 'm');
+	ASSERT_FALSE(variableTestConstructor.charValue() == u'm');
 }
 
 TEST (JavaLang, CharacterCharCount) {
@@ -452,22 +452,21 @@ TEST (JavaLang, CharacterIsSurrogate) {
 #endif
 
 TEST (JavaLang, CharacterDigit) {
-	//Given valid and invalid value to test with digit(char char, int radix)
+    //Given valid and invalid value to test with digit(char char, int radix)
 	char hexValueDigit = 'b';
 	char hexValue2Digit = 'd';
 	char hexValue3Digit = '5';
-	
 	char wrongValueDigit = 'q';
-	
+
 	int expectedResultDigit = 11;
 	ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValueDigit, 16));
-	
+
 	expectedResultDigit = 13;
 	ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValue2Digit, 16));
-	
+
 	expectedResultDigit = 5;
 	ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValue3Digit, 16));
-	
+
 	expectedResultDigit = -1;
 	ASSERT_EQUAL(expectedResultDigit, Character::digit(wrongValueDigit, 16));
 }
