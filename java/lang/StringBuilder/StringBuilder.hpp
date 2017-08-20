@@ -147,6 +147,8 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
+            StringBuilder &append(char16_t target);
+
             StringBuilder &append(char target);
 
             /**

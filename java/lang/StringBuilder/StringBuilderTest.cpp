@@ -131,8 +131,8 @@ TEST(JavaLang, StringBuilderAppend) {
 
     // Character and char
     StringBuilder stringBuilder5;
-    stringBuilder5.append(Character('a'));
-    stringBuilder5.append('b');
+    stringBuilder5.append(Character(u'a'));
+    stringBuilder5.append(u'b');
     ASSERT_STR("ab", stringBuilder5.toString());
 
     // Array<Character> and Array<char>

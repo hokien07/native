@@ -37,10 +37,10 @@
 #endif
 
 #include <stddef.h>
-#include <wchar.h>
+#include <uchar.h>
 
 typedef char *string;
-typedef wchar_t unicode;
+typedef char16_t unicode;
 typedef const char *const_string;
 typedef unsigned char byte;
 

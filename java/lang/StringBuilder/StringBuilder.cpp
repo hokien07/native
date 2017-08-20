@@ -98,10 +98,18 @@ StringBuilder &StringBuilder::append(const Character &target) {
     return this->append(pointerToTarget->charValue());
 }
 
-StringBuilder &StringBuilder::append(char target) {
+StringBuilder &StringBuilder::append(char16_t target) {
     int newLength = this->currentLength + 1;
     this->ensureCapacity(newLength);
     this->original[this->currentLength] = target;
+    this->currentLength = newLength;
+    return *this;
+}
+
+StringBuilder &StringBuilder::append(char target) {
+    int newLength = this->currentLength + 1;
+    this->ensureCapacity(newLength);
+    this->original[this->currentLength] = static_cast<char16_t>(target);
     this->currentLength = newLength;
     return *this;
 }
@@ -247,7 +255,7 @@ int StringBuilder::codePointAt(int index) const {
         throw IndexOutOfBoundsException(String::valueOf(index));
     }
 
-    Array<char> originalArray;
+    Array<char16_t> originalArray;
     int indexOfOriginal;
     for (indexOfOriginal = 0; indexOfOriginal < this->currentLength; indexOfOriginal++) {
         originalArray.push(this->original[indexOfOriginal]);
@@ -266,7 +274,7 @@ int StringBuilder::codePointCount(int beginIndex, int endIndex) {
         throw IndexOutOfBoundsException();
     }
 
-    Array<char> originalArray;
+    Array<char16_t> originalArray;
     int numberOfCharacters = endIndex - beginIndex;
     int index;
     int stopIndex = beginIndex + numberOfCharacters;
