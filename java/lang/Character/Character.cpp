@@ -132,7 +132,7 @@ boolean Character::isSurrogate(char16_t target) {
     return target >= MIN_SURROGATE && target < ( MAX_SURROGATE + 1 );
 }
 
-int Character::toCodePoint(unicode high, unicode low) {
+int Character::toCodePoint(char16_t high, char16_t low) {
     return (( high << 10 ) + low ) + ( MIN_SUPPLEMENTARY_CODE_POINT
                                        - ( MIN_HIGH_SURROGATE << 10 )
                                        - MIN_LOW_SURROGATE );

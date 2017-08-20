@@ -42,14 +42,6 @@ typedef char *string;
 typedef const char *const_string;
 typedef unsigned char byte;
 
-#ifdef __CYGWIN__
-    #include <stdint.h>
-    typedef char16_t unicode;
-#else
-    #include <uchar.h>
-    typedef char16_t unicode;
-#endif
-
 string string_default(string target);
 
 double number_default(double target);

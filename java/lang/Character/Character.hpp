@@ -29,6 +29,14 @@
 
 #include "../CharSequence/CharSequence.hpp"
 
+#ifdef __CYGWIN__
+    #include <cuchar>
+#else
+    #include <uchar.h>
+#endif
+
+typedef char16_t unicode;
+
 namespace Java {
     namespace Lang {
         class Character : public Object {
@@ -119,7 +127,7 @@ namespace Java {
             static int codePointCountImpl(Array<char16_t> a, int offset, int count);
 
         public:
-            static int toCodePoint(unicode high, unicode low);
+            static int toCodePoint(char16_t high, char16_t low);
             static int codePointAt(Array<char16_t> a, int index);
             static int codePointAt(Array<char16_t> a, int index, int limit);
             static int codePointBefore(Array<char16_t> a, int index);
