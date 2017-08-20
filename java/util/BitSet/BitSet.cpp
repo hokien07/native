@@ -733,7 +733,7 @@ string BitSet::toString() const {
     }
 
     StringBuilder stringBuilder(6 * numberOfBits + 2);
-    stringBuilder.append('{');
+    stringBuilder.append(u'{');
 
     int indexOfNextSetBit = this->nextSetBit(0);
     while (indexOfNextSetBit != -1) {
@@ -742,10 +742,10 @@ string BitSet::toString() const {
         if (indexOfNextSetBit == -1) {
             break;
         } else {
-            stringBuilder.append(',').append(' ');
+            stringBuilder.append(u',').append(u' ');
         }
     }
-    stringBuilder.append('}');
+    stringBuilder.append(u'}');
 
     free(this->backupForToString);
     this->backupForToString = strdup(stringBuilder.toString());

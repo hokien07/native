@@ -188,10 +188,10 @@ TEST(JavaLang, StringBuilderCapacity) {
 }
 
 TEST(JavaLang, StringBuilderCharAt) {
-    StringBuilder stringBuilder({'a', 'b', 'c'});
-    ASSERT_EQUAL('a', stringBuilder.charAt(0));
-    ASSERT_EQUAL('b', stringBuilder.charAt(1));
-    ASSERT_EQUAL('c', stringBuilder.charAt(2));
+    StringBuilder stringBuilder({u'a', u'ắ', u'ầ'});
+    ASSERT_EQUAL(u'a', stringBuilder.charAt(0));
+    ASSERT_EQUAL(u'ắ', stringBuilder.charAt(1));
+    ASSERT_EQUAL(u'ầ', stringBuilder.charAt(2));
     try {
         stringBuilder.charAt(999);
     }
@@ -213,44 +213,44 @@ TEST(JavaLang, StringBuilderCodePointCount) {
 }
 
 TEST(JavaLang, StringBuilderDeleteRange) {
-    StringBuilder stringBuilder("ABCXYZ");
-    ASSERT_STR("ABCXYZ", stringBuilder.toString());
+    StringBuilder stringBuilder(u8"Quán ăn");
+    ASSERT_STR(u8"Quán ăn", stringBuilder.toString());
     try {
         // start < 0
         stringBuilder.deleteRange(-1, 3);
     }
     catch (StringIndexOutOfBoundsException &ex) {
-        ASSERT_STR("ABCXYZ", stringBuilder.toString());
+        ASSERT_STR(u8"Quán ăn", stringBuilder.toString());
     }
     try {
         // end < 0
         stringBuilder.deleteRange(1, -1);
     }
     catch (StringIndexOutOfBoundsException &ex) {
-        ASSERT_STR("ABCXYZ", stringBuilder.toString());
+        ASSERT_STR(u8"Quán ăn", stringBuilder.toString());
     }
     try {
         // start > end
         stringBuilder.deleteRange(3, 1);
     }
     catch (StringIndexOutOfBoundsException &ex){
-        ASSERT_STR("ABCXYZ", stringBuilder.toString());
+        ASSERT_STR(u8"Quán ăn", stringBuilder.toString());
     }
     stringBuilder.deleteRange(1, 3); // valid start, valid end
-    ASSERT_STR("AXYZ", stringBuilder.toString());
+    ASSERT_STR(u8"Qn ăn", stringBuilder.toString());
     stringBuilder.deleteRange(0, 0);
-    ASSERT_STR("AXYZ", stringBuilder.toString());
+    ASSERT_STR(u8"Qn ăn", stringBuilder.toString());
     stringBuilder.deleteRange(0, 999);
-    ASSERT_STR("", stringBuilder.toString());
+    ASSERT_STR(u8"", stringBuilder.toString());
 }
 
 TEST(JavaLang, StringBuilderDeleteCharAt) {
-    StringBuilder stringBuilder("ABCXYZ");
-    ASSERT_STR("ABCXYZ", stringBuilder.toString());
+    StringBuilder stringBuilder("ừGáà nướng lu 1.5 kg");
+    ASSERT_STR("ừGáà nướng lu 1.5 kg", stringBuilder.toString());
     stringBuilder.deleteCharAt(0);
-    ASSERT_STR("BCXYZ", stringBuilder.toString());
+    ASSERT_STR("Gáà nướng lu 1.5 kg", stringBuilder.toString());
     stringBuilder.deleteCharAt(1);
-    ASSERT_STR("BXYZ", stringBuilder.toString());
+    ASSERT_STR("Gà nướng lu 1.5 kg", stringBuilder.toString());
 }
 
 TEST(JavaLang, StringBuilderEnsureCapacity) {
@@ -300,26 +300,26 @@ TEST(JavaLang, StringBuilderIndexOf) {
 
 TEST(JavaLang, StringBuilderInsert) {
     // String and string
-    StringBuilder stringBuilder1("123");
-    ASSERT_STR("123", stringBuilder1.toString());
+    StringBuilder stringBuilder1(u8"Món:");
+    ASSERT_STR(u8"Món:", stringBuilder1.toString());
     try {
         // offset is negative
-        stringBuilder1.insert(-1, "xxx");
+        stringBuilder1.insert(-1, u8"Đà điểu nướng lu 45 kg");
     }
     catch (StringIndexOutOfBoundsException &ex) {
-        ASSERT_STR("123", stringBuilder1.toString());
+        ASSERT_STR(u8"Món:", stringBuilder1.toString());
     }
     try {
         // offset is larger than length of StringBuilder
-        stringBuilder1.insert(999, "xxx");
+        stringBuilder1.insert(999, u8"Đà điểu nướng lu 45 kg");
     }
     catch (StringIndexOutOfBoundsException &ex) {
-        ASSERT_STR("123", stringBuilder1.toString());
+        ASSERT_STR(u8"Món:", stringBuilder1.toString());
     }
-    stringBuilder1.insert(1, "xxx");
-    ASSERT_STR("1xxx23", stringBuilder1.toString());
-    stringBuilder1.insert(1, String("yyy"));
-    ASSERT_STR("1yyyxxx23", stringBuilder1.toString());
+    stringBuilder1.insert(4, u8" ");
+    ASSERT_STR("Món: ", stringBuilder1.toString());
+    stringBuilder1.insert(5, String("Đà điểu nướng lu 45 kg"));
+    ASSERT_STR("Món: Đà điểu nướng lu 45 kg", stringBuilder1.toString());
 
     // Boolean and boolean
     StringBuilder stringBuilder2("1 = 1 is ");
@@ -571,36 +571,36 @@ TEST(JavaLang, StringBuilderReverse) {
 
     // Reverses all valid surrogate pairs are produced in reverse process.
     StringBuilder stringBuilder2("\u000DC00\u000D800");
-    ASSERT_STR("\u000DC00\u000D800", stringBuilder2.toString());
+    ASSERT_STR(u8"\u000DC00\u000D800", stringBuilder2.toString());
     stringBuilder1.reverse();
-    ASSERT_STR("\u000DC00\u000D800", stringBuilder2.toString());
+    ASSERT_STR(u8"\u000DC00\u000D800", stringBuilder2.toString());
 }
 
 TEST(JavaLang, StringBuilderSetCharAt) {
-    StringBuilder stringBuilder("ABCXYZ");
-    ASSERT_STR("ABCXYZ", stringBuilder.toString());
-    stringBuilder.setCharAt(0, 'T');
-    ASSERT_STR("TBCXYZ", stringBuilder.toString());
-    stringBuilder.setCharAt(1, Character('V'));
-    ASSERT_STR("TVCXYZ", stringBuilder.toString());
+    StringBuilder stringBuilder(u8"Xuxn phở");
+    ASSERT_STR(u8"Xuxn phở", stringBuilder.toString());
+    stringBuilder.setCharAt(0, u'Q');
+    ASSERT_STR(u8"Quxn phở", stringBuilder.toString());
+    stringBuilder.setCharAt(2, Character(u'á'));
+    ASSERT_STR(u8"Quán phở", stringBuilder.toString());
 }
 
 TEST(JavaLang, StringBuilderSetLength) {
-    StringBuilder stringBuilder("Hello! I'm a StringBuilder");
-    ASSERT_STR("Hello! I'm a StringBuilder", stringBuilder.toString());
+    StringBuilder stringBuilder(u8"Hello! I'm a StringBuilder");
+    ASSERT_STR(u8"Hello! I'm a StringBuilder", stringBuilder.toString());
     ASSERT_EQUAL(26, stringBuilder.length());
     stringBuilder.setLength(30);
     ASSERT_EQUAL(30, stringBuilder.length());
-    ASSERT_STR("Hello! I'm a StringBuilder", stringBuilder.toString());
+    ASSERT_STR(u8"Hello! I'm a StringBuilder", stringBuilder.toString());
     stringBuilder.setLength(6);
     ASSERT_EQUAL(6, stringBuilder.length());
-    ASSERT_STR("Hello!", stringBuilder.toString());
+    ASSERT_STR(u8"Hello!", stringBuilder.toString());
 }
 
 TEST(JavaLang, StringBuilderSubString) {
-    StringBuilder stringBuilder("Hello Vietnam");
-    ASSERT_STR("Vietnam", stringBuilder.substring(6).toString());
-    ASSERT_STR("llo", stringBuilder.substring(2, 5).toString());
+    StringBuilder stringBuilder(u8"Hello Vietnam");
+    ASSERT_STR(u8"Vietnam", stringBuilder.substring(6).toString());
+    ASSERT_STR(u8"llo", stringBuilder.substring(2, 5).toString());
     try {
         stringBuilder.substring(-999);
     }
@@ -620,7 +620,7 @@ TEST(JavaLang, StringBuilderTrimToSize) {
     ASSERT_EQUAL(100, stringBuilder.capacity());
     stringBuilder.trimToSize();
     ASSERT_EQUAL(0, stringBuilder.capacity());
-    stringBuilder.append("123");
+    stringBuilder.append(u8"123");
     stringBuilder.trimToSize();
     ASSERT_EQUAL(3, stringBuilder.capacity());
 }

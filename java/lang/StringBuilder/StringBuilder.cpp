@@ -47,8 +47,7 @@ StringBuilder::StringBuilder(int capacity) {
 }
 
 StringBuilder::StringBuilder(const_string target) {
-    int stringLength = static_cast<int>(strlen(target));
-    int newCapacity = defaultCapacity + stringLength;
+    int newCapacity = defaultCapacity + static_cast<int>(strlen(target));
     this->ensureCapacity(newCapacity);
     this->append(target);
 }
@@ -59,7 +58,7 @@ StringBuilder::StringBuilder(const String &target) {
     this->append(target.toString());
 }
 
-StringBuilder::StringBuilder(const std::initializer_list<char> &target) {
+StringBuilder::StringBuilder(const std::initializer_list<char16_t> &target) {
     int newCapacity = defaultCapacity + (int)target.size();
     this->ensureCapacity(newCapacity);
     this->append(target);
@@ -185,13 +184,15 @@ StringBuilder &StringBuilder::append(const std::initializer_list<char16_t> &targ
 }
 
 StringBuilder &StringBuilder::append(const_string target) {
-    int stringLength = static_cast<int>(strlen(target));
+    std::u16string targetUtf16;
+    this->convertUtf8ToUtf16(target, targetUtf16);
+    int stringLength = static_cast<int>(targetUtf16.length());
     int newLength = this->currentLength + stringLength;
     this->ensureCapacity(newLength);
     int indexOfOriginal;
     int indexOfString = 0;
     for (indexOfOriginal = this->currentLength; indexOfOriginal < newLength; indexOfOriginal++) {
-        this->original[indexOfOriginal] = target[indexOfString];
+        this->original[indexOfOriginal] = targetUtf16[indexOfString];
         indexOfString = indexOfString + 1;
     }
     this->currentLength = newLength;
@@ -542,7 +543,9 @@ StringBuilder &StringBuilder::insert(int offset, const_string target) {
         throw StringIndexOutOfBoundsException(offset);
     }
 
-    int targetLength = static_cast<int>(strlen(target));
+    std::u16string targetUtf16;
+    this->convertUtf8ToUtf16(target, targetUtf16);
+    int targetLength = static_cast<int>(targetUtf16.length());
     int newLength = this->currentLength + targetLength;
     this->ensureCapacity(newLength);
 
@@ -555,7 +558,7 @@ StringBuilder &StringBuilder::insert(int offset, const_string target) {
     int indexOfOriginal = offset;
     int indexOfTarget;
     for (indexOfTarget = 0; indexOfTarget < targetLength; indexOfTarget++) {
-        this->original[indexOfOriginal] = target[indexOfTarget];
+        this->original[indexOfOriginal] = targetUtf16[indexOfTarget];
         indexOfOriginal = indexOfOriginal + 1;
     }
 
@@ -657,7 +660,7 @@ StringBuilder StringBuilder::reverse() {
     return *this;
 }
 
-void StringBuilder::setCharAt(int index, char target) {
+void StringBuilder::setCharAt(int index, char16_t target) {
     if (index < 0 || index >= this->currentLength) {
         throw StringIndexOutOfBoundsException(index);
     }
@@ -700,18 +703,11 @@ String StringBuilder::substring(int start, int end) const {
         throw StringIndexOutOfBoundsException(end - start);
     }
 
-    int lengthOfSubString = end - start + 1;
-    string copyOfSubString = (string)calloc((size_t)lengthOfSubString, sizeof(char));
-    int indexOfOriginal;
-    int indexOfSubString = 0;
-    for (indexOfOriginal = start; indexOfOriginal < end;indexOfOriginal++) {
-        copyOfSubString[indexOfSubString] = this->original[indexOfOriginal];
-        indexOfSubString = indexOfSubString + 1;
-    }
-    copyOfSubString[indexOfSubString] = '\0';
-    String result(copyOfSubString);
-    free(copyOfSubString);
-    return result;
+    int lengthOfSubString = end - start;
+    std::u16string subStringUtf16(this->original, static_cast<size_t>(start), static_cast<size_t>(lengthOfSubString));
+    std::string subStringUtf8;
+    this->convertUtf16ToUtf8(subStringUtf16, subStringUtf8);
+    return subStringUtf8.c_str();
 }
 
 string StringBuilder::toString() const {

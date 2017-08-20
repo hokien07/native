@@ -91,7 +91,7 @@ namespace Java {
              *
              * @param list
              */
-            StringBuilder(const std::initializer_list<char> &target);
+            StringBuilder(const std::initializer_list<char16_t > &target);
 
             /**
              * StringBuilder Constructor
@@ -147,9 +147,16 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(char16_t target);
-
             StringBuilder &append(char target);
+
+            /**
+             * Appends the string representation of the char16_t argument to this sequence.
+             * The argument is appended to the contents of this sequence. The length of this sequence increases by 1.
+             *
+             * @param target
+             * @return StringBuilder
+             */
+            StringBuilder &append(char16_t target);
 
             /**
              * Appends the string representation of the Character array argument to this sequence.
@@ -228,7 +235,7 @@ namespace Java {
              * Appends the specified string to this character sequence.
              *
              * @param target
-             * @return
+             * @return StringBuilder&
              */
             StringBuilder &append(const_string target);
 
@@ -819,7 +826,7 @@ namespace Java {
              * @param target
              * @throw IndexOutOfBoundsException - if index is negative or greater than or equal to length().
              */
-            void setCharAt(int index, char target);
+            void setCharAt(int index, char16_t target);
 
             /**
              * The character at the specified index is set to target.
