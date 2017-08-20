@@ -43,6 +43,7 @@ typedef const char *const_string;
 typedef unsigned char byte;
 
 #ifdef __CYGWIN__
+    #include <stdint.h>
     typedef char16_t unicode;
 #else
     #include <uchar.h>
