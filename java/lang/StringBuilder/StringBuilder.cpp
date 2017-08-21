@@ -48,6 +48,7 @@ StringBuilder::StringBuilder(int capacity) {
 
 StringBuilder::StringBuilder(const_string target) {
     int newCapacity = defaultCapacity + static_cast<int>(strlen(target));
+    this->original = (char16_t *)calloc((size_t)newCapacity, sizeof(char16_t));
     this->ensureCapacity(newCapacity);
     this->append(target);
 }
@@ -703,8 +704,8 @@ String StringBuilder::substring(int start, int end) const {
         throw StringIndexOutOfBoundsException(end - start);
     }
 
-    int lengthOfSubString = end - start;
-    std::u16string subStringUtf16(this->original, static_cast<size_t>(start), static_cast<size_t>(lengthOfSubString));
+    std::u16string subStringUtf16 = this->original;
+    subStringUtf16 = subStringUtf16.substr(start, end - start);
     std::string subStringUtf8;
     this->convertUtf16ToUtf8(subStringUtf16, subStringUtf8);
     return subStringUtf8.c_str();

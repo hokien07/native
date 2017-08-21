@@ -29,14 +29,6 @@
 
 #include "../CharSequence/CharSequence.hpp"
 
-#ifdef __CYGWIN__
-    #include <cuchar>
-#else
-    #include <uchar.h>
-#endif
-
-typedef char16_t unicode;
-
 namespace Java {
     namespace Lang {
         class Character : public Object {
