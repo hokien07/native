@@ -364,34 +364,313 @@ namespace Java {
             char16_t original;
 
         public:
+            /**
+             * Default constructor
+             */
             Character();
+
+            /**
+             * Constructs a newly allocated Character object that represents the specified char value.
+             *
+             * @param original
+             */
             Character(char16_t original);
+
+            /**
+             * Destructor
+             */
             virtual ~Character();
 
+        private:
+            /**
+             * Returns the code point at the given index of the char array,
+             * where only array elements with index less than limit can be used.
+             * If the char value at the given index in the char array is in the high-surrogate range,
+             * the following index is less than the limit,
+             * and the char value at the following index is in the low-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at the given index is returned.
+             *
+             * @param charArray
+             * @param index
+             * @param limit
+             * @throw ArrayIndexOutOfBoundsException if index out of bounds
+             * @return the Unicode code point at the given index
+             */
+            static int codePointAtImpl(Array<char16_t> charArray, int index, int limit);
+            // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
+            /**
+             * Returns the code point preceding the given index of the char array,
+             * where only array elements with index greater than or equal to start can be used.
+             * If the char value at (index - 1) in the char array is in the low-surrogate range,
+             * (index - 2) is not less than start, and the char value at (index - 2)
+             * in the char array is in the high-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at (index - 1) is returned.
+             *
+             * @param charArray
+             * @param index
+             * @param start
+             * @throw ArrayIndexOutOfBoundsException if index-1 out of bounds
+             * @return the Unicode code point value before the given index.
+             */
+            static int codePointBeforeImpl(Array<char16_t> charArray, int index, int start);
+
+            /**
+             * Returns the number of Unicode code points in a subarray of the char array argument.
+             * The offset argument is the index of the first char of the subarray and
+             * the count argument specifies the length of the subarray in chars.
+             * Unpaired surrogates within the subarray count as one code point each.
+             *
+             * @param charArray
+             * @param offset
+             * @param count
+             * @return the number of Unicode code points in the specified subarray
+             */
+            static int codePointCountImpl(Array<char16_t> charArray, int offset, int count);
+
         public:
+            /**
+             * Determines the number of char values needed to represent the specified character (Unicode code point).
+             *
+             * @param codePoint
+             * @return If the specified character is equal to or greater than 0x10000,
+             * then the method returns 2. Otherwise, the method returns 1.
+             */
             int charCount(int codePoint) const;
+
+            /**
+             * Returns the value of this Character object.
+             * @return the primitive char value represented by this object.
+             */
             char16_t charValue() const;
+
+            /**
+             * Returns the code point at the given index of the CharSequence.
+             * If the char value at the given index in the CharSequence is in the high-surrogate range,
+             * the following index is less than the length of the CharSequence,
+             * and the char value at the following index is in the low-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at the given index is returned.
+             * @param sequence
+             * @param index
+             * @throw IndexOutOfBoundsException if the value index is negative or not less than seq.length().
+             * @return the Unicode code point at the given index
+             */
+            static int codePointAt(CharSequence &sequence, int index);
+
+            /**
+             * Returns the code point at the given index of the char array.
+             * If the char value at the given index in the char array is in the high-surrogate range,
+             * the following index is less than the length of the char array,
+             * and the char value at the following index is in the low-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at the given index is returned.
+             *
+             * @param charArray
+             * @param index
+             * @throw IndexOutOfBoundsException if the value index is negative
+             * or not less than the length of the char array.
+             * @return the Unicode code point at the given index
+             */
+            static int codePointAt(Array<char16_t> charArray, int index);
+
+            /**
+             * Returns the code point at the given index of the char array,
+             * where only array elements with index less than limit can be used.
+             * If the char value at the given index in the char array is in the high-surrogate range,
+             * the following index is less than the limit,
+             * and the char value at the following index is in the low-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at the given index is returned.
+             *
+             * @param charArray
+             * @param index
+             * @param limit
+             * @throw IndexOutOfBoundsException if the index argument is negative
+             * or not less than the limit argument,
+             * or if the limit argument is negative or greater than the length of the char array.
+             * @return the Unicode code point at the given index
+             */
+            static int codePointAt(Array<char16_t> charArray, int index, int limit);
+
+            /**
+             * Returns the code point preceding the given index of the CharSequence.
+             * If the char value at (index - 1) in the CharSequence is in the low-surrogate range,
+             * (index - 2) is not negative, and the char value at (index - 2)
+             * in the CharSequence is in the high-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at (index - 1) is returned.
+             *
+             * @param sequence
+             * @param index
+             * @throw IndexOutOfBoundsException if the index argument is less than 1
+             * or greater than CharSequence.length().
+             * @return the Unicode code point value before the given index.
+             */
+            static int codePointBefore(CharSequence &sequence, int index);
+
+            /**
+             * Returns the code point preceding the given index of the char array.
+             * If the char value at (index - 1) in the char array is in the low-surrogate range,
+             * (index - 2) is not negative, and the char value at (index - 2) in the char array
+             * is in the high-surrogate range, then the supplementary code point corresponding
+             * to this surrogate pair is returned. Otherwise, the char value at (index - 1) is returned.
+             *
+             * @param charArray
+             * @param index
+             * @throw IndexOutOfBoundsException if the index argument is less than 1
+             * or greater than the length of the char array
+             * @return the Unicode code point value before the given index.
+             */
+            static int codePointBefore(Array<char16_t> charArray, int index);
+
+            /**
+             * Returns the code point preceding the given index of the char array,
+             * where only array elements with index greater than or equal to start can be used.
+             * If the char value at (index - 1) in the char array is in the low-surrogate range,
+             * (index - 2) is not less than start, and the char value at (index - 2)
+             * in the char array is in the high-surrogate range,
+             * then the supplementary code point corresponding to this surrogate pair is returned.
+             * Otherwise, the char value at (index - 1) is returned.
+             *
+             * @param charArray
+             * @param index
+             * @param start
+             * @throw IndexOutOfBoundsException if the index argument is not greater
+             * than the start argument or is greater than the length of the char array,
+             * or if the start argument is negative or not less than the length of the char array.
+             * @return the Unicode code point value before the given index.
+             */
+            static int codePointBefore(Array<char16_t> charArray, int index, int start);
+
+            /**
+             * Returns the number of Unicode code points in a subarray of the char array argument.
+             * The offset argument is the index of the first char of the subarray
+             * and the count argument specifies the length of the subarray in chars.
+             * Unpaired surrogates within the subarray count as one code point each.
+             *
+             * @param charArray
+             * @param offset
+             * @param count
+             * @throw IndexOutOfBoundsException if offset or count is negative,
+             * or if offset + count is larger than the length of the given array.
+             * @return the number of Unicode code points in the specified subarray
+             */
+            static int codePointCount(Array<char16_t> charArray, int offset, int count);
+
+            /**
+             * Returns the number of Unicode code points in the text range of the specified char sequence.
+             * The text range begins at the specified beginIndex and extends to the char at index endIndex - 1.
+             * Thus the length (in chars) of the text range is endIndex-beginIndex.
+             * Unpaired surrogates within the text range count as one code point each.
+             *
+             * @param sequence
+             * @param beginIndex
+             * @param endIndex
+             * @throw IndexOutOfBoundsException if the beginIndex is negative,
+             * or endIndex is larger than the length of the given sequence,
+             * or beginIndex is larger than endIndex.
+             * @return the number of Unicode code points in the specified text range
+             */
+            static int codePointCount(CharSequence &sequence, int beginIndex, int endIndex);
+
+            /**
+             * Compares two char values numerically.
+             *
+             * @param charA
+             * @param charB
+             * @return the value 0 if charA == charB; a value less than 0 if charA < charB;
+             * and a value greater than 0 if charA > charB.
+             */
+            static int compare(char16_t charA, char16_t charB);
+
+            /**
+             * Compares two Character objects numerically.
+             * @param anotherCharacter
+             * @return the value 0 if the argument Character is equal to this Character;
+             * a value less than 0 if this Character is numerically less than the Character argument;
+             * and a value greater than 0 if this Character is numerically greater than the Character argument
+             */
             int compareTo(Character anotherCharacter);
 
-        private:
-            // throws ArrayIndexOutOfBoundsException if index out of bounds
-            static int codePointAtImpl(Array<char16_t> a, int index, int limit);
-            // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-            static int codePointBeforeImpl(Array<char16_t> a, int index, int start);
-            static int codePointCountImpl(Array<char16_t> a, int offset, int count);
+            /**
+             * Returns the numeric value of the character in the specified radix.
+             *
+             * @param character
+             * @param radix
+             * @return the numeric value represented by the character in the specified radix.
+             */
+            static int digit(char16_t character, int radix);
 
-        public:
-            static int toCodePoint(char16_t high, char16_t low);
-            static int codePointAt(Array<char16_t> a, int index);
-            static int codePointAt(Array<char16_t> a, int index, int limit);
-            static int codePointBefore(Array<char16_t> a, int index);
-            static int codePointBefore(Array<char16_t> a, int index, int start);
-            static int codePointCount(Array<char16_t> a, int offset, int count);
-            static int compare(char16_t x, char16_t y);
+            /**
+             * Returns the numeric value of the specified character (Unicode code point) in the specified radix.
+             *
+             * @param codePoint
+             * @param radix
+             * @return the numeric value represented by the character in the specified radix.
+             */
             static int digit(int codePoint, int radix);
+
+            /**
+             * Compares this object against the specified object. The result is true if and only if t
+             * he argument is not null and is a Character object that represents the same char value
+             * as this object.
+             *
+             * @param object
+             * @return true if the objects are the same; false otherwise.
+             */
+            boolean equals(const Object &object) const;
+
+            /**
+             * Determines the character representation for a specific digit in the specified radix.
+             * If the value of radix is not a valid radix,
+             * or the value of digit is not a valid digit in the specified radix,
+             * the null character ('\u005Cu0000') is returned.
+             *
+             * @param digit
+             * @param radix
+             * @return the char representation of the specified digit in the specified radix.
+             */
+            char16_t forDigit(int digit, int radix);
+
+            /**
+             * Returns the Unicode directionality property for the given character (Unicode code point).
+             * Character directionality is used to calculate the visual ordering of text.
+             *
+             * @param codePoint
+             * @return the directionality property of the character.
+             */
+            static byte getDirectionality(int codePoint);
+
+            /**
+             * Returns the Unicode directionality property for the given character.
+             * Character directionality is used to calculate the visual ordering of text.
+             *
+             * @param character
+             * @return the directionality property of the char value.
+             */
+            static byte getDirectionality(char16_t character);
+
+            /**
+             * Returns the Unicode name of the specified character codePoint,
+             * or null if the code point is unassigned.
+             * Note: if the specified character is not assigned a name by the UnicodeData file
+             * (part of the Unicode Character Database maintained by the Unicode Consortium),
+             * the returned name is the same as the result of expression.
+             *
+             * @param codePoint
+             * @throw IllegalArgumentException if the specified codePoint is not a valid Unicode code point.
+             * @return the Unicode name of the specified character, or null if the code point is unassigned.
+             */
+            static String getName(int codePoint);
+
+
             static boolean isHighSurrogate(char16_t target);
             static boolean isLowSurrogate(char16_t target);
             static boolean isSurrogate(char16_t target);
+            static int toCodePoint(char16_t high, char16_t low);
+
 
         public:
             friend std::ostream &operator<<(std::ostream &os, const Character &target);

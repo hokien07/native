@@ -46,8 +46,8 @@ char16_t Character::charValue() const {
     return this->original;
 }
 
-int Character::codePointAt(Array<char16_t> a, int index) {
-    return codePointAtImpl(a, index, a.length);
+int Character::codePointAt(Array<char16_t> charArray, int index) {
+    return codePointAtImpl(charArray, index, charArray.length);
 }
 
 int Character::codePointAt(Array<char16_t> a, int index, int limit) {
@@ -58,10 +58,10 @@ int Character::codePointAt(Array<char16_t> a, int index, int limit) {
 }
 
 // throws ArrayIndexOutOfBoundsException if index out of bounds
-int Character::codePointAtImpl(Array<char16_t> a, int index, int limit) {
-    char16_t c1 = a[ index ];
+int Character::codePointAtImpl(Array<char16_t> charArray, int index, int limit) {
+    char16_t c1 = charArray[ index ];
     if (isHighSurrogate(c1) && ++index < limit) {
-        char16_t c2 = a[ index ];
+        char16_t c2 = charArray[ index ];
         if (isLowSurrogate(c2)) {
             return toCodePoint(c1, c2);
         }
@@ -81,10 +81,10 @@ int Character::codePointBefore(Array<char16_t> a, int index, int start) {
 }
 
 // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-int Character::codePointBeforeImpl(Array<char16_t> a, int index, int start) {
-    char16_t c2 = a[ --index ];
+int Character::codePointBeforeImpl(Array<char16_t> charArray, int index, int start) {
+    char16_t c2 = charArray[ --index ];
     if (isLowSurrogate(c2) && index > start) {
-        char16_t c1 = a[ --index ];
+        char16_t c1 = charArray[ --index ];
         if (isHighSurrogate(c1)) {
             return toCodePoint(c1, c2);
         }
@@ -99,12 +99,12 @@ int Character::codePointCount(Array<char16_t> a, int offset, int count) {
     return codePointCountImpl(a, offset, count);
 }
 
-int Character::codePointCountImpl(Array<char16_t> a, int offset, int count) {
+int Character::codePointCountImpl(Array<char16_t> charArray, int offset, int count) {
     int endIndex = offset + count;
     int n = count;
     for (int i = offset; i < endIndex;) {
-        if (isHighSurrogate(a[ i++ ]) && i < endIndex
-            && isLowSurrogate(a[ i ])) {
+        if (isHighSurrogate(charArray[ i++ ]) && i < endIndex
+            && isLowSurrogate(charArray[ i ])) {
             n--;
             i++;
         }
