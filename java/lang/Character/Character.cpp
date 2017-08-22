@@ -46,19 +46,19 @@ char16_t Character::charValue() const {
     return this->original;
 }
 
-int Character::codePointAt(Array<char16_t> charArray, int index) {
+int Character::codePointAt(const Array<char16_t> &charArray, int index) {
     return codePointAtImpl(charArray, index, charArray.length);
 }
 
-int Character::codePointAt(Array<char16_t> a, int index, int limit) {
-    if (index >= limit || limit < 0 || limit > a.length) {
+int Character::codePointAt(const Array<char16_t> &charArray , int index, int limit) {
+    if (index >= limit || limit < 0 || limit > charArray.length) {
         return -1;
     }
-    return codePointAtImpl(a, index, limit);
+    return codePointAtImpl(charArray, index, limit);
 }
 
 // throws ArrayIndexOutOfBoundsException if index out of bounds
-int Character::codePointAtImpl(Array<char16_t> charArray, int index, int limit) {
+int Character::codePointAtImpl(const Array<char16_t> &charArray, int index, int limit) {
     char16_t c1 = charArray[ index ];
     if (isHighSurrogate(c1) && ++index < limit) {
         char16_t c2 = charArray[ index ];
@@ -69,19 +69,19 @@ int Character::codePointAtImpl(Array<char16_t> charArray, int index, int limit) 
     return (int) c1;
 }
 
-int Character::codePointBefore(Array<char16_t> a, int index) {
-    return codePointBeforeImpl(a, index, 0);
+int Character::codePointBefore(const Array<char16_t> &charArray , int index) {
+    return codePointBeforeImpl(charArray, index, 0);
 }
 
-int Character::codePointBefore(Array<char16_t> a, int index, int start) {
-    if (index <= start || start < 0 || start >= a.length) {
+int Character::codePointBefore(const Array<char16_t> &charArray , int index, int start) {
+    if (index <= start || start < 0 || start >= charArray.length) {
         return -1;
     }
-    return codePointBeforeImpl(a, index, start);
+    return codePointBeforeImpl(charArray, index, start);
 }
 
 // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-int Character::codePointBeforeImpl(Array<char16_t> charArray, int index, int start) {
+int Character::codePointBeforeImpl(const Array<char16_t> &charArray, int index, int start) {
     char16_t c2 = charArray[ --index ];
     if (isLowSurrogate(c2) && index > start) {
         char16_t c1 = charArray[ --index ];
@@ -92,14 +92,14 @@ int Character::codePointBeforeImpl(Array<char16_t> charArray, int index, int sta
     return c2;
 }
 
-int Character::codePointCount(Array<char16_t> a, int offset, int count) {
-    if (count > a.length - offset || offset < 0 || count < 0) {
+int Character::codePointCount(const Array<char16_t> &charArray, int offset, int count) {
+    if (count > charArray.length - offset || offset < 0 || count < 0) {
         return -1;
     }
-    return codePointCountImpl(a, offset, count);
+    return codePointCountImpl(charArray, offset, count);
 }
 
-int Character::codePointCountImpl(Array<char16_t> charArray, int offset, int count) {
+int Character::codePointCountImpl(const Array<char16_t> &charArray, int offset, int count) {
     int endIndex = offset + count;
     int n = count;
     for (int i = offset; i < endIndex;) {
@@ -116,16 +116,16 @@ int Character::compare(char16_t x, char16_t y) {
     return x - y;
 }
 
-int Character::compareTo(Character anotherCharacter) {
+int Character::compareTo(Character anotherCharacter) const {
     return compare(this->charValue(), anotherCharacter.charValue());
 }
 
-boolean Character::isHighSurrogate(char16_t target) {
-    return target >= MIN_HIGH_SURROGATE && target < ( MAX_HIGH_SURROGATE + 1 );
+boolean Character::isHighSurrogate(char16_t character) {
+    return character >= MIN_HIGH_SURROGATE && character < ( MAX_HIGH_SURROGATE + 1 );
 }
 
-boolean Character::isLowSurrogate(char16_t target) {
-    return target >= MIN_LOW_SURROGATE && target < ( MAX_LOW_SURROGATE + 1 );
+boolean Character::isLowSurrogate(char16_t character) {
+    return character >= MIN_LOW_SURROGATE && character < ( MAX_LOW_SURROGATE + 1 );
 }
 
 boolean Character::isSurrogate(char16_t target) {
@@ -208,4 +208,16 @@ int Character::digit(int codePoint, int radix) {
 std::ostream &operator<<(std::ostream &os, const Character &target) {
     os << target.charValue();
     return os;
+}
+
+boolean Character::equals(const Object &object) const {
+    return Object::equals(object);
+}
+
+long Character::hashCode() const {
+    return Object::hashCode();
+}
+
+string Character::toString() const {
+    return Object::toString();
 }

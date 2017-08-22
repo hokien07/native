@@ -27,12 +27,24 @@
 #ifndef NATIVE_JAVA_LANG_CHARACTER_HPP_
 #define NATIVE_JAVA_LANG_CHARACTER_HPP_
 
+#include <uchar.h>
 #include "../CharSequence/CharSequence.hpp"
+#include "../../Lang.hpp"
 
 namespace Java {
     namespace Lang {
         class Character : public Object {
         public:
+            /**
+             * The number of bits used to represent a char value in unsigned binary form, constant 16.
+             */
+            static const int SIZE = 16;
+
+            /**
+             * The number of bytes used to represent a char value in unsigned binary form.
+             */
+            static const int BYTES = SIZE / Bytes::SIZE;
+
             /**
              * The minimum radix available for conversion to and from strings.
              */
@@ -397,8 +409,7 @@ namespace Java {
              * @throw ArrayIndexOutOfBoundsException if index out of bounds
              * @return the Unicode code point at the given index
              */
-            static int codePointAtImpl(Array<char16_t> charArray, int index, int limit);
-            // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
+            static int codePointAtImpl(const Array<char16_t> &charArray, int index, int limit);
             /**
              * Returns the code point preceding the given index of the char array,
              * where only array elements with index greater than or equal to start can be used.
@@ -414,7 +425,7 @@ namespace Java {
              * @throw ArrayIndexOutOfBoundsException if index-1 out of bounds
              * @return the Unicode code point value before the given index.
              */
-            static int codePointBeforeImpl(Array<char16_t> charArray, int index, int start);
+            static int codePointBeforeImpl(const Array<char16_t> &charArray, int index, int start);
 
             /**
              * Returns the number of Unicode code points in a subarray of the char array argument.
@@ -427,7 +438,59 @@ namespace Java {
              * @param count
              * @return the number of Unicode code points in the specified subarray
              */
-            static int codePointCountImpl(Array<char16_t> charArray, int offset, int count);
+            static int codePointCountImpl(const Array<char16_t> &charArray, int offset, int count);
+
+            /**
+             * Returns the index within the given char subarray that is offset
+             * from the given index by codePointOffset code points.
+             * The start and count arguments specify a subarray of the char array.
+             * Unpaired surrogates within the text range given by index
+             * and codePointOffset count as one code point each.
+             *
+             * @param charArray
+             * @param start
+             * @param count
+             * @param index
+             * @param codePointOffset
+             * @throw IndexOutOfBoundsException if start or count is negative,
+             * or if start + count is larger than the length of the given array,
+             * or if index is less than start or larger then start + count,
+             * or if codePointOffset is positive and the text range starting with index
+             * and ending with start + count - 1 has fewer than codePointOffset code points,
+             * or if codePointOffset is negative and the text range starting with start
+             * and ending with index - 1 has fewer than the absolute value of codePointOffset code points.
+             * @return the index within the subarray
+             */
+            static int offsetByCodePointsImpl(const Array<char16_t> &charArray, int start, int count, int index, int codePointOffset);
+
+            /**
+             * Assign the char at index and index + 1 of the char array to make a surrogates
+             *
+             * @param codePoint
+             * @param charArray
+             * @param index
+             */
+            static void toSurrogates(int codePoint, Array<char16_t> &charArray, int index);
+
+            /**
+             * Converts the character (Unicode code point) argument to uppercase
+             * using case mapping information from the SpecialCasing file in the Unicode specification.
+             * If a character has no explicit uppercase mapping, then the char itself is returned in the char[].
+             *
+             * @param codePoint
+             * @return a char array with the uppercased character
+             */
+            Array<char16_t> toUpperCaseCharArray(int codePoint) const;
+
+            /**
+             * Converts the character (Unicode code point) argument to uppercase
+             * using information from the UnicodeData file.
+             *
+             * @param codePoint
+             * @return either the uppercase equivalent of the character, if any,
+             * or an error flag (Character.ERROR) that indicates that a 1:M char mapping exists.
+             */
+            static int toUpperCaseEx(int codePoint);
 
         public:
             /**
@@ -457,7 +520,7 @@ namespace Java {
              * @throw IndexOutOfBoundsException if the value index is negative or not less than seq.length().
              * @return the Unicode code point at the given index
              */
-            static int codePointAt(CharSequence &sequence, int index);
+            static int codePointAt(CharSequence &sequence, int index) ;
 
             /**
              * Returns the code point at the given index of the char array.
@@ -473,7 +536,7 @@ namespace Java {
              * or not less than the length of the char array.
              * @return the Unicode code point at the given index
              */
-            static int codePointAt(Array<char16_t> charArray, int index);
+            static int codePointAt(const Array<char16_t> &charArray, int index) ;
 
             /**
              * Returns the code point at the given index of the char array,
@@ -492,7 +555,7 @@ namespace Java {
              * or if the limit argument is negative or greater than the length of the char array.
              * @return the Unicode code point at the given index
              */
-            static int codePointAt(Array<char16_t> charArray, int index, int limit);
+            static int codePointAt(const Array<char16_t> &charArray, int index, int limit) ;
 
             /**
              * Returns the code point preceding the given index of the CharSequence.
@@ -523,7 +586,7 @@ namespace Java {
              * or greater than the length of the char array
              * @return the Unicode code point value before the given index.
              */
-            static int codePointBefore(Array<char16_t> charArray, int index);
+            static int codePointBefore(const Array<char16_t> &charArray, int index);
 
             /**
              * Returns the code point preceding the given index of the char array,
@@ -542,7 +605,7 @@ namespace Java {
              * or if the start argument is negative or not less than the length of the char array.
              * @return the Unicode code point value before the given index.
              */
-            static int codePointBefore(Array<char16_t> charArray, int index, int start);
+            static int codePointBefore(const Array<char16_t> &charArray, int index, int start);
 
             /**
              * Returns the number of Unicode code points in a subarray of the char array argument.
@@ -557,7 +620,7 @@ namespace Java {
              * or if offset + count is larger than the length of the given array.
              * @return the number of Unicode code points in the specified subarray
              */
-            static int codePointCount(Array<char16_t> charArray, int offset, int count);
+            static int codePointCount(const Array<char16_t> &charArray, int offset, int count) ;
 
             /**
              * Returns the number of Unicode code points in the text range of the specified char sequence.
@@ -573,7 +636,7 @@ namespace Java {
              * or beginIndex is larger than endIndex.
              * @return the number of Unicode code points in the specified text range
              */
-            static int codePointCount(CharSequence &sequence, int beginIndex, int endIndex);
+            static int codePointCount(CharSequence &sequence, int beginIndex, int endIndex) ;
 
             /**
              * Compares two char values numerically.
@@ -583,7 +646,7 @@ namespace Java {
              * @return the value 0 if charA == charB; a value less than 0 if charA < charB;
              * and a value greater than 0 if charA > charB.
              */
-            static int compare(char16_t charA, char16_t charB);
+            static int compare(char16_t charA, char16_t charB) ;
 
             /**
              * Compares two Character objects numerically.
@@ -592,7 +655,7 @@ namespace Java {
              * a value less than 0 if this Character is numerically less than the Character argument;
              * and a value greater than 0 if this Character is numerically greater than the Character argument
              */
-            int compareTo(Character anotherCharacter);
+            int compareTo(Character anotherCharacter) const;
 
             /**
              * Returns the numeric value of the character in the specified radix.
@@ -601,7 +664,7 @@ namespace Java {
              * @param radix
              * @return the numeric value represented by the character in the specified radix.
              */
-            static int digit(char16_t character, int radix);
+            static int digit(char16_t character, int radix) ;
 
             /**
              * Returns the numeric value of the specified character (Unicode code point) in the specified radix.
@@ -610,7 +673,7 @@ namespace Java {
              * @param radix
              * @return the numeric value represented by the character in the specified radix.
              */
-            static int digit(int codePoint, int radix);
+            static int digit(int codePoint, int radix) ;
 
             /**
              * Compares this object against the specified object. The result is true if and only if t
@@ -632,7 +695,7 @@ namespace Java {
              * @param radix
              * @return the char representation of the specified digit in the specified radix.
              */
-            char16_t forDigit(int digit, int radix);
+            char16_t forDigit(int digit, int radix) const;
 
             /**
              * Returns the Unicode directionality property for the given character (Unicode code point).
@@ -641,7 +704,7 @@ namespace Java {
              * @param codePoint
              * @return the directionality property of the character.
              */
-            static byte getDirectionality(int codePoint);
+            static byte getDirectionality(int codePoint) ;
 
             /**
              * Returns the Unicode directionality property for the given character.
@@ -650,7 +713,7 @@ namespace Java {
              * @param character
              * @return the directionality property of the char value.
              */
-            static byte getDirectionality(char16_t character);
+            static byte getDirectionality(char16_t character) ;
 
             /**
              * Returns the Unicode name of the specified character codePoint,
@@ -663,14 +726,697 @@ namespace Java {
              * @throw IllegalArgumentException if the specified codePoint is not a valid Unicode code point.
              * @return the Unicode name of the specified character, or null if the code point is unassigned.
              */
-            static String getName(int codePoint);
+            static String getName(int codePoint) ;
 
+            /**
+             * Returns the int value that the specified character (Unicode code point) represents.
+             *
+             * @param codePoint
+             * @return the numeric value of the character, as a nonnegative int value;
+             * -2 if the character has a numeric value that is not a nonnegative integer;
+             * -1 if the character has no numeric value.
+             */
+            static int getNumericValue(int codePoint) ;
 
-            static boolean isHighSurrogate(char16_t target);
-            static boolean isLowSurrogate(char16_t target);
-            static boolean isSurrogate(char16_t target);
-            static int toCodePoint(char16_t high, char16_t low);
+            /**
+             * Returns the int value that the specified Unicode character represents.
+             *
+             * @param character
+             * @return the numeric value of the character, as a nonnegative int value;
+             * -2 if the character has a numeric value that is not a nonnegative integer;
+             * -1 if the character has no numeric value.
+             */
+            static int getNumericValue(char16_t character) ;
 
+            /**
+             * Returns a value indicating a character's general category.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the getType(int) method.
+             *
+             * @param character
+             * @return a value of type int representing the character's general category.
+             */
+            static int getType(char16_t character) ;
+
+            /**
+             * Returns a value indicating a character's general category.
+             *
+             * @param codePoint
+             * @return a value of type int representing the character's general category.
+             */
+            static int getType(int codePoint) ;
+
+            /**
+             * Returns a hash code for this Character; equal to the result of invoking charValue().
+             *
+             * @return a hash code for this Character
+             */
+            long hashCode() const;
+
+            /**
+             * Returns a hash code for a char value; compatible with Character.hashCode().
+             *
+             * @return a hash code for a char value
+             */
+            static long hashCode(char16_t) ;
+
+            /**
+             * Returns the leading surrogate (a high surrogate code unit) of the surrogate pair
+             * representing the specified supplementary character (Unicode code point) in the UTF-16 encoding.
+             * If the specified character is not a supplementary character, an unspecified char is returned.
+             *
+             * @param codePoint
+             * @return the leading surrogate code unit used to represent the character in the UTF-16 encoding
+             */
+            static char16_t highSurrogate(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is an alphabet.
+             *
+             * @param codePoint
+             * @return true if the character is a Unicode alphabet character, false otherwise.
+             */
+            static boolean isAlphabetic(int codePoint) ;
+
+            /**
+             * Determines whether the specified character (Unicode code point)
+             * is in the Basic Multilingual Plane (BMP).
+             * Such code points can be represented using a single char.
+             *
+             * @param codePoint
+             * @return true if the specified code point is between MIN_VALUE and MAX_VALUE inclusive;
+             * false otherwise.
+             */
+            static boolean isBmpCodePoint(int codePoint) ;
+
+            /**
+             * Determines if a character is defined in Unicode.
+             * A character is defined if at least one of the following is true:
+             *      - It has an entry in the UnicodeData file.
+             *      - It has a value in a range defined by the UnicodeData file.
+             * Note: This method cannot handle supplementary characters. To support all Unicode characters,
+             * including supplementary characters, use the isDefined(int) method.
+             *
+             * @param character
+             * @return true if the character has a defined meaning in Unicode; false otherwise.
+             */
+            static boolean isDefined(char16_t character) ;
+
+            /**
+             * Determines if a character is defined in Unicode.
+             * A character is defined if at least one of the following is true:
+             *      - It has an entry in the UnicodeData file.
+             *      - It has a value in a range defined by the UnicodeData file.
+             * Note: This method cannot handle supplementary characters. To support all Unicode characters,
+             * including supplementary characters, use the isDefined(int) method.
+             *
+             * @param codePoint
+             * @return true if the character has a defined meaning in Unicode; false otherwise.
+             */
+            static boolean isDefined(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a digit.
+             *
+             * @param codePoint
+             * @return Determines if the specified character (Unicode code point) is a digit.
+             */
+            static boolean isDigit(int codePoint) ;
+
+            /**
+             * Determines if the specified character is a digit.
+             *
+             * @param character
+             * @return true if the character is a digit; false otherwise.
+             */
+            static boolean isDigit(char16_t character) ;
+
+            /**
+             * Determines if the given char value is a Unicode high-surrogate
+             * code unit (also known as leading-surrogate code unit).
+             * Such values do not represent characters by themselves,
+             * but are used in the representation of supplementary characters in the UTF-16 encoding.
+             *
+             * @param character
+             * @return true if the char value is between MIN_HIGH_SURROGATE
+             * and MAX_HIGH_SURROGATE inclusive; false otherwise.
+             */
+            static boolean isHighSurrogate(char16_t character) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) should be regarded
+             * as an ignorable character in a Java identifier or a Unicode identifier.
+             *
+             * @param codePoint
+             * @return true if the character is an ignorable control character
+             * that may be part of a Java or Unicode identifier; false otherwise.
+             */
+            static boolean isIdentifierIgnorable(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) should be regarded
+             * as an ignorable character in a Java identifier or a Unicode identifier.
+             *
+             * @param character
+             * @return true if the character is an ignorable control character
+             * that may be part of a Java or Unicode identifier; false otherwise.
+             */
+            static boolean isIdentifierIgnorable(char16_t character) ;
+
+            /**
+             * Determines if the specified character (Unicode code point)
+             * is a CJKV (Chinese, Japanese, Korean and Vietnamese) ideograph,
+             * as defined by the Unicode Standard.
+             *
+             * @param codePoint
+             * @return true if the character is a Unicode ideograph character, false otherwise.
+             */
+            static boolean isIdeographic(int codePoint) ;
+
+            /**
+             * Determines if the specified character is an ISO control character.
+             * A character is considered to be an ISO control character
+             * if its code is in the range '\u005Cu0000' through '\u005Cu001F'
+             * or in the range '\u005Cu007F' through '\u005Cu009F'.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isISOControl(int) method.
+             *
+             * @param character
+             * @return true if the character is an ISO control character; false otherwise.
+             */
+            static boolean isISOControl(char16_t character) ;
+
+            /**
+             * Determines if the specified character is an ISO control character.
+             * A character is considered to be an ISO control character
+             * if its code is in the range '\u005Cu0000' through '\u005Cu001F'
+             * or in the range '\u005Cu007F' through '\u005Cu009F'.
+             *
+             * @param codePoint
+             * @return true if the character is an ISO control character; false otherwise.
+             */
+            static boolean isISOControl(int codePoint) ;
+
+            /**
+             * Determines if the specified character may be part
+             * of a Java identifier as other than the first character.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isJavaIdentifierPart(int) method.
+             *
+             * @param character
+             * @return true if the character may be part of a Java identifier; false otherwise.
+             */
+            static boolean isJavaIdentifierPart(char16_t character) ;
+
+            /**
+             * Determines if the specified character may be part
+             * of a Java identifier as other than the first character.
+             *
+             * @param codePoint
+             * @return true if the character may be part of a Java identifier; false otherwise.
+             */
+            static boolean isJavaIdentifierPart(int codePoint) ;
+
+            /**
+             * Determines if the specified character is permissible
+             * as the first character in a Java identifier.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isJavaIdentifierStart(int) method.
+             *
+             * @param character
+             * @return true if the character may start a Java identifier; false otherwise.
+             */
+            static boolean isJavaIdentifierStart(char16_t character) ;
+
+            /**
+            * Determines if the specified character is permissible
+            * as the first character in a Java identifier.
+            *
+            * @param codePoint
+            * @return true if the character may start a Java identifier; false otherwise.
+            */
+            static boolean isJavaIdentifierStart(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a letter.
+             *
+             * @param codePoint
+             * @return Determines if the specified character (Unicode code point) is a letter.
+             */
+            static boolean isLetter(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a letter.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isLetter(int) method.
+             *
+             * @param codePoint
+             * @return Determines if the specified character (Unicode code point) is a letter.
+             */
+            static boolean isLetter(char16_t character) ;
+
+            /**
+             * Determines if the specified character is a letter or digit.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isLetterOrDigit(int) method.
+             *
+             * @param character
+             * @return true if the character is a letter or digit; false otherwise.
+             */
+            static boolean isLetterOrDigit(char16_t character) ;
+
+            /**
+            * Determines if the specified character is a letter or digit.
+            *
+            * @param codePoint
+            * @return true if the character is a letter or digit; false otherwise.
+            */
+            static boolean isLetterOrDigit(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a lowercase character.
+             * A character is lowercase if its general category type, provided by getType(codePoint),
+             * is LOWERCASE_LETTER, or it has contributory property Other_Lowercase as defined by the Unicode Standard.
+             *
+             * @param codePoint
+             * @return true if the character is lowercase; false otherwise.
+             */
+            static boolean isLowerCase(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a lowercase character.
+             * A character is lowercase if its general category type, provided by getType(codePoint),
+             * is LOWERCASE_LETTER, or it has contributory property Other_Lowercase as defined by the Unicode Standard.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isLowerCase(int) method.
+             *
+             * @param character
+             * @return true if the character is lowercase; false otherwise.
+             */
+            static boolean isLowerCase(char16_t character) ;
+
+            /**
+             * Determines if the given char value is a Unicode low-surrogate
+             * code unit (also known as trailing-surrogate code unit).
+             * Such values do not represent characters by themselves,
+             * but are used in the representation of supplementary characters in the UTF-16 encoding.
+             *
+             * @param character
+             * @return true if the char value is between MIN_LOW_SURROGATE
+             * and MAX_LOW_SURROGATE inclusive; false otherwise.
+             */
+            static boolean isLowSurrogate(char16_t character) ;
+
+            /**
+             * Determines whether the character is mirrored according to the Unicode specification.
+             * Mirrored characters should have their glyphs horizontally mirrored when displayed in text
+             * that is right-to-left. For example, '\u005Cu0028' LEFT PARENTHESIS is semantically defined to
+             * be an opening parenthesis. This will appear as a "(" in text that is left-to-right but as a ")"
+             * in text that is right-to-left.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isMirrored(int) method.
+             *
+             * @param character
+             * @return true if the char is mirrored, false if the char is not mirrored or is not defined.
+             */
+            static boolean isMirrored(char16_t character) ;
+
+            /**
+             * Determines whether the character is mirrored according to the Unicode specification.
+             * Mirrored characters should have their glyphs horizontally mirrored when displayed in text
+             * that is right-to-left. For example, '\u005Cu0028' LEFT PARENTHESIS is semantically defined to
+             * be an opening parenthesis. This will appear as a "(" in text that is left-to-right but as a ")"
+             * in text that is right-to-left.
+             *
+             * @param codePoint
+             * @return true if the char is mirrored, false if the char is not mirrored or is not defined.
+             */
+            static boolean isMirrored(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a Unicode space character.
+             * A character is considered to be a space character if and only if
+             * it is specified to be a space character by the Unicode Standard.
+             *
+             * @param codePoint
+             * @return true if the character is a space character; false otherwise.
+             */
+            static boolean isSpaceChar(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a Unicode space character.
+             * A character is considered to be a space character if and only if
+             * it is specified to be a space character by the Unicode Standard.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isSpaceChar(int) method.
+             *
+             * @param character
+             * @return true if the character is a space character; false otherwise.
+             */
+            static boolean isSpaceChar(char16_t character) ;
+
+            /**
+             * Determines whether the specified character (Unicode code point)
+             * is in the supplementary character range.
+             *
+             * @param codePoint
+             * @return true if the specified code point is between MIN_SUPPLEMENTARY_CODE_POINT
+             * and MAX_CODE_POINT inclusive; false otherwise.
+             */
+            static boolean isSupplementaryCodePoint(int codePoint) ;
+
+            /**
+             * Determines if the given char value is a Unicode surrogate code unit.
+             * Such values do not represent characters by themselves, but are used in
+             * the representation of supplementary characters in the UTF-16 encoding.
+             * A char value is a surrogate code unit if and only if it is either
+             * a low-surrogate code unit or a high-surrogate code unit.
+             *
+             * @param character
+             * @return true if the char value is between MIN_SURROGATE and MAX_SURROGATE inclusive;
+             * false otherwise.
+             */
+            static boolean isSurrogate(char16_t character) ;
+
+            /**
+             * Determines whether the specified pair of char values is a valid Unicode surrogate pair.
+             *
+             * @param high
+             * @param low
+             * @return Determines whether the specified pair of char values is a valid Unicode surrogate pair.
+             */
+            static boolean isSurrogatePair(char16_t high, char16_t low) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a titlecase character.
+             *
+             * @param codePoint
+             * @return true if the character is titlecase; false otherwise.
+             */
+            static boolean isTitleCase(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is a titlecase character.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isTitleCase(int) method.
+             *
+             * @param character
+             * @return true if the character is titlecase; false otherwise.
+             */
+            static boolean isTitleCase(char16_t character) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) may be part of
+             * a Unicode identifier as other than the first character.
+             *
+             * @param codePoint
+             * @return true if the character may be part of a Unicode identifier; false otherwise.
+             */
+            static boolean isUnicodeIdentifierPart(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) may be part of
+             * a Unicode identifier as other than the first character.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isUnicodeIdentifierPart(int) method.
+             *
+             * @param character
+             * @return true if the character may be part of a Unicode identifier; false otherwise.
+             */
+            static boolean isUnicodeIdentifierPart(char16_t character) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is permissible
+             * as the first character in a Unicode identifier.
+             *
+             * @param codePoint
+             * @return true if the character may start a Unicode identifier; false otherwise.
+             */
+            static boolean isUnicodeIdentifierStart(int codePoint) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is permissible
+             * as the first character in a Unicode identifier.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isUnicodeIdentifierStart(int) method.
+             * @param character
+             * @return true if the character may start a Unicode identifier; false otherwise.
+             */
+            static boolean isUnicodeIdentifierStart(char16_t character) ;
+
+            /**
+             * Determines if the specified character (Unicode code point) is an uppercase character.
+             *
+             * @param character
+             * @return true if the character is uppercase; false otherwise.
+             */
+            static boolean isUpperCase(int character) ;
+
+            /**
+            * Determines if the specified character (Unicode code point) is an uppercase character.
+            * Note: This method cannot handle supplementary characters.
+            * To support all Unicode characters, including supplementary characters,
+            * use the isUpperCase(int) method.
+            *
+            * @param character
+            * @return true if the character is uppercase; false otherwise.
+            */
+            static boolean isUpperCase(char16_t character) ;
+
+            /**
+             * Determines whether the specified code point is a valid Unicode code point value.
+             *
+             * @param codePoint
+             * @return true if the specified code point value is between MIN_CODE_POINT
+             * and MAX_CODE_POINT inclusive; false otherwise.
+             */
+            static boolean isValidCodePoint(int codePoint) ;
+
+            /**
+             * Determines if the specified character is white space according to Java.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the isWhitespace(int) method.
+             *
+             * @param character
+             * @return true if the character is a Java whitespace character; false otherwise.
+             */
+            static boolean isWhitespace(char16_t character) ;
+
+            /**
+             * Determines if the specified character is white space according to Java.
+             *
+             * @param codePoint
+             * @return true if the character is a Java whitespace character; false otherwise.
+             */
+            static boolean isWhitespace(int codePoint) ;
+
+            /**
+             * Returns the index within the given char sequence that is offset
+             * from the given index by codePointOffset code points.
+             * Unpaired surrogates within the text range given by index
+             * and codePointOffset count as one code point each.
+             *
+             * @param sequence
+             * @param index
+             * @param codePointOffset
+             * @throw IndexOutOfBoundsException if index is negative or larger than
+             * the length of the char sequence, or if codePointOffset is positive
+             * and the subsequence starting with index has fewer than codePointOffset code points,
+             * or if codePointOffset is negative and the subsequence before index has fewer than
+             * the absolute value of codePointOffset code points.
+             * @return the index within the char sequence
+             */
+            static int offsetByCodePoints(CharSequence &sequence, int index, int codePointOffset) ;
+
+            /**
+             * Returns the index within the given char subarray that is offset
+             * from the given index by codePointOffset code points.
+             * The start and count arguments specify a subarray of the char array.
+             * Unpaired surrogates within the text range given by index
+             * and codePointOffset count as one code point each.
+             *
+             * @param charArray
+             * @param start
+             * @param count
+             * @param index
+             * @param codePointOffset
+             * @throw IndexOutOfBoundsException if start or count is negative,
+             * or if start + count is larger than the length of the given array,
+             * or if index is less than start or larger then start + count,
+             * or if codePointOffset is positive and the text range starting with index
+             * and ending with start + count - 1 has fewer than codePointOffset code points,
+             * or if codePointOffset is negative and the text range starting with start
+             * and ending with index - 1 has fewer than the absolute value of codePointOffset code points.
+             * @return the index within the subarray
+             */
+            static int offsetByCodePoints(const Array<char16_t> &charArray, int start, int count, int index, int codePointOffset) ;
+
+            /**
+             * Returns the value obtained by reversing the order of the bytes
+             * in the specified char value.
+             *
+             * @param character
+             * @return the value obtained by reversing (or, equivalently, swapping)
+             * the bytes in the specified char value.
+             */
+            static char reverseBytes(char16_t character) ;
+
+            /**
+             * Converts the specified character (Unicode code point) to its UTF-16
+             * representation stored in a char array.
+             * If the specified code point is a BMP (Basic Multilingual Plane or Plane 0) value,
+             * the resulting char array has the same value as codePoint.
+             * If the specified code point is a supplementary code point,
+             * the resulting char array has the corresponding surrogate pair.
+             *
+             * @param codePoint
+             * @throw IllegalArgumentException if the specified codePoint
+             * is not a valid Unicode code point.
+             * @return a char array having codePoint's UTF-16 representation.
+             */
+            static const Array<char16_t> & toChars(int codePoint) ;
+
+            /**
+             * Converts the specified character (Unicode code point) to its UTF-16 representation.
+             * If the specified code point is a BMP (Basic Multilingual Plane or Plane 0) value,
+             * the same value is stored in dst[dstIndex], and 1 is returned.
+             * If the specified code point is a supplementary character,
+             * its surrogate values are stored in dst[dstIndex] (high-surrogate)
+             * and dst[dstIndex+1] (low-surrogate), and 2 is returned.
+             *
+             * @param codePoint
+             * @param destination
+             * @param destinationIndex
+             * @throw IllegalArgumentException if the specified codePoint
+             * is not a valid Unicode code point.
+             * @throw IndexOutOfBoundsException if dstIndex is negative or not less than dst.length,
+             * or if dst at dstIndex doesn't have enough array element(s) to store the resulting char value(s).
+             * (If dstIndex is equal to dst.length-1 and the specified codePoint is a supplementary character,
+             * the high-surrogate value is not stored in dst[dstIndex].)
+             * @return 1 if the code point is a BMP code point,
+             * 2 if the code point is a supplementary code point.
+             */
+            static int toChars(int codePoint, Array<char16_t> &destination, int destinationIndex) ;
+
+            /**
+             * Converts the specified surrogate pair to its supplementary code point value.
+             * This method does not validate the specified surrogate pair.
+             *
+             * @param high
+             * @param low
+             * @return the supplementary code point composed from the specified surrogate pair.
+             */
+            static int toCodePoint(char16_t high, char16_t low) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to lowercase using
+             * case mapping information from the UnicodeData file.
+             *
+             * @param codePoint
+             * @return the lowercase equivalent of the character (Unicode code point), if any;
+             * otherwise, the character itself.
+             */
+            static int toLowerCase(int codePoint) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to lowercase using
+             * case mapping information from the UnicodeData file.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the toLowerCase(int) method.
+             *
+             * @param character
+             * @return the lowercase equivalent of the character (Unicode code point), if any;
+             * otherwise, the character itself.
+             */
+            static int toLowerCase(char16_t character) ;
+
+            /**
+             * Returns a String object representing this Character's value.
+             * The result is a string of length 1 whose sole component is the primitive char value
+             * represented by this Character object.
+             *
+             * @return a string representation of this object.
+             */
+            string toString() const;
+
+            /**
+             * Returns a String object representing the specified char.
+             * The result is a string of length 1 consisting solely of the specified char.
+             *
+             * @return a string representation of the specified char.
+             */
+            static string toString(char16_t character) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to titlecase
+             * using case mapping information from the UnicodeData file.
+             *
+             * @param codePoint
+             * @return the titlecase equivalent of the character, if any;
+             * otherwise, the character itself.
+             */
+            static int toTitleCase(int codePoint) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to titlecase
+             * using case mapping information from the UnicodeData file.
+             *
+             * @param character
+             * @return the titlecase equivalent of the character, if any;
+             * otherwise, the character itself.
+             */
+            static int toTitleCase(char16_t character) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to uppercase
+             * using case mapping information from the UnicodeData file.
+             *
+             * @param codePoint
+             * @return the uppercase equivalent of the character, if any;
+             * otherwise, the character itself.
+             */
+            static int toUpperCase(int codePoint) ;
+
+            /**
+             * Converts the character (Unicode code point) argument to uppercase
+             * using case mapping information from the UnicodeData file.
+             * Note: This method cannot handle supplementary characters.
+             * To support all Unicode characters, including supplementary characters,
+             * use the toUpperCase(int) method.
+             *
+             * @param character
+             * @return the uppercase equivalent of the character, if any;
+             * otherwise, the character itself.
+             */
+            static int toUpperCase(char16_t character) ;
+
+            /**
+             * Returns a Character instance representing the specified char value.
+             * If a new Character instance is not required,
+             * this method should generally be used in preference to the constructor Character(char),
+             * as this method is likely to yield significantly better space
+             * and time performance by caching frequently requested values.
+             * This method will always cache values in the range '\u005Cu0000' to '\u005Cu007F',
+             * inclusive, and may cache other values outside of this range.
+             *
+             * @param character
+             * @return a Character instance representing character.
+             */
+            static Character valueOf(char16_t character) ;
 
         public:
             friend std::ostream &operator<<(std::ostream &os, const Character &target);
