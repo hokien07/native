@@ -20,6 +20,8 @@
  */
 
 #include "Character.hpp"
+#include "../IndexOutOfBoundsException/IndexOutOfBoundsException.hpp"
+#include "../ArrayIndexOutOfBoundsException/ArrayIndexOutOfBoundsException.hpp"
 
 using namespace Java::Lang;
 
@@ -50,21 +52,25 @@ int Character::codePointAt(const Array<char16_t> &charArray, int index) {
 
 int Character::codePointAt(const Array<char16_t> &charArray , int index, int limit) {
     if (index >= limit || limit < 0 || limit > charArray.length) {
-        return -1;
+        throw IndexOutOfBoundsException();
     }
+
     return codePointAtImpl(charArray, index, limit);
 }
 
 // throws ArrayIndexOutOfBoundsException if index out of bounds
 int Character::codePointAtImpl(const Array<char16_t> &charArray, int index, int limit) {
-    char16_t c1 = charArray[ index ];
-    if (isHighSurrogate(c1) && ++index < limit) {
-        char16_t c2 = charArray[ index ];
-        if (isLowSurrogate(c2)) {
-            return toCodePoint(c1, c2);
+    if (index < 0 || index >= charArray.length) {
+        throw ArrayIndexOutOfBoundsException(index);
+    }
+    char16_t char1 = charArray[ index ];
+    if (isHighSurrogate(char1) && ++index < limit) {
+        char16_t char2 = charArray[ index ];
+        if (isLowSurrogate(char2)) {
+            return toCodePoint(char1, char2);
         }
     }
-    return (int) c1;
+    return (int) char1;
 }
 
 int Character::codePointBefore(const Array<char16_t> &charArray , int index) {
