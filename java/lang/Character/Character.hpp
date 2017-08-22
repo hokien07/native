@@ -27,7 +27,6 @@
 #ifndef NATIVE_JAVA_LANG_CHARACTER_HPP_
 #define NATIVE_JAVA_LANG_CHARACTER_HPP_
 
-#include <uchar.h>
 #include "../CharSequence/CharSequence.hpp"
 #include "../../Lang.hpp"
 
