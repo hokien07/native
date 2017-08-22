@@ -42,7 +42,7 @@ TEST (JavaLang, ArrayIndexOutOfBoundsExceptionConstructor) {
 
     // Constructs a new ArrayIndexOutOfBoundsException class with an argument indicating the illegal index.
     ArrayIndexOutOfBoundsException arrayIndexOutOfBoundsExceptionWithIllegalIndex = ArrayIndexOutOfBoundsException(999);
-    ASSERT_STR("String index out of range: 999", arrayIndexOutOfBoundsExceptionWithIllegalIndex.getMessage().toString());
+    ASSERT_STR("Array index out of range: 999", arrayIndexOutOfBoundsExceptionWithIllegalIndex.getMessage().toString());
 }
 
 TEST(JavaLang, ArrayIndexOutOfBoundsExceptionTryCatch) {

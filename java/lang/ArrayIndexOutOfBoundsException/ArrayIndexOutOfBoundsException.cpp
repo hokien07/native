@@ -36,5 +36,5 @@ ArrayIndexOutOfBoundsException::ArrayIndexOutOfBoundsException(String message)
 }
 
 ArrayIndexOutOfBoundsException::ArrayIndexOutOfBoundsException(int index)
-        : IndexOutOfBoundsException(String("String index out of range: ") + String::valueOf(index)){
+        : IndexOutOfBoundsException(String("Array index out of range: ") + String::valueOf(index)){
 }
