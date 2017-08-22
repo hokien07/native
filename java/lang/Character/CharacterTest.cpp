@@ -34,9 +34,13 @@ using namespace Java::Lang;
 
 TEST (JavaLang, CharacterConstructor) {
     Character character;
-    ASSERT_EQUAL(u'\0', character.charValue());
-    character = u'M';
-    ASSERT_EQUAL(u'M', character.charValue());
+    ASSERT_EQUAL('\0', character.charValue());
+
+    character = 'M';
+    ASSERT_EQUAL('M', character.charValue());
+
+    character = Character(u'ﾄ');
+    ASSERT_EQUAL(u'ﾄ', character.charValue());
 }
 
 TEST (JavaLang, CharacterCharCount) {
@@ -70,15 +74,19 @@ TEST (JavaLang, CharacterCharValue) {
     Character variableTestCharValue;
 
     // Test NULL value
-    ASSERT_TRUE(variableTestCharValue.charValue() == '\0');
+    ASSERT_EQUAL('\0', variableTestCharValue.charValue());
 
     // Test valid case
     variableTestCharValue = 'M';
-    ASSERT_TRUE(variableTestCharValue.charValue() == 'M');
+    ASSERT_EQUAL('M', variableTestCharValue.charValue());
 
     // Test invalid case
     variableTestCharValue = 'M';
-    ASSERT_FALSE(variableTestCharValue.charValue() == 'm');
+    ASSERT_NOT_EQUAL('m', variableTestCharValue.charValue());
+
+    // Test valid case
+    variableTestCharValue = u'ﾄ';
+    ASSERT_EQUAL(u'ﾄ', variableTestCharValue.charValue());
 }
 
 TEST (JavaLang, CharacterCodePointAt) {
@@ -90,7 +98,11 @@ TEST (JavaLang, CharacterCodePointAt) {
 
     // Assign value to arrayCodePointAt
     arrayCodePointAt.push('a');
+    arrayCodePointAt.push('l');
     arrayCodePointAt.push('w');
+    arrayCodePointAt.push('a');
+    arrayCodePointAt.push('y');
+    arrayCodePointAt.push('s');
 
     // Test valid case
     index = 0;
@@ -103,62 +115,6 @@ TEST (JavaLang, CharacterCodePointAt) {
     actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, index);
     expectedResultCodePointAt = 456;
     ASSERT_NOT_EQUAL(expectedResultCodePointAt, actualResultCodePointAt);
-}
-
-TEST (JavaLang, CharacterCodePointAt2) {
-    // Create variable to test
-    Array<char16_t> arrayCodePointAt2;
-    int indexCodePointAt2;
-    int limitCodePointAt2;
-    int expectedResultCodePointAt2;
-    int actualResultCodePointAt2;
-
-    // Assign value to arrayCodePointAt2
-    arrayCodePointAt2.push('a');
-    arrayCodePointAt2.push('b');
-    arrayCodePointAt2.push('c');
-
-    // Test valid case.
-    indexCodePointAt2 = 0;
-    limitCodePointAt2 = 3;
-    expectedResultCodePointAt2 = 'a';
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
-
-    // Test valid case.
-    indexCodePointAt2 = 1;
-    limitCodePointAt2 = 3;
-    expectedResultCodePointAt2 = 'b';
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
-
-    // Test invalid case.
-    indexCodePointAt2 = 2;
-    limitCodePointAt2 = 3;
-    expectedResultCodePointAt2 = 'b';
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_NOT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
-
-    // Test exception index >= limit.
-    indexCodePointAt2 = 3;
-    limitCodePointAt2 = 3;
-    expectedResultCodePointAt2 = -1;
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
-
-    // Test exception limit < 0.
-    indexCodePointAt2 = 2;
-    limitCodePointAt2 = -1;
-    expectedResultCodePointAt2 = -1;
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
-
-    // Test exception limit > length.
-    indexCodePointAt2 = 2;
-    limitCodePointAt2 = 5;
-    expectedResultCodePointAt2 = -1;
-    actualResultCodePointAt2 = Character::codePointAt(arrayCodePointAt2, indexCodePointAt2, limitCodePointAt2);
-    ASSERT_EQUAL(expectedResultCodePointAt2, actualResultCodePointAt2);
 }
 
 TEST (JavaLang, CharacterCodePointBefore) {

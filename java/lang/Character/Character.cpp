@@ -31,9 +31,7 @@ Character::Character(char16_t original) {
     this->original = original;
 }
 
-Character::~Character() {
-
-}
+Character::~Character() = default;
 
 int Character::charCount(int codePoint) const {
     if (codePoint >= MIN_SUPPLEMENTARY_CODE_POINT) {

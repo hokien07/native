@@ -390,7 +390,7 @@ namespace Java {
             /**
              * Destructor
              */
-            virtual ~Character();
+            ~Character();
 
         private:
             /**
