@@ -260,60 +260,43 @@ TEST (JavaLang, CharacterCodePointCount) {
 
 TEST (JavaLang, CharacterCompare) {
     // Create variable to test
-    char xCompare;
-    char yCompare;
-    int expectedResultCompare;
     int actualResultCompare;
 
-    // Test valid case
-    xCompare = 'd';
-    yCompare = 'd';
-    expectedResultCompare = 0;
-    actualResultCompare = Character::compare(xCompare, yCompare);
-    ASSERT_EQUAL(expectedResultCompare, actualResultCompare);
+    // Test equal case
+    actualResultCompare = Character::compare('a', 'a');
+    ASSERT_TRUE(actualResultCompare == 0);
 
-    // Test valid case
-    xCompare = 'd';
-    yCompare = 'a';
-    expectedResultCompare = 3;
-    actualResultCompare = Character::compare(xCompare, yCompare);
-    ASSERT_EQUAL(expectedResultCompare, actualResultCompare);
+    // Test charA > charB case
+    actualResultCompare = Character::compare('d', 'a');
+    ASSERT_TRUE(actualResultCompare > 0);
 
-    // Test valid case
-    xCompare = 'd';
-    yCompare = 'e';
-    expectedResultCompare = -1;
-    actualResultCompare = Character::compare(xCompare, yCompare);
-    ASSERT_EQUAL(expectedResultCompare, actualResultCompare);
+    // Test charA < charB case
+    actualResultCompare = Character::compare('a', 'd');
+    ASSERT_TRUE(actualResultCompare < 0);
 }
 
 TEST (JavaLang, CharacterCompareTo) {
     // Create variable to test
-    Character variableTestCompareTo;
-    Character anotherCharacterCompareTo;
-    int expectedResultCompareTo;
+    Character character = 'a';
+    Character anotherCharacter = 'd';
     int actualResultCompareTo;
 
-    // Test valid case
-    variableTestCompareTo = 'd';
-    anotherCharacterCompareTo = 'd';
-    expectedResultCompareTo = 0;
-    actualResultCompareTo = variableTestCompareTo.compareTo(anotherCharacterCompareTo);
-    ASSERT_EQUAL(expectedResultCompareTo, actualResultCompareTo);
+    // Test equal case
+    actualResultCompareTo = character.compareTo(Character('a'));
+    ASSERT_TRUE(actualResultCompareTo == 0);
 
-    // Test valid case
-    variableTestCompareTo = 'd';
-    anotherCharacterCompareTo = 'a';
-    expectedResultCompareTo = 3;
-    actualResultCompareTo = variableTestCompareTo.compareTo(anotherCharacterCompareTo);
-    ASSERT_EQUAL(expectedResultCompareTo, actualResultCompareTo);
+    // Test charA > charB case
+    actualResultCompareTo = anotherCharacter.compareTo(character);
+    ASSERT_TRUE(actualResultCompareTo > 0);
 
-    // Test valid case
-    variableTestCompareTo = 'd';
-    anotherCharacterCompareTo = 'e';
-    expectedResultCompareTo = -1;
-    actualResultCompareTo = variableTestCompareTo.compareTo(anotherCharacterCompareTo);
-    ASSERT_EQUAL(expectedResultCompareTo, actualResultCompareTo);
+    // Test charA < charB case
+    actualResultCompareTo = character.compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResultCompareTo < 0);
+
+    // Test comparable
+    Comparable<Character> *comparable = &character;
+    actualResultCompareTo = comparable->compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResultCompareTo < 0);
 }
 
 TEST (JavaLang, CharacterToCodePoint) {
@@ -345,21 +328,5 @@ TEST (JavaLang, CharacterIsSurrogate) {
 }
 
 TEST (JavaLang, CharacterDigit) {
-//    //Given valid and invalid value to test with digit(char char, int radix)
-//    char16_t hexValueDigit = 'b';
-//    char16_t hexValue2Digit = 'd';
-//    char16_t hexValue3Digit = '5';
-//    char16_t wrongValueDigit = 'q';
-//
-//    int expectedResultDigit = 11;
-//    ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValueDigit, 16));
-//
-//    expectedResultDigit = 13;
-//    ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValue2Digit, 16));
-//
-//    expectedResultDigit = 5;
-//    ASSERT_EQUAL(expectedResultDigit, Character::digit(hexValue3Digit, 16));
-//
-//    expectedResultDigit = -1;
-//    ASSERT_EQUAL(expectedResultDigit, Character::digit(wrongValueDigit, 16));
+
 }

@@ -119,11 +119,11 @@ int Character::codePointCountImpl(const Array<char16_t> &charArray, int offset, 
     return numberOfCodePoint;
 }
 
-int Character::compare(char16_t x, char16_t y) {
-    return x - y;
+int Character::compare(char16_t charA, char16_t charB) {
+    return charA - charB;
 }
 
-int Character::compareTo(Character anotherCharacter) const {
+int Character::compareTo(const Character &anotherCharacter) const {
     return compare(this->charValue(), anotherCharacter.charValue());
 }
 

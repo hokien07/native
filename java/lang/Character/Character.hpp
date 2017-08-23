@@ -32,7 +32,8 @@
 
 namespace Java {
     namespace Lang {
-        class Character : public Object {
+        class Character : public Object,
+                          public virtual Comparable<Character> {
         public:
             /**
              * The number of bits used to represent a char value in unsigned binary form, constant 16.
@@ -654,7 +655,7 @@ namespace Java {
              * a value less than 0 if this Character is numerically less than the Character argument;
              * and a value greater than 0 if this Character is numerically greater than the Character argument
              */
-            int compareTo(Character anotherCharacter) const;
+            int compareTo(const Character &anotherCharacter) const;
 
             /**
              * Returns the numeric value of the character in the specified radix.
