@@ -29,6 +29,7 @@ extern "C" {
 }
 
 #include "../Character/Character.hpp"
+#include "../ArrayIndexOutOfBoundsException/ArrayIndexOutOfBoundsException.hpp"
 
 using namespace Java::Lang;
 
@@ -92,8 +93,6 @@ TEST (JavaLang, CharacterCharValue) {
 TEST (JavaLang, CharacterCodePointAt) {
     // Create variable to test
     Array<char16_t> arrayCodePointAt;
-    int index;
-    int expectedResultCodePointAt;
     int actualResultCodePointAt;
 
     // Assign value to arrayCodePointAt
@@ -105,16 +104,60 @@ TEST (JavaLang, CharacterCodePointAt) {
     arrayCodePointAt.push('s');
 
     // Test valid case
-    index = 0;
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, index);
-    expectedResultCodePointAt = 97;
-    ASSERT_EQUAL(expectedResultCodePointAt, actualResultCodePointAt);
+    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0);
+    ASSERT_EQUAL('a', actualResultCodePointAt);
 
     // Test invalid case
-    index = 1;
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, index);
-    expectedResultCodePointAt = 456;
-    ASSERT_NOT_EQUAL(expectedResultCodePointAt, actualResultCodePointAt);
+    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 1);
+    ASSERT_NOT_EQUAL('b', actualResultCodePointAt);
+
+    // Test index < 0
+    try {
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, -1);
+    }
+    catch (ArrayIndexOutOfBoundsException &e) {
+        ASSERT_STR("Array index out of range: -1", e.getMessage().toString());
+    }
+
+    // Valid case
+    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 1, 2);
+    ASSERT_EQUAL('l', actualResultCodePointAt);
+
+    // Invalid
+    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, 1);
+    ASSERT_NOT_EQUAL('l', actualResultCodePointAt);
+
+    // Index < 0
+    try {
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, -1, 1);
+    }
+    catch (ArrayIndexOutOfBoundsException &e) {
+        ASSERT_STR("Array index out of range: -1", e.getMessage().toString());
+    }
+
+    // Index >= limit
+    try {
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 2, 1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Limit < 0
+    try {
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, -1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Limit >= arrayCodePointAt.length
+    try {
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, arrayCodePointAt.length);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 }
 
 TEST (JavaLang, CharacterCodePointBefore) {
