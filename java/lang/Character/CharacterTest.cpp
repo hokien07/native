@@ -107,10 +107,6 @@ TEST (JavaLang, CharacterCodePointAt) {
     actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0);
     ASSERT_EQUAL('a', actualResultCodePointAt);
 
-    // Test invalid case
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 1);
-    ASSERT_NOT_EQUAL('b', actualResultCodePointAt);
-
     // Test index < 0
     try {
         actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, -1);
@@ -122,10 +118,6 @@ TEST (JavaLang, CharacterCodePointAt) {
     // Valid case
     actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 1, 2);
     ASSERT_EQUAL('l', actualResultCodePointAt);
-
-    // Invalid
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, 1);
-    ASSERT_NOT_EQUAL('l', actualResultCodePointAt);
 
     // Index < 0
     try {
@@ -177,10 +169,6 @@ TEST (JavaLang, CharacterCodePointBefore) {
     actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2);
     ASSERT_EQUAL('l', actualResultCodePointBefore);
 
-    // Test invalid case
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2);
-    ASSERT_NOT_EQUAL('c', actualResultCodePointBefore);
-
     // Test index < 1
     try {
         actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0);
@@ -192,10 +180,6 @@ TEST (JavaLang, CharacterCodePointBefore) {
     // Valid case
     actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 1);
     ASSERT_EQUAL('l', actualResultCodePointBefore);
-
-    // Invalid
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 1);
-    ASSERT_NOT_EQUAL('a', actualResultCodePointBefore);
 
     // Index <= start
     try {
@@ -226,57 +210,52 @@ TEST (JavaLang, CharacterCodePointBefore) {
 TEST (JavaLang, CharacterCodePointCount) {
     // Create variable to test
     Array<char16_t> arrayCodePointCount;
-    int offsetCodePointCount;
-    int countCodePointCount;
     int expectedResultCodePointCount;
     int actualResultCodePointCount;
 
     // Assign value to a
     arrayCodePointCount.push('a');
-    arrayCodePointCount.push('b');
+    arrayCodePointCount.push(U'\U005cd9b5'); // first way to input high/ low surrogate
+    arrayCodePointCount.push(u'\xdc28'); // second way to input high/ low surrogate
+    arrayCodePointCount.push(0xdc28); // third way to input high/ low surrogate
     arrayCodePointCount.push('c');
+    arrayCodePointCount.push('d');
+    arrayCodePointCount.push('e');
+    arrayCodePointCount.push('f');
+    arrayCodePointCount.push('g');
 
     // Test valid case
-    offsetCodePointCount = 0;
-    countCodePointCount = 1;
-    expectedResultCodePointCount = 1;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
+    expectedResultCodePointCount = 5;
+    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 3, 5);
     ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
 
-    // Test valid case
-    offsetCodePointCount = 0;
-    countCodePointCount = 2;
-    expectedResultCodePointCount = 2;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
+    expectedResultCodePointCount = 4;
+    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 0, 5);
     ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
 
-    // Test invalid case
-    offsetCodePointCount = 0;
-    countCodePointCount = 3;
-    expectedResultCodePointCount = 2;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
-    ASSERT_NOT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
+    // count < 0
+    try {
+        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 2, -1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 
-    // Test exception offset < 0
-    offsetCodePointCount = -1;
-    countCodePointCount = 3;
-    expectedResultCodePointCount = -1;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
-    ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
+    // Offset < 0
+    try {
+        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, -1, 2);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 
-    // Test exception count < 0
-    offsetCodePointCount = 0;
-    countCodePointCount = -1;
-    expectedResultCodePointCount = -1;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
-    ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
-
-    // Test exception count > length - offset
-    offsetCodePointCount = 2;
-    countCodePointCount = 5;
-    expectedResultCodePointCount = -1;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, offsetCodePointCount, countCodePointCount);
-    ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
+    // Count > length - offset
+    try {
+        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 6, 5);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 }
 
 TEST (JavaLang, CharacterCompare) {

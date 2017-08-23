@@ -101,22 +101,22 @@ int Character::codePointBeforeImpl(const Array<char16_t> &charArray, int index, 
 
 int Character::codePointCount(const Array<char16_t> &charArray, int offset, int count) {
     if (count > charArray.length - offset || offset < 0 || count < 0) {
-        return -1;
+        throw IndexOutOfBoundsException();
     }
     return codePointCountImpl(charArray, offset, count);
 }
 
 int Character::codePointCountImpl(const Array<char16_t> &charArray, int offset, int count) {
     int endIndex = offset + count;
-    int n = count;
+    int numberOfCodePoint = count;
     for (int i = offset; i < endIndex;) {
         if (isHighSurrogate(charArray[ i++ ]) && i < endIndex
             && isLowSurrogate(charArray[ i ])) {
-            n--;
+            numberOfCodePoint--;
             i++;
         }
     }
-    return n;
+    return numberOfCodePoint;
 }
 
 int Character::compare(char16_t x, char16_t y) {
