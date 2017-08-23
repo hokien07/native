@@ -79,13 +79,16 @@ int Character::codePointBefore(const Array<char16_t> &charArray , int index) {
 
 int Character::codePointBefore(const Array<char16_t> &charArray , int index, int start) {
     if (index <= start || start < 0 || start >= charArray.length) {
-        return -1;
+        throw IndexOutOfBoundsException();
     }
     return codePointBeforeImpl(charArray, index, start);
 }
 
 // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
 int Character::codePointBeforeImpl(const Array<char16_t> &charArray, int index, int start) {
+    if (index < 1 || index >= charArray.length) {
+        throw ArrayIndexOutOfBoundsException(index);
+    }
     char16_t c2 = charArray[ --index ];
     if (isLowSurrogate(c2) && index > start) {
         char16_t c1 = charArray[ --index ];

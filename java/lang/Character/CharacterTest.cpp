@@ -151,9 +151,9 @@ TEST (JavaLang, CharacterCodePointAt) {
         ASSERT_STR("", e.getMessage().toString());
     }
 
-    // Limit >= arrayCodePointAt.length
+    // Limit > arrayCodePointAt.length
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, arrayCodePointAt.length);
+        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, arrayCodePointAt.length + 1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -163,80 +163,64 @@ TEST (JavaLang, CharacterCodePointAt) {
 TEST (JavaLang, CharacterCodePointBefore) {
     // Create variable to test
     Array<char16_t> arrayCodePointBefore;
-    int indexCodePointBefore;
-    int expectedResultCodePointBefore;
     int actualResultCodePointBefore;
+
     arrayCodePointBefore.push('a');
-    arrayCodePointBefore.push('b');
-    arrayCodePointBefore.push('c');
+    arrayCodePointBefore.push('l');
+    arrayCodePointBefore.push('w');
+    arrayCodePointBefore.push('a');
+    arrayCodePointBefore.push('y');
+    arrayCodePointBefore.push('s');
+
 
     // Test valid case
-    indexCodePointBefore = 2;
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, indexCodePointBefore);
-    expectedResultCodePointBefore = 'b';
-    ASSERT_EQUAL(expectedResultCodePointBefore, actualResultCodePointBefore);
+    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2);
+    ASSERT_EQUAL('l', actualResultCodePointBefore);
 
     // Test invalid case
-    indexCodePointBefore = 2;
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, indexCodePointBefore);
-    expectedResultCodePointBefore = 'c';
-    ASSERT_NOT_EQUAL(expectedResultCodePointBefore, actualResultCodePointBefore);
-}
+    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2);
+    ASSERT_NOT_EQUAL('c', actualResultCodePointBefore);
 
-TEST (JavaLang, CharacterCodePointBefore2) {
-    // Create variable to test
-    Array<char16_t> arrayCodePointBefore2;
-    int indexCodePointBefore2;
-    int startCodePointBefore2;
-    int expectedResultCodePointBefore2;
-    int actualResultCodePointBefore2;
+    // Test index < 1
+    try {
+        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0);
+    }
+    catch (ArrayIndexOutOfBoundsException &e) {
+        ASSERT_STR("Array index out of range: 0", e.getMessage().toString());
+    }
 
-    // Assign value to a
-    arrayCodePointBefore2.push('a');
-    arrayCodePointBefore2.push('b');
-    arrayCodePointBefore2.push('c');
+    // Valid case
+    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 1);
+    ASSERT_EQUAL('l', actualResultCodePointBefore);
 
-    // Test valid case.
-    indexCodePointBefore2 = 1;
-    startCodePointBefore2 = 0;
-    expectedResultCodePointBefore2 = 'a';
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
+    // Invalid
+    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 1);
+    ASSERT_NOT_EQUAL('a', actualResultCodePointBefore);
 
-    // Test valid case.
-    indexCodePointBefore2 = 2;
-    startCodePointBefore2 = 0;
-    expectedResultCodePointBefore2 = 'b';
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
+    // Index <= start
+    try {
+        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 2);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 
-    // Test invalid case.
-    indexCodePointBefore2 = 3;
-    startCodePointBefore2 = 0;
-    expectedResultCodePointBefore2 = 'b';
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_NOT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
+    // Start < 0
+    try {
+        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0, -1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 
-    // Test exception index < start.
-    indexCodePointBefore2 = 0;
-    startCodePointBefore2 = 1;
-    expectedResultCodePointBefore2 = -1;
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
+    // Start >= arrayCodePointBefore.length
+    try {
+        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0, arrayCodePointBefore.length);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
 
-    // Test exception start > length.
-    indexCodePointBefore2 = 2;
-    startCodePointBefore2 = 4;
-    expectedResultCodePointBefore2 = -1;
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
-
-    // Test exception start < 0.
-    indexCodePointBefore2 = 2;
-    startCodePointBefore2 = -1;
-    expectedResultCodePointBefore2 = -1;
-    actualResultCodePointBefore2 = Character::codePointBefore(arrayCodePointBefore2, indexCodePointBefore2, startCodePointBefore2);
-    ASSERT_EQUAL(expectedResultCodePointBefore2, actualResultCodePointBefore2);
 }
 
 TEST (JavaLang, CharacterCodePointCount) {
