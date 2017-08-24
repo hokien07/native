@@ -1226,6 +1226,15 @@ namespace Java {
             static boolean isWhitespace(int codePoint) ;
 
             /**
+             * Returns the trailing surrogate (a low surrogate code unit) of the surrogate pair
+             * representing the specified supplementary character (Unicode code point) in the UTF-16 encoding.
+             * If the specified character is not a supplementary character, an unspecified char is returned.
+             *
+             * @param codePoint
+             * @return the trailing surrogate code unit used to represent the character in the UTF-16 encoding
+             */
+            static char16_t lowSurrogate(int codePoint);
+            /**
              * Returns the index within the given char sequence that is offset
              * from the given index by codePointOffset code points.
              * Unpaired surrogates within the text range given by index

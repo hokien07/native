@@ -273,3 +273,17 @@ Character::offsetByCodePoints(const Array<char16_t> &charArray, int start, int c
 
     return offsetByCodePointsImpl(charArray, start, count, index, codePointOffset);
 }
+
+void Character::toSurrogates(int codePoint, Array<char16_t> &charArray, int index) {
+    charArray[index + 1] = Character::lowSurrogate(codePoint);
+    charArray[index] = Character::highSurrogate(codePoint);
+}
+
+char16_t Character::lowSurrogate(int codePoint) {
+    return (char16_t) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
+}
+
+char16_t Character::highSurrogate(int codePoint) {
+    return (char16_t) (((unsigned long) codePoint >> 10)
+                       + (MIN_HIGH_SURROGATE - (((unsigned long) MIN_SUPPLEMENTARY_CODE_POINT) >> 10)));
+}

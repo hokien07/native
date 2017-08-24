@@ -434,3 +434,13 @@ TEST(JavaLang, CharacterOffsetByCodePoint) {
         ASSERT_STR("", e.getMessage().toString());
     }
 }
+
+TEST(JavaLang, CharacterHighSurrogate) {
+    ASSERT_EQUAL(55296, Character::highSurrogate(0x10043));
+
+    ASSERT_EQUAL(55231, Character::highSurrogate(-1));
+}
+
+TEST(JavaLang, CharacterLowSurrogate) {
+    ASSERT_EQUAL(56387, Character::lowSurrogate(0x10043));
+}
