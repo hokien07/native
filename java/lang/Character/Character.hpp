@@ -683,7 +683,8 @@ namespace Java {
              * @param object
              * @return true if the objects are the same; false otherwise.
              */
-            boolean equals(const Object &object) const;
+            // TODO (anhnt) instanceof return false, use Character instead.
+            boolean equals(const Character &object) const;
 
             /**
              * Determines the character representation for a specific digit in the specified radix.
@@ -777,9 +778,10 @@ namespace Java {
             /**
              * Returns a hash code for a char value; compatible with Character.hashCode().
              *
+             * @param value
              * @return a hash code for a char value
              */
-            static long hashCode(char16_t) ;
+            static long hashCode(char16_t value) ;
 
             /**
              * Returns the leading surrogate (a high surrogate code unit) of the surrogate pair

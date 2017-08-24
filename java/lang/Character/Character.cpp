@@ -217,14 +217,23 @@ std::ostream &operator<<(std::ostream &os, const Character &target) {
     return os;
 }
 
-boolean Character::equals(const Object &object) const {
-    return Object::equals(object);
+boolean Character::equals(const Character &object) const {
+    return this->original == object.original;
 }
 
 long Character::hashCode() const {
-    return Object::hashCode();
+    return Character::hashCode(this->original);
 }
 
 string Character::toString() const {
-    return Object::toString();
+    return string_from_int(this->original);
+}
+
+int Character::offsetByCodePointsImpl(const Array<char16_t> &charArray, int start, int count, int index,
+                                      int codePointOffset) {
+    return 0;
+}
+
+long Character::hashCode(char16_t value) {
+    return (int) value;
 }

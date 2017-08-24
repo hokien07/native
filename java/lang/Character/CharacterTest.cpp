@@ -33,7 +33,7 @@ extern "C" {
 
 using namespace Java::Lang;
 
-TEST (JavaLang, CharacterConstructor) {
+TEST(JavaLang, CharacterConstructor) {
     Character character;
     ASSERT_EQUAL('\0', character.charValue());
 
@@ -44,7 +44,7 @@ TEST (JavaLang, CharacterConstructor) {
     ASSERT_EQUAL(u'ﾄ', character.charValue());
 }
 
-TEST (JavaLang, CharacterCharCount) {
+TEST(JavaLang, CharacterCharCount) {
     Character variableTestCharCount;
     int expectedResultCharCount;
     int actualResultCharCount;
@@ -70,7 +70,7 @@ TEST (JavaLang, CharacterCharCount) {
     ASSERT_EQUAL(expectedResultCharCount, actualResultCharCount);
 }
 
-TEST (JavaLang, CharacterCharValue) {
+TEST(JavaLang, CharacterCharValue) {
     // Create variable to test Character::charValue().
     Character variableTestCharValue;
 
@@ -90,7 +90,7 @@ TEST (JavaLang, CharacterCharValue) {
     ASSERT_EQUAL(u'ﾄ', variableTestCharValue.charValue());
 }
 
-TEST (JavaLang, CharacterCodePointAt) {
+TEST(JavaLang, CharacterCodePointAt) {
     // Create variable to test
     Array<char16_t> arrayCodePointAt;
     int actualResultCodePointAt;
@@ -152,7 +152,7 @@ TEST (JavaLang, CharacterCodePointAt) {
     }
 }
 
-TEST (JavaLang, CharacterCodePointBefore) {
+TEST(JavaLang, CharacterCodePointBefore) {
     // Create variable to test
     Array<char16_t> arrayCodePointBefore;
     int actualResultCodePointBefore;
@@ -207,7 +207,7 @@ TEST (JavaLang, CharacterCodePointBefore) {
 
 }
 
-TEST (JavaLang, CharacterCodePointCount) {
+TEST(JavaLang, CharacterCodePointCount) {
     // Create variable to test
     Array<char16_t> arrayCodePointCount;
     int expectedResultCodePointCount;
@@ -258,7 +258,7 @@ TEST (JavaLang, CharacterCodePointCount) {
     }
 }
 
-TEST (JavaLang, CharacterCompare) {
+TEST(JavaLang, CharacterCompare) {
     // Create variable to test
     int actualResultCompare;
 
@@ -275,7 +275,7 @@ TEST (JavaLang, CharacterCompare) {
     ASSERT_TRUE(actualResultCompare < 0);
 }
 
-TEST (JavaLang, CharacterCompareTo) {
+TEST(JavaLang, CharacterCompareTo) {
     // Create variable to test
     Character character = 'a';
     Character anotherCharacter = 'd';
@@ -299,12 +299,12 @@ TEST (JavaLang, CharacterCompareTo) {
     ASSERT_TRUE(actualResultCompareTo < 0);
 }
 
-TEST (JavaLang, CharacterToCodePoint) {
+TEST(JavaLang, CharacterToCodePoint) {
     ASSERT_EQUAL(0x10437, Character::toCodePoint(u'\xD801', u'\xDC37'));
     ASSERT_EQUAL(0x24B62, Character::toCodePoint(u'\xD852', u'\xDF62'));
 }
 
-TEST (JavaLang, CharacterIsHighSurrogate) {
+TEST(JavaLang, CharacterIsHighSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isHighSurrogate(u'\xD852'));
 
@@ -312,7 +312,7 @@ TEST (JavaLang, CharacterIsHighSurrogate) {
     ASSERT_FALSE(Character::isHighSurrogate(u'\xDF62'));
 }
 
-TEST (JavaLang, CharacterisLowSurrogate) {
+TEST(JavaLang, CharacterisLowSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isLowSurrogate(u'\xDF62'));
 
@@ -320,13 +320,30 @@ TEST (JavaLang, CharacterisLowSurrogate) {
     ASSERT_FALSE(Character::isLowSurrogate(u'\xD852'));
 }
 
-TEST (JavaLang, CharacterIsSurrogate) {
+TEST(JavaLang, CharacterIsSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isSurrogate(u'\xD852'));
     // Test invalid case
     ASSERT_FALSE(Character::isSurrogate(u'\x0030'));
 }
 
-TEST (JavaLang, CharacterDigit) {
+TEST(JavaLang, CharacterEquals) {
+    // Create variable to test
+    Character character = 'a';
+    Character anotherCharacter = 'd';
+    Character equalToCharacter = 'a';
 
+    // Test equal case
+    ASSERT_TRUE(character.equals(equalToCharacter));
+
+    // Test not equal
+    ASSERT_FALSE(character.equals(anotherCharacter));
+}
+
+TEST(JavaLang, CharacterHashCode) {
+    // Character to get hashcode
+    Character character = 'a';
+    ASSERT_EQUAL(97, character.hashCode());
+
+    ASSERT_EQUAL(97, Character::hashCode('a'));
 }
