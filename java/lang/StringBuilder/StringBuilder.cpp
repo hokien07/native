@@ -704,8 +704,8 @@ String StringBuilder::substring(int start, int end) const {
         throw StringIndexOutOfBoundsException(end - start);
     }
 
-    std::u16string subStringUtf16 = this->original;
-    subStringUtf16 = subStringUtf16.substr(start, end - start);
+    std::u16string subStringUtf16(this->original, static_cast<size_t>(this->currentLength));
+    subStringUtf16 = subStringUtf16.substr(static_cast<size_t>(start), static_cast<size_t>(end - start));
     std::string subStringUtf8;
     this->convertUtf16ToUtf8(subStringUtf16, subStringUtf8);
     return subStringUtf8.c_str();
