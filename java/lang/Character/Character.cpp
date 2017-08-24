@@ -231,9 +231,45 @@ string Character::toString() const {
 
 int Character::offsetByCodePointsImpl(const Array<char16_t> &charArray, int start, int count, int index,
                                       int codePointOffset) {
-    return 0;
+    int offset = index;
+    if (codePointOffset >= 0) {
+        int limit = start + count;
+        for (index = 0; offset < limit && index < codePointOffset; index++) {
+            if (isHighSurrogate(charArray[offset++]) && offset < limit
+                && isLowSurrogate(charArray[offset])) {
+                offset++;
+            }
+        }
+
+        if (index < codePointOffset) {
+            throw IndexOutOfBoundsException();
+        }
+    } else {
+        for (index = codePointOffset; offset > start && index < 0; index++) {
+            if (isLowSurrogate(charArray[--offset]) && offset > start
+                && isHighSurrogate(charArray[offset-1])) {
+                offset--;
+            }
+        }
+
+        if (index < 0) {
+            throw IndexOutOfBoundsException();
+        }
+    }
+    return offset;
 }
 
 long Character::hashCode(char16_t value) {
     return (int) value;
+}
+
+int
+Character::offsetByCodePoints(const Array<char16_t> &charArray, int start, int count, int index,
+                              int codePointOffset) {
+    if (count > charArray.length-start || start < 0 || count < 0
+        || index < start || index > start + count) {
+        throw IndexOutOfBoundsException();
+    }
+
+    return offsetByCodePointsImpl(charArray, start, count, index, codePointOffset);
 }
