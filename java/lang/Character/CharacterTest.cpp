@@ -444,3 +444,22 @@ TEST(JavaLang, CharacterHighSurrogate) {
 TEST(JavaLang, CharacterLowSurrogate) {
     ASSERT_EQUAL(56387, Character::lowSurrogate(0x10043));
 }
+
+TEST(JavaLang, CharacterForDigit) {
+    // Digit > radix
+    ASSERT_EQUAL('\0', Character::forDigit(5, 2));
+
+    // Digit < 0
+    ASSERT_EQUAL('\0', Character::forDigit(-1, 3));
+
+    // Radix out of range
+    ASSERT_EQUAL('\0', Character::forDigit(5, 1));
+    ASSERT_EQUAL('\0', Character::forDigit(5, 37));
+
+    // Digit < 10
+    ASSERT_EQUAL('5', Character::forDigit(5, 10));
+
+    // Digit >= 10
+    ASSERT_EQUAL('e', Character::forDigit(14, 16));
+
+}

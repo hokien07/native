@@ -287,3 +287,23 @@ char16_t Character::highSurrogate(int codePoint) {
     return (char16_t) (((unsigned long) codePoint >> 10)
                        + (MIN_HIGH_SURROGATE - (((unsigned long) MIN_SUPPLEMENTARY_CODE_POINT) >> 10)));
 }
+
+int Character::digit(char16_t character, int radix) {
+    return 0;
+}
+
+char16_t Character::forDigit(int digit, int radix){
+    if ((digit >= radix) || (digit < 0)) {
+        return '\0';
+    }
+
+    if ((radix < Character::MIN_RADIX) || (radix > Character::MAX_RADIX)) {
+        return '\0';
+    }
+
+    if (digit < 10) {
+        return (char16_t)('0' + digit);
+    }
+
+    return (char16_t)('a' - 10 + digit);
+}

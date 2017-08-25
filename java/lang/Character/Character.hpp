@@ -696,7 +696,7 @@ namespace Java {
              * @param radix
              * @return the char representation of the specified digit in the specified radix.
              */
-            char16_t forDigit(int digit, int radix) const;
+            static char16_t forDigit(int digit, int radix);
 
             /**
              * Returns the Unicode directionality property for the given character (Unicode code point).
@@ -773,7 +773,7 @@ namespace Java {
              *
              * @return a hash code for this Character
              */
-            long hashCode() const;
+            long hashCode() const override;
 
             /**
              * Returns a hash code for a char value; compatible with Character.hashCode().
