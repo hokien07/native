@@ -176,7 +176,7 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(const Array<char> &target);
+            StringBuilder &append(const Array<char16_t> &target);
 
             /**
              * Appends the string representation of a subarray of the Character array argument to this sequence.

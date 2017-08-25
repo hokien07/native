@@ -126,11 +126,11 @@ StringBuilder &StringBuilder::append(const Array<Character> &target) {
     return *this;
 }
 
-StringBuilder &StringBuilder::append(const Array<char> &target) {
+StringBuilder &StringBuilder::append(const Array<char16_t> &target) {
     int newLength = this->currentLength + target.length;
     this->ensureCapacity(newLength);
     int indexOfOriginal = this->currentLength;
-    for (char character: target) {
+    for (char16_t character: target) {
         this->original[indexOfOriginal] = character;
         indexOfOriginal = indexOfOriginal + 1;
     }
