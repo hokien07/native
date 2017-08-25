@@ -94,8 +94,7 @@ StringBuilder &StringBuilder::append(boolean target) {
 }
 
 StringBuilder &StringBuilder::append(const Character &target) {
-    Character *pointerToTarget = const_cast<Character *>(&target);
-    return this->append(pointerToTarget->charValue());
+    return this->append(target.charValue());
 }
 
 StringBuilder &StringBuilder::append(char16_t target) {
@@ -126,11 +125,11 @@ StringBuilder &StringBuilder::append(const Array<Character> &target) {
     return *this;
 }
 
-StringBuilder &StringBuilder::append(const Array<char> &target) {
+StringBuilder &StringBuilder::append(const Array<char16_t> &target) {
     int newLength = this->currentLength + target.length;
     this->ensureCapacity(newLength);
     int indexOfOriginal = this->currentLength;
-    for (char character: target) {
+    for (char16_t character: target) {
         this->original[indexOfOriginal] = character;
         indexOfOriginal = indexOfOriginal + 1;
     }
@@ -152,8 +151,9 @@ StringBuilder &StringBuilder::append(const CharSequence &target) {
 }
 
 StringBuilder &StringBuilder::append(const CharSequence &target, int start, int end) {
-    string targetString = target.toString();
-    int lengthOfTarget = length_pointer_char(targetString);
+    std::u16string targetUtf16;
+    this->convertUtf8ToUtf16(target.toString(), targetUtf16);
+    int lengthOfTarget = static_cast<int>(targetUtf16.length());
     if (start < 0 || start > end || end > lengthOfTarget) {
         throw IndexOutOfBoundsException();
     }
@@ -164,7 +164,7 @@ StringBuilder &StringBuilder::append(const CharSequence &target, int start, int 
     int indexOfTarget;
     int indexOfOrginal;
     for (indexOfTarget = start, indexOfOrginal = this->currentLength; indexOfTarget < end; indexOfTarget++, indexOfOrginal++) {
-        this->original[indexOfOrginal] = targetString[indexOfTarget];
+        this->original[indexOfOrginal] = targetUtf16[indexOfTarget];
     }
 
     this->currentLength = newLength;
@@ -400,9 +400,7 @@ StringBuilder &StringBuilder::insert(int offset, char16_t target) {
 }
 
 StringBuilder &StringBuilder::insert(int offset, const Character &target) {
-    Character *pointerToTarget = const_cast<Character *>(&target);
-    // FIXME(truongchauhien): Remove static_cast after Character support UTF-16.
-    return this->insert(offset, static_cast<char16_t>(pointerToTarget->charValue()));
+    return this->insert(offset, target.charValue());
 }
 
 StringBuilder &StringBuilder::insert(int offset, const Array<char16_t> &target) {
@@ -477,8 +475,10 @@ StringBuilder &StringBuilder::insert(int destinationOffset, const CharSequence &
     if (destinationOffset < 0 || destinationOffset > this->currentLength) {
         throw IndexOutOfBoundsException();
     }
-    string targetString = target.toString();
-    int lengthOfTarget = length_pointer_char(targetString);
+
+    std::u16string targetUtf16;
+    this->convertUtf8ToUtf16(target.toString(), targetUtf16);
+    int lengthOfTarget = static_cast<int>(targetUtf16.length());
     if (start < 0 || end < 0 || start > end || end > lengthOfTarget){
         throw IndexOutOfBoundsException();
     }
@@ -495,7 +495,7 @@ StringBuilder &StringBuilder::insert(int destinationOffset, const CharSequence &
     int indexOfOriginal = destinationOffset;
     int indexOfTarget;
     for (indexOfTarget = start; indexOfTarget < end; indexOfTarget++) {
-        this->original[indexOfOriginal] = targetString[indexOfTarget];
+        this->original[indexOfOriginal] = targetUtf16[indexOfTarget];
         indexOfOriginal = indexOfOriginal + 1;
     }
 
@@ -590,7 +590,7 @@ int StringBuilder::lastIndexOf(const_string target, int fromIndex) const {
 }
 
 int StringBuilder::length() const {
-    return this->lengthUtf8();
+    return this->currentLength;
 }
 
 int StringBuilder::offsetByCodePoints(int index, int codePointOffset) const {
@@ -606,8 +606,8 @@ StringBuilder StringBuilder::replace(int start, int end, const String &target) {
 }
 
 StringBuilder StringBuilder::replace(int start, int end, const_string target) {
-    std::u16string targetAsUtf16;
-    this->convertUtf8ToUtf16(target, targetAsUtf16);
+    std::u16string targetUtf16;
+    this->convertUtf8ToUtf16(target, targetUtf16);
 
     if (start < 0) {
         throw StringIndexOutOfBoundsException(start);
@@ -622,7 +622,7 @@ StringBuilder StringBuilder::replace(int start, int end, const_string target) {
         end = this->currentLength;
     }
 
-    int lengthOfTarget = (int)targetAsUtf16.length();
+    int lengthOfTarget = static_cast<int>(targetUtf16.length());
     int lengthOfSubStringWillBeOverwrite = end - start; // tail part of this sequence.
     int newLength = this->currentLength + lengthOfTarget - lengthOfSubStringWillBeOverwrite;
     this->ensureCapacity(newLength);
@@ -634,7 +634,7 @@ StringBuilder StringBuilder::replace(int start, int end, const_string target) {
 
     char16_t *insertPosition = this->original + start;
     int memorySizeForTarget = lengthOfTarget * sizeof(char16_t);
-    memcpy(insertPosition, targetAsUtf16.c_str(), (size_t)memorySizeForTarget);
+    memcpy(insertPosition, targetUtf16.c_str(), (size_t)memorySizeForTarget);
 
     this->currentLength = newLength;
     return *this;
@@ -670,8 +670,7 @@ void StringBuilder::setCharAt(int index, char16_t target) {
 }
 
 void StringBuilder::setCharAt(int index, const Character &target) {
-    Character *pointerToTarget = const_cast<Character *>(&target);
-    this->setCharAt(index, pointerToTarget->charValue());
+    this->setCharAt(index, target.charValue());
 }
 
 void StringBuilder::setLength(int newLength) {
@@ -885,73 +884,6 @@ void StringBuilder::reverseAllValidSurrogatePairs() {
             }
         }
     }
-}
-
-int StringBuilder::lengthUtf8() const {
-    int length = 0;
-    int index = 0;
-    while (index < this->currentLength) {
-        if (this->isFirstByte(this->original[index])) {
-            length = length + 1;
-        }
-        index = index + 1;
-    }
-    return length;
-}
-
-int StringBuilder::convertIndexOfCharacterToIndexOfFirstByte(int indexOfCharacter) const {
-    int index = 0;
-    int numberOfFirstByte = 0;
-    while (index < this->currentLength) {
-        if (this->isFirstByte(this->original[index])) {
-            numberOfFirstByte = numberOfFirstByte + 1;
-        }
-
-        if (numberOfFirstByte == indexOfCharacter + 1) {
-            return index;
-        }
-
-        index = index + 1;
-    }
-
-    return -1;
-}
-
-int StringBuilder::getNumberOfTrailingBytesAfterFirstByte(int indexOfFirstByte) const {
-    char firstByte = this->original[indexOfFirstByte];
-
-    if (!this->isFirstByte(firstByte)) {
-        return -1;
-    }
-
-    if ((firstByte & 0b10000000) == 0b00000000) {
-        return 0;
-    }
-
-    if ((firstByte & 0b11100000) == 0b11000000) {
-        return 1;
-    }
-
-    if ((firstByte & 0b11110000) == 0b11100000) {
-        return 2;
-    }
-
-    if ((firstByte & 0b11111000) == 0b11110000) {
-        return 3;
-    }
-
-    return -1;
-}
-
-int StringBuilder::getIndexOfFirstByteFromAnyIndex(int indexOfAnyByte) const {
-    while (!this->isFirstByte(this->original[indexOfAnyByte])) {
-        indexOfAnyByte = indexOfAnyByte - 1;
-    }
-    return indexOfAnyByte;
-}
-
-boolean StringBuilder::isFirstByte(const char &target) const {
-    return (target & 0b11000000) != 0b10000000;
 }
 
 void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) const {
