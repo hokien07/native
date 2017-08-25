@@ -33,7 +33,7 @@ extern "C" {
 
 using namespace Java::Lang;
 
-TEST (JavaLang, CharacterConstructor) {
+TEST(JavaLang, CharacterConstructor) {
     Character character;
     ASSERT_EQUAL('\0', character.charValue());
 
@@ -44,33 +44,33 @@ TEST (JavaLang, CharacterConstructor) {
     ASSERT_EQUAL(u'ﾄ', character.charValue());
 }
 
-TEST (JavaLang, CharacterCharCount) {
+TEST(JavaLang, CharacterCharCount) {
     Character variableTestCharCount;
-    int expectedResultCharCount;
-    int actualResultCharCount;
+    int expectResult;
+    int actualResult;
 
     // Test LATIN CAPITAL LETTER A :  UTF-32 (hex)	0x00000041 (0041)
-    expectedResultCharCount = 1;
-    actualResultCharCount = variableTestCharCount.charCount(0x00000041);
-    ASSERT_EQUAL(expectedResultCharCount, actualResultCharCount);
+    expectResult = 1;
+    actualResult = variableTestCharCount.charCount(0x00000041);
+    ASSERT_EQUAL(expectResult, actualResult);
 
     // Test Unicode Han Data 香 : UTF-32 (hex)	0x00009999 (9999)
-    expectedResultCharCount = 1;
-    actualResultCharCount = variableTestCharCount.charCount(0x00009999);
-    ASSERT_EQUAL(expectedResultCharCount, actualResultCharCount);
+    expectResult = 1;
+    actualResult = variableTestCharCount.charCount(0x00009999);
+    ASSERT_EQUAL(expectResult, actualResult);
 
     // Test LINEAR B SYLLABLE B008 A : UTF-32 (hex)	0x00010000 (10000)
-    expectedResultCharCount = 2;
-    actualResultCharCount = variableTestCharCount.charCount(0x00010000);
-    ASSERT_EQUAL(expectedResultCharCount, actualResultCharCount);
+    expectResult = 2;
+    actualResult = variableTestCharCount.charCount(0x00010000);
+    ASSERT_EQUAL(expectResult, actualResult);
 
     // Test AEGEAN WORD SEPARATOR LINE : UTF-32 (hex)	0x00010100 (10100)
-    expectedResultCharCount = 2;
-    actualResultCharCount = variableTestCharCount.charCount(0x00010100);
-    ASSERT_EQUAL(expectedResultCharCount, actualResultCharCount);
+    expectResult = 2;
+    actualResult = variableTestCharCount.charCount(0x00010100);
+    ASSERT_EQUAL(expectResult, actualResult);
 }
 
-TEST (JavaLang, CharacterCharValue) {
+TEST(JavaLang, CharacterCharValue) {
     // Create variable to test Character::charValue().
     Character variableTestCharValue;
 
@@ -90,10 +90,10 @@ TEST (JavaLang, CharacterCharValue) {
     ASSERT_EQUAL(u'ﾄ', variableTestCharValue.charValue());
 }
 
-TEST (JavaLang, CharacterCodePointAt) {
+TEST(JavaLang, CharacterCodePointAt) {
     // Create variable to test
     Array<char16_t> arrayCodePointAt;
-    int actualResultCodePointAt;
+    int actualResult;
 
     // Assign value to arrayCodePointAt
     arrayCodePointAt.push('a');
@@ -104,24 +104,24 @@ TEST (JavaLang, CharacterCodePointAt) {
     arrayCodePointAt.push('s');
 
     // Test valid case
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0);
-    ASSERT_EQUAL('a', actualResultCodePointAt);
+    actualResult = Character::codePointAt(arrayCodePointAt, 0);
+    ASSERT_EQUAL('a', actualResult);
 
     // Test index < 0
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, -1);
+        actualResult = Character::codePointAt(arrayCodePointAt, -1);
     }
     catch (ArrayIndexOutOfBoundsException &e) {
         ASSERT_STR("Array index out of range: -1", e.getMessage().toString());
     }
 
     // Valid case
-    actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 1, 2);
-    ASSERT_EQUAL('l', actualResultCodePointAt);
+    actualResult = Character::codePointAt(arrayCodePointAt, 1, 2);
+    ASSERT_EQUAL('l', actualResult);
 
     // Index < 0
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, -1, 1);
+        actualResult = Character::codePointAt(arrayCodePointAt, -1, 1);
     }
     catch (ArrayIndexOutOfBoundsException &e) {
         ASSERT_STR("Array index out of range: -1", e.getMessage().toString());
@@ -129,7 +129,7 @@ TEST (JavaLang, CharacterCodePointAt) {
 
     // Index >= limit
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 2, 1);
+        actualResult = Character::codePointAt(arrayCodePointAt, 2, 1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -137,7 +137,7 @@ TEST (JavaLang, CharacterCodePointAt) {
 
     // Limit < 0
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, -1);
+        actualResult = Character::codePointAt(arrayCodePointAt, 0, -1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -145,17 +145,17 @@ TEST (JavaLang, CharacterCodePointAt) {
 
     // Limit > arrayCodePointAt.length
     try {
-        actualResultCodePointAt = Character::codePointAt(arrayCodePointAt, 0, arrayCodePointAt.length + 1);
+        actualResult = Character::codePointAt(arrayCodePointAt, 0, arrayCodePointAt.length + 1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
     }
 }
 
-TEST (JavaLang, CharacterCodePointBefore) {
+TEST(JavaLang, CharacterCodePointBefore) {
     // Create variable to test
     Array<char16_t> arrayCodePointBefore;
-    int actualResultCodePointBefore;
+    int actualResult;
 
     arrayCodePointBefore.push('a');
     arrayCodePointBefore.push('l');
@@ -166,24 +166,24 @@ TEST (JavaLang, CharacterCodePointBefore) {
 
 
     // Test valid case
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2);
-    ASSERT_EQUAL('l', actualResultCodePointBefore);
+    actualResult = Character::codePointBefore(arrayCodePointBefore, 2);
+    ASSERT_EQUAL('l', actualResult);
 
     // Test index < 1
     try {
-        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0);
+        actualResult = Character::codePointBefore(arrayCodePointBefore, 0);
     }
     catch (ArrayIndexOutOfBoundsException &e) {
         ASSERT_STR("Array index out of range: 0", e.getMessage().toString());
     }
 
     // Valid case
-    actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 1);
-    ASSERT_EQUAL('l', actualResultCodePointBefore);
+    actualResult = Character::codePointBefore(arrayCodePointBefore, 2, 1);
+    ASSERT_EQUAL('l', actualResult);
 
     // Index <= start
     try {
-        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 2, 2);
+        actualResult = Character::codePointBefore(arrayCodePointBefore, 2, 2);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -191,7 +191,7 @@ TEST (JavaLang, CharacterCodePointBefore) {
 
     // Start < 0
     try {
-        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0, -1);
+        actualResult = Character::codePointBefore(arrayCodePointBefore, 0, -1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -199,7 +199,7 @@ TEST (JavaLang, CharacterCodePointBefore) {
 
     // Start >= arrayCodePointBefore.length
     try {
-        actualResultCodePointBefore = Character::codePointBefore(arrayCodePointBefore, 0, arrayCodePointBefore.length);
+        actualResult = Character::codePointBefore(arrayCodePointBefore, 0, arrayCodePointBefore.length);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -207,11 +207,11 @@ TEST (JavaLang, CharacterCodePointBefore) {
 
 }
 
-TEST (JavaLang, CharacterCodePointCount) {
+TEST(JavaLang, CharacterCodePointCount) {
     // Create variable to test
     Array<char16_t> arrayCodePointCount;
-    int expectedResultCodePointCount;
-    int actualResultCodePointCount;
+    int expectedResult;
+    int actualResult;
 
     // Assign value to a
     arrayCodePointCount.push('a');
@@ -225,17 +225,17 @@ TEST (JavaLang, CharacterCodePointCount) {
     arrayCodePointCount.push('g');
 
     // Test valid case
-    expectedResultCodePointCount = 5;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 3, 5);
-    ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
+    expectedResult = 5;
+    actualResult = Character::codePointCount(arrayCodePointCount, 3, 5);
+    ASSERT_EQUAL(expectedResult, actualResult);
 
-    expectedResultCodePointCount = 4;
-    actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 0, 5);
-    ASSERT_EQUAL(expectedResultCodePointCount, actualResultCodePointCount);
+    expectedResult = 4;
+    actualResult = Character::codePointCount(arrayCodePointCount, 0, 5);
+    ASSERT_EQUAL(expectedResult, actualResult);
 
     // count < 0
     try {
-        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 2, -1);
+        actualResult = Character::codePointCount(arrayCodePointCount, 2, -1);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -243,7 +243,7 @@ TEST (JavaLang, CharacterCodePointCount) {
 
     // Offset < 0
     try {
-        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, -1, 2);
+        actualResult = Character::codePointCount(arrayCodePointCount, -1, 2);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
@@ -251,60 +251,60 @@ TEST (JavaLang, CharacterCodePointCount) {
 
     // Count > length - offset
     try {
-        actualResultCodePointCount = Character::codePointCount(arrayCodePointCount, 6, 5);
+        actualResult = Character::codePointCount(arrayCodePointCount, 6, 5);
     }
     catch (IndexOutOfBoundsException &e) {
         ASSERT_STR("", e.getMessage().toString());
     }
 }
 
-TEST (JavaLang, CharacterCompare) {
+TEST(JavaLang, CharacterCompare) {
     // Create variable to test
-    int actualResultCompare;
+    int actualResult;
 
     // Test equal case
-    actualResultCompare = Character::compare('a', 'a');
-    ASSERT_TRUE(actualResultCompare == 0);
+    actualResult = Character::compare('a', 'a');
+    ASSERT_TRUE(actualResult == 0);
 
     // Test charA > charB case
-    actualResultCompare = Character::compare('d', 'a');
-    ASSERT_TRUE(actualResultCompare > 0);
+    actualResult = Character::compare('d', 'a');
+    ASSERT_TRUE(actualResult > 0);
 
     // Test charA < charB case
-    actualResultCompare = Character::compare('a', 'd');
-    ASSERT_TRUE(actualResultCompare < 0);
+    actualResult = Character::compare('a', 'd');
+    ASSERT_TRUE(actualResult < 0);
 }
 
-TEST (JavaLang, CharacterCompareTo) {
+TEST(JavaLang, CharacterCompareTo) {
     // Create variable to test
     Character character = 'a';
     Character anotherCharacter = 'd';
-    int actualResultCompareTo;
+    int actualResult;
 
     // Test equal case
-    actualResultCompareTo = character.compareTo(Character('a'));
-    ASSERT_TRUE(actualResultCompareTo == 0);
+    actualResult = character.compareTo(Character('a'));
+    ASSERT_TRUE(actualResult == 0);
 
     // Test charA > charB case
-    actualResultCompareTo = anotherCharacter.compareTo(character);
-    ASSERT_TRUE(actualResultCompareTo > 0);
+    actualResult = anotherCharacter.compareTo(character);
+    ASSERT_TRUE(actualResult > 0);
 
     // Test charA < charB case
-    actualResultCompareTo = character.compareTo(anotherCharacter);
-    ASSERT_TRUE(actualResultCompareTo < 0);
+    actualResult = character.compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResult < 0);
 
     // Test comparable
     Comparable<Character> *comparable = &character;
-    actualResultCompareTo = comparable->compareTo(anotherCharacter);
-    ASSERT_TRUE(actualResultCompareTo < 0);
+    actualResult = comparable->compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResult < 0);
 }
 
-TEST (JavaLang, CharacterToCodePoint) {
+TEST(JavaLang, CharacterToCodePoint) {
     ASSERT_EQUAL(0x10437, Character::toCodePoint(u'\xD801', u'\xDC37'));
     ASSERT_EQUAL(0x24B62, Character::toCodePoint(u'\xD852', u'\xDF62'));
 }
 
-TEST (JavaLang, CharacterIsHighSurrogate) {
+TEST(JavaLang, CharacterIsHighSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isHighSurrogate(u'\xD852'));
 
@@ -312,7 +312,7 @@ TEST (JavaLang, CharacterIsHighSurrogate) {
     ASSERT_FALSE(Character::isHighSurrogate(u'\xDF62'));
 }
 
-TEST (JavaLang, CharacterisLowSurrogate) {
+TEST(JavaLang, CharacterisLowSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isLowSurrogate(u'\xDF62'));
 
@@ -320,13 +320,127 @@ TEST (JavaLang, CharacterisLowSurrogate) {
     ASSERT_FALSE(Character::isLowSurrogate(u'\xD852'));
 }
 
-TEST (JavaLang, CharacterIsSurrogate) {
+TEST(JavaLang, CharacterIsSurrogate) {
     // Test valid case
     ASSERT_TRUE(Character::isSurrogate(u'\xD852'));
     // Test invalid case
     ASSERT_FALSE(Character::isSurrogate(u'\x0030'));
 }
 
-TEST (JavaLang, CharacterDigit) {
+TEST(JavaLang, CharacterEquals) {
+    // Create variable to test
+    Character character = 'a';
+    Character anotherCharacter = 'd';
+    Character equalToCharacter = 'a';
 
+    // Test equal case
+    ASSERT_TRUE(character.equals(equalToCharacter));
+
+    // Test not equal
+    ASSERT_FALSE(character.equals(anotherCharacter));
+}
+
+TEST(JavaLang, CharacterHashCode) {
+    // Character to get hashcode
+    Character character = 'a';
+    ASSERT_EQUAL(97, character.hashCode());
+
+    ASSERT_EQUAL(97, Character::hashCode('a'));
+}
+
+TEST(JavaLang, CharacterOffsetByCodePoint) {
+    // Create variable to test
+    Array<char16_t> arrayCodePoint;
+    int expectedResult;
+    int actualResult;
+
+    // Assign value to a
+    arrayCodePoint.push('a');
+    arrayCodePoint.push(U'\U005cd9b5'); // first way to input high/ low surrogate
+    arrayCodePoint.push(u'\xdc28'); // second way to input high/ low surrogate
+    arrayCodePoint.push(0xdc28); // third way to input high/ low surrogate
+    arrayCodePoint.push('c');
+    arrayCodePoint.push('d');
+    arrayCodePoint.push('e');
+    arrayCodePoint.push('f');
+    arrayCodePoint.push('g');
+
+    // Test valid case
+    expectedResult = 8;
+    actualResult = Character::offsetByCodePoints(arrayCodePoint,0, 9, 3, 5);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    expectedResult = 7;
+    actualResult = Character::offsetByCodePoints(arrayCodePoint, 0, 9, 1, 5);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    expectedResult = 3;
+    actualResult = Character::offsetByCodePoints(arrayCodePoint, 0, 9, 5, -2);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    // count > charArray.length - start
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 0, 10, 2, 5);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Start < 0
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, -1, 2, 0, 1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Count < 0
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 0, -1, 0, 1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Index < start
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 3, 5, 2, 1);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // Index > start + count
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 2, 5, 8, 0);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // codePointOffset out of range
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 0, 5, 1, 4);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+
+    // codePointOffset out of range
+    try {
+        actualResult = Character::offsetByCodePoints(arrayCodePoint, 1, 7, 4, -3);
+    }
+    catch (IndexOutOfBoundsException &e) {
+        ASSERT_STR("", e.getMessage().toString());
+    }
+}
+
+TEST(JavaLang, CharacterHighSurrogate) {
+    ASSERT_EQUAL(55296, Character::highSurrogate(0x10043));
+
+    ASSERT_EQUAL(55231, Character::highSurrogate(-1));
+}
+
+TEST(JavaLang, CharacterLowSurrogate) {
+    ASSERT_EQUAL(56387, Character::lowSurrogate(0x10043));
 }

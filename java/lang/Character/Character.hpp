@@ -683,7 +683,8 @@ namespace Java {
              * @param object
              * @return true if the objects are the same; false otherwise.
              */
-            boolean equals(const Object &object) const;
+            // TODO (anhnt) instanceof return false, use Character instead.
+            boolean equals(const Character &object) const;
 
             /**
              * Determines the character representation for a specific digit in the specified radix.
@@ -777,9 +778,10 @@ namespace Java {
             /**
              * Returns a hash code for a char value; compatible with Character.hashCode().
              *
+             * @param value
              * @return a hash code for a char value
              */
-            static long hashCode(char16_t) ;
+            static long hashCode(char16_t value) ;
 
             /**
              * Returns the leading surrogate (a high surrogate code unit) of the surrogate pair
@@ -1223,6 +1225,15 @@ namespace Java {
              */
             static boolean isWhitespace(int codePoint) ;
 
+            /**
+             * Returns the trailing surrogate (a low surrogate code unit) of the surrogate pair
+             * representing the specified supplementary character (Unicode code point) in the UTF-16 encoding.
+             * If the specified character is not a supplementary character, an unspecified char is returned.
+             *
+             * @param codePoint
+             * @return the trailing surrogate code unit used to represent the character in the UTF-16 encoding
+             */
+            static char16_t lowSurrogate(int codePoint);
             /**
              * Returns the index within the given char sequence that is offset
              * from the given index by codePointOffset code points.
