@@ -934,44 +934,6 @@ namespace Java {
             void reverseAllValidSurrogatePairs();
 
             /**
-             * Returns the number of characters, not number of bytes.
-             *
-             * @return int
-             */
-            int lengthUtf8() const;
-
-            /**
-             * Converts index of character to index of first byte.
-             *
-             * @param indexOfCharacter
-             * @return int
-             */
-            int convertIndexOfCharacterToIndexOfFirstByte(int indexOfCharacter) const;
-
-            /**
-             * Gets number of trailing bytes after first byte.
-             * @param indexOfFirstByte
-             * @return int
-             */
-            int getNumberOfTrailingBytesAfterFirstByte(int indexOfFirstByte) const;
-
-            /**
-             * Gets index of first byte from any index.
-             *
-             * @param indexOfAnyByte
-             * @return int
-             */
-            int getIndexOfFirstByteFromAnyIndex(int indexOfAnyByte) const;
-
-            /**
-             * Checks target is first byte or not.
-             *
-             * @param target
-             * @return boolean
-             */
-            boolean isFirstByte(const char &target) const;
-
-            /**
              *
              * @param utf8String
              * @param utf16String
