@@ -36,7 +36,7 @@
 namespace Java {
 	namespace Util {
 		template <typename K, typename V>
-		class HashMap : public AbstractMap, public virtual Map<K, V>, public virtual Cloneable, public virtual Serializable {
+		class HashMap : public AbstractMap, public virtual Map<K, V>, public virtual Serializable {// ,public virtual Cloneable {
 		private:
 			std::map<K, V> original;
 			String backup;
