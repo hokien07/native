@@ -145,73 +145,6 @@ int Character::toCodePoint(char16_t high, char16_t low) {
                                        - MIN_LOW_SURROGATE );
 }
 
-int Character::digit(int codePoint, int radix) {
-    if (radix == 10) {
-        switch (codePoint) {
-            case (int) '0':
-                return 0;
-            case (int) '1':
-                return 1;
-            case (int) '2':
-                return 2;
-            case (int) '3':
-                return 3;
-            case (int) '4':
-                return 4;
-            case (int) '5':
-                return 5;
-            case (int) '6':
-                return 6;
-            case (int) '7':
-                return 7;
-            case (int) '8':
-                return 8;
-            case (int) '9':
-                return 9;
-            default:
-                return -1;
-        }
-    }
-    if (radix == 16) {
-        switch (codePoint) {
-            case (int) '0':
-                return 0;
-            case (int) '1':
-                return 1;
-            case (int) '2':
-                return 2;
-            case (int) '3':
-                return 3;
-            case (int) '4':
-                return 4;
-            case (int) '5':
-                return 5;
-            case (int) '6':
-                return 6;
-            case (int) '7':
-                return 7;
-            case (int) '8':
-                return 8;
-            case (int) '9':
-                return 9;
-            case (int) 'a':
-                return 10;
-            case (int) 'b':
-                return 11;
-            case (int) 'c':
-                return 12;
-            case (int) 'd':
-                return 13;
-            case (int) 'e':
-                return 14;
-            case (int) 'f':
-                return 15;
-            default:
-                return -1;
-        }
-    }
-}
-
 std::ostream &operator<<(std::ostream &os, const Character &target) {
     os << target.charValue();
     return os;
@@ -286,10 +219,6 @@ char16_t Character::lowSurrogate(int codePoint) {
 char16_t Character::highSurrogate(int codePoint) {
     return (char16_t) (((unsigned long) codePoint >> 10)
                        + (MIN_HIGH_SURROGATE - (((unsigned long) MIN_SUPPLEMENTARY_CODE_POINT) >> 10)));
-}
-
-int Character::digit(char16_t character, int radix) {
-    return 0;
 }
 
 char16_t Character::forDigit(int digit, int radix){

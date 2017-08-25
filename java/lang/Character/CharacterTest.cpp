@@ -461,5 +461,4 @@ TEST(JavaLang, CharacterForDigit) {
 
     // Digit >= 10
     ASSERT_EQUAL('e', Character::forDigit(14, 16));
-
 }
