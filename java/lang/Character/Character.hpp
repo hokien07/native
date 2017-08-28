@@ -31,7 +31,6 @@
 #include "../../Lang.hpp"
 #include "../../util/HashMap/HashMap.hpp"
 
-using namespace Java::Lang;
 using namespace Java::Util;
 
 namespace Java {
@@ -39,7 +38,6 @@ namespace Java {
         class Character : Object,
                           public virtual Comparable<Character> {
         private:
-
             class Subset  {
                 private:
                     String name;
@@ -52,7 +50,7 @@ namespace Java {
                      * @param  name
                      */
 
-                    Subset (String name) {
+                    Subset (const String &name) {
                         this->name = name;
                     }
 
@@ -81,1920 +79,1186 @@ namespace Java {
 
             class UnicodeBlock : public Subset {
             public:
+                /**
+                 * Default constructor
+                 */
+                UnicodeBlock(){};
+
+                /**
+                 * Create a UnicodeBlock with a String
+                 *
+                 * @param name
+                 */
                 UnicodeBlock(const String &name);
 
-            private:
                 static HashMap<String, UnicodeBlock> map;
 
                 /**
                  * Creates a UnicodeBlock with the given identifier name.
                  * This name must be the same as the block identifier.
                  */
-//                UnicodeBlock(String idName) {
-//                    //super(idName);
-//                    map.put(idName, this);
-//                }
-//
-//                /**
-//                 * Creates a UnicodeBlock with the given identifier name and
-//                 * alias name.
-//                 */
-//                UnicodeBlock(String idName, String alias) {
-//                    this(idName);
-//                    map.put(alias, this);
-//                }
-//
-//                /**
-//                 * Creates a UnicodeBlock with the given identifier name and
-//                 * alias names.
-//                 */
-//                UnicodeBlock(String idName, String... aliases) {
-//                    this(idName);
-//                    for (String alias : aliases)
-//                        map.put(alias, this);
-//                }
-//
-//                /**
-//                 * Constant for the "Basic Latin" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                public:
-//                      static UnicodeBlock  BASIC_LATIN =
-//                                                          UnicodeBlock("BASIC_LATIN",
-//                                                                           "BASIC LATIN",
-//                                                                           "BASICLATIN");
-//
-//                /**
-//                 * Constant for the "Latin-1 Supplement" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LATIN_1_SUPPLEMENT =
-//                                                          UnicodeBlock("LATIN_1_SUPPLEMENT",
-//                                                                          "LATIN-1 SUPPLEMENT",
-//                                                                          "LATIN-1SUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Latin Extended-A" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LATIN_EXTENDED_A =
-//                                                          UnicodeBlock("LATIN_EXTENDED_A",
-//                                                                          "LATIN EXTENDED-A",
-//                                                                          "LATINEXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Latin Extended-B" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LATIN_EXTENDED_B =
-//                                                          UnicodeBlock("LATIN_EXTENDED_B",
-//                                                                          "LATIN EXTENDED-B",
-//                                                                          "LATINEXTENDED-B");
-//
-//                /**
-//                 * Constant for the "IPA Extensions" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock IPA_EXTENSIONS =
-//                                                          UnicodeBlock("IPA_EXTENSIONS",
-//                                                                          "IPA EXTENSIONS",
-//                                                                          "IPAEXTENSIONS");
-//
-//                /**
-//                 * Constant for the "Spacing Modifier Letters" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock SPACING_MODIFIER_LETTERS =
-//                                                          UnicodeBlock("SPACING_MODIFIER_LETTERS",
-//                                                                          "SPACING MODIFIER LETTERS",
-//                                                                          "SPACINGMODIFIERLETTERS");
-//
-//                /**
-//                 * Constant for the "Combining Diacritical Marks" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock COMBINING_DIACRITICAL_MARKS =
-//                                                          UnicodeBlock("COMBINING_DIACRITICAL_MARKS",
-//                                                                          "COMBINING DIACRITICAL MARKS",
-//                                                                          "COMBININGDIACRITICALMARKS");
-//
-//                /**
-//                 * Constant for the "Greek and Coptic" Unicode character block.
-//                 * <p>
-//                 * This block was previously known as the "Greek" block.
-//                 *
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GREEK =
-//                                                          UnicodeBlock("GREEK",
-//                                                                          "GREEK AND COPTIC",
-//                                                                          "GREEKANDCOPTIC");
-//
-//                /**
-//                 * Constant for the "Cyrillic" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CYRILLIC =
-//                                                          UnicodeBlock("CYRILLIC");
-//
-//                /**
-//                 * Constant for the "Armenian" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ARMENIAN =
-//                                                          UnicodeBlock("ARMENIAN");
-//
-//                /**
-//                 * Constant for the "Hebrew" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HEBREW =
-//                                                          UnicodeBlock("HEBREW");
-//
-//                /**
-//                 * Constant for the "Arabic" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ARABIC =
-//                                                          UnicodeBlock("ARABIC");
-//
-//                /**
-//                 * Constant for the "Devanagari" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock DEVANAGARI =
-//                                                          UnicodeBlock("DEVANAGARI");
-//
-//                /**
-//                 * Constant for the "Bengali" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock BENGALI =
-//                                                          UnicodeBlock("BENGALI");
-//
-//                /**
-//                 * Constant for the "Gurmukhi" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GURMUKHI =
-//                                                          UnicodeBlock("GURMUKHI");
-//
-//                /**
-//                 * Constant for the "Gujarati" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GUJARATI =
-//                                                          UnicodeBlock("GUJARATI");
-//
-//                /**
-//                 * Constant for the "Oriya" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ORIYA =
-//                                                          UnicodeBlock("ORIYA");
-//
-//                /**
-//                 * Constant for the "Tamil" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock TAMIL =
-//                                                          UnicodeBlock("TAMIL");
-//
-//                /**
-//                 * Constant for the "Telugu" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock TELUGU =
-//                                                          UnicodeBlock("TELUGU");
-//
-//                /**
-//                 * Constant for the "Kannada" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock KANNADA =
-//                                                          UnicodeBlock("KANNADA");
-//
-//                /**
-//                 * Constant for the "Malayalam" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock MALAYALAM =
-//                                                          UnicodeBlock("MALAYALAM");
-//
-//                /**
-//                 * Constant for the "Thai" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock THAI =
-//                                                          UnicodeBlock("THAI");
-//
-//                /**
-//                 * Constant for the "Lao" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LAO =
-//                                                          UnicodeBlock("LAO");
-//
-//                /**
-//                 * Constant for the "Tibetan" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock TIBETAN =
-//                                                          UnicodeBlock("TIBETAN");
-//
-//                /**
-//                 * Constant for the "Georgian" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GEORGIAN =
-//                                                          UnicodeBlock("GEORGIAN");
-//
-//                /**
-//                 * Constant for the "Hangul Jamo" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HANGUL_JAMO =
-//                                                          UnicodeBlock("HANGUL_JAMO",
-//                                                                          "HANGUL JAMO",
-//                                                                          "HANGULJAMO");
-//
-//                /**
-//                 * Constant for the "Latin Extended Additional" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LATIN_EXTENDED_ADDITIONAL =
-//                                                          UnicodeBlock("LATIN_EXTENDED_ADDITIONAL",
-//                                                                          "LATIN EXTENDED ADDITIONAL",
-//                                                                          "LATINEXTENDEDADDITIONAL");
-//
-//                /**
-//                 * Constant for the "Greek Extended" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GREEK_EXTENDED =
-//                                                          UnicodeBlock("GREEK_EXTENDED",
-//                                                                          "GREEK EXTENDED",
-//                                                                          "GREEKEXTENDED");
-//
-//                /**
-//                 * Constant for the "General Punctuation" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GENERAL_PUNCTUATION =
-//                                                          UnicodeBlock("GENERAL_PUNCTUATION",
-//                                                                          "GENERAL PUNCTUATION",
-//                                                                          "GENERALPUNCTUATION");
-//
-//                /**
-//                 * Constant for the "Superscripts and Subscripts" Unicode character
-//                 * block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock SUPERSCRIPTS_AND_SUBSCRIPTS =
-//                                                          UnicodeBlock("SUPERSCRIPTS_AND_SUBSCRIPTS",
-//                                                                          "SUPERSCRIPTS AND SUBSCRIPTS",
-//                                                                          "SUPERSCRIPTSANDSUBSCRIPTS");
-//
-//                /**
-//                 * Constant for the "Currency Symbols" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CURRENCY_SYMBOLS =
-//                                                          UnicodeBlock("CURRENCY_SYMBOLS",
-//                                                                          "CURRENCY SYMBOLS",
-//                                                                          "CURRENCYSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Combining Diacritical Marks for Symbols" Unicode
-//                 * character block.
-//                 * <p>
-//                 * This block was previously known as "Combining Marks for Symbols".
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock COMBINING_MARKS_FOR_SYMBOLS =
-//                                                          UnicodeBlock("COMBINING_MARKS_FOR_SYMBOLS",
-//                                                                          "COMBINING DIACRITICAL MARKS FOR SYMBOLS",
-//                                                                          "COMBININGDIACRITICALMARKSFORSYMBOLS",
-//                                                                          "COMBINING MARKS FOR SYMBOLS",
-//                                                                          "COMBININGMARKSFORSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Letterlike Symbols" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock LETTERLIKE_SYMBOLS =
-//                                                          UnicodeBlock("LETTERLIKE_SYMBOLS",
-//                                                                          "LETTERLIKE SYMBOLS",
-//                                                                          "LETTERLIKESYMBOLS");
-//
-//                /**
-//                 * Constant for the "Number Forms" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock NUMBER_FORMS =
-//                                                          UnicodeBlock("NUMBER_FORMS",
-//                                                                          "NUMBER FORMS",
-//                                                                          "NUMBERFORMS");
-//
-//                /**
-//                 * Constant for the "Arrows" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ARROWS =
-//                                                          UnicodeBlock("ARROWS");
-//
-//                /**
-//                 * Constant for the "Mathematical Operators" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock MATHEMATICAL_OPERATORS =
-//                                                          UnicodeBlock("MATHEMATICAL_OPERATORS",
-//                                                                          "MATHEMATICAL OPERATORS",
-//                                                                          "MATHEMATICALOPERATORS");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Technical" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_TECHNICAL =
-//                                                          UnicodeBlock("MISCELLANEOUS_TECHNICAL",
-//                                                                          "MISCELLANEOUS TECHNICAL",
-//                                                                          "MISCELLANEOUSTECHNICAL");
-//
-//                /**
-//                 * Constant for the "Control Pictures" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CONTROL_PICTURES =
-//                                                          UnicodeBlock("CONTROL_PICTURES",
-//                                                                          "CONTROL PICTURES",
-//                                                                          "CONTROLPICTURES");
-//
-//                /**
-//                 * Constant for the "Optical Character Recognition" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock OPTICAL_CHARACTER_RECOGNITION =
-//                                                          UnicodeBlock("OPTICAL_CHARACTER_RECOGNITION",
-//                                                                          "OPTICAL CHARACTER RECOGNITION",
-//                                                                          "OPTICALCHARACTERRECOGNITION");
-//
-//                /**
-//                 * Constant for the "Enclosed Alphanumerics" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ENCLOSED_ALPHANUMERICS =
-//                                                          UnicodeBlock("ENCLOSED_ALPHANUMERICS",
-//                                                                          "ENCLOSED ALPHANUMERICS",
-//                                                                          "ENCLOSEDALPHANUMERICS");
-//
-//                /**
-//                 * Constant for the "Box Drawing" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock BOX_DRAWING =
-//                                                          UnicodeBlock("BOX_DRAWING",
-//                                                                          "BOX DRAWING",
-//                                                                          "BOXDRAWING");
-//
-//                /**
-//                 * Constant for the "Block Elements" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock BLOCK_ELEMENTS =
-//                                                          UnicodeBlock("BLOCK_ELEMENTS",
-//                                                                          "BLOCK ELEMENTS",
-//                                                                          "BLOCKELEMENTS");
-//
-//                /**
-//                 * Constant for the "Geometric Shapes" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock GEOMETRIC_SHAPES =
-//                                                          UnicodeBlock("GEOMETRIC_SHAPES",
-//                                                                          "GEOMETRIC SHAPES",
-//                                                                          "GEOMETRICSHAPES");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Symbols" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_SYMBOLS =
-//                                                          UnicodeBlock("MISCELLANEOUS_SYMBOLS",
-//                                                                          "MISCELLANEOUS SYMBOLS",
-//                                                                          "MISCELLANEOUSSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Dingbats" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock DINGBATS =
-//                                                          UnicodeBlock("DINGBATS");
-//
-//                /**
-//                 * Constant for the "CJK Symbols and Punctuation" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CJK_SYMBOLS_AND_PUNCTUATION =
-//                                                          UnicodeBlock("CJK_SYMBOLS_AND_PUNCTUATION",
-//                                                                          "CJK SYMBOLS AND PUNCTUATION",
-//                                                                          "CJKSYMBOLSANDPUNCTUATION");
-//
-//                /**
-//                 * Constant for the "Hiragana" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HIRAGANA =
-//                                                          UnicodeBlock("HIRAGANA");
-//
-//                /**
-//                 * Constant for the "Katakana" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock KATAKANA =
-//                                                          UnicodeBlock("KATAKANA");
-//
-//                /**
-//                 * Constant for the "Bopomofo" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock BOPOMOFO =
-//                                                          UnicodeBlock("BOPOMOFO");
-//
-//                /**
-//                 * Constant for the "Hangul Compatibility Jamo" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HANGUL_COMPATIBILITY_JAMO =
-//                                                          UnicodeBlock("HANGUL_COMPATIBILITY_JAMO",
-//                                                                          "HANGUL COMPATIBILITY JAMO",
-//                                                                          "HANGULCOMPATIBILITYJAMO");
-//
-//                /**
-//                 * Constant for the "Kanbun" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock KANBUN =
-//                                                          UnicodeBlock("KANBUN");
-//
-//                /**
-//                 * Constant for the "Enclosed CJK Letters and Months" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ENCLOSED_CJK_LETTERS_AND_MONTHS =
-//                                                          UnicodeBlock("ENCLOSED_CJK_LETTERS_AND_MONTHS",
-//                                                                          "ENCLOSED CJK LETTERS AND MONTHS",
-//                                                                          "ENCLOSEDCJKLETTERSANDMONTHS");
-//
-//                /**
-//                 * Constant for the "CJK Compatibility" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CJK_COMPATIBILITY =
-//                                                          UnicodeBlock("CJK_COMPATIBILITY",
-//                                                                          "CJK COMPATIBILITY",
-//                                                                          "CJKCOMPATIBILITY");
-//
-//                /**
-//                 * Constant for the "CJK Unified Ideographs" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS =
-//                                                          UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS",
-//                                                                          "CJK UNIFIED IDEOGRAPHS",
-//                                                                          "CJKUNIFIEDIDEOGRAPHS");
-//
-//                /**
-//                 * Constant for the "Hangul Syllables" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HANGUL_SYLLABLES =
-//                                                          UnicodeBlock("HANGUL_SYLLABLES",
-//                                                                          "HANGUL SYLLABLES",
-//                                                                          "HANGULSYLLABLES");
-//
-//                /**
-//                 * Constant for the "Private Use Area" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock PRIVATE_USE_AREA =
-//                                                          UnicodeBlock("PRIVATE_USE_AREA",
-//                                                                          "PRIVATE USE AREA",
-//                                                                          "PRIVATEUSEAREA");
-//
-//                /**
-//                 * Constant for the "CJK Compatibility Ideographs" Unicode character
-//                 * block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CJK_COMPATIBILITY_IDEOGRAPHS =
-//                                                          UnicodeBlock("CJK_COMPATIBILITY_IDEOGRAPHS",
-//                                                                          "CJK COMPATIBILITY IDEOGRAPHS",
-//                                                                          "CJKCOMPATIBILITYIDEOGRAPHS");
-//
-//                /**
-//                 * Constant for the "Alphabetic Presentation Forms" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ALPHABETIC_PRESENTATION_FORMS =
-//                                                          UnicodeBlock("ALPHABETIC_PRESENTATION_FORMS",
-//                                                                          "ALPHABETIC PRESENTATION FORMS",
-//                                                                          "ALPHABETICPRESENTATIONFORMS");
-//
-//                /**
-//                 * Constant for the "Arabic Presentation Forms-A" Unicode character
-//                 * block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ARABIC_PRESENTATION_FORMS_A =
-//                                                          UnicodeBlock("ARABIC_PRESENTATION_FORMS_A",
-//                                                                          "ARABIC PRESENTATION FORMS-A",
-//                                                                          "ARABICPRESENTATIONFORMS-A");
-//
-//                /**
-//                 * Constant for the "Combining Half Marks" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock COMBINING_HALF_MARKS =
-//                                                          UnicodeBlock("COMBINING_HALF_MARKS",
-//                                                                          "COMBINING HALF MARKS",
-//                                                                          "COMBININGHALFMARKS");
-//
-//                /**
-//                 * Constant for the "CJK Compatibility Forms" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock CJK_COMPATIBILITY_FORMS =
-//                                                          UnicodeBlock("CJK_COMPATIBILITY_FORMS",
-//                                                                          "CJK COMPATIBILITY FORMS",
-//                                                                          "CJKCOMPATIBILITYFORMS");
-//
-//                /**
-//                 * Constant for the "Small Form Variants" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock SMALL_FORM_VARIANTS =
-//                                                          UnicodeBlock("SMALL_FORM_VARIANTS",
-//                                                                          "SMALL FORM VARIANTS",
-//                                                                          "SMALLFORMVARIANTS");
-//
-//                /**
-//                 * Constant for the "Arabic Presentation Forms-B" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock ARABIC_PRESENTATION_FORMS_B =
-//                                                          UnicodeBlock("ARABIC_PRESENTATION_FORMS_B",
-//                                                                          "ARABIC PRESENTATION FORMS-B",
-//                                                                          "ARABICPRESENTATIONFORMS-B");
-//
-//                /**
-//                 * Constant for the "Halfwidth and Fullwidth Forms" Unicode character
-//                 * block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock HALFWIDTH_AND_FULLWIDTH_FORMS =
-//                                                          UnicodeBlock("HALFWIDTH_AND_FULLWIDTH_FORMS",
-//                                                                          "HALFWIDTH AND FULLWIDTH FORMS",
-//                                                                          "HALFWIDTHANDFULLWIDTHFORMS");
-//
-//                /**
-//                 * Constant for the "Specials" Unicode character block.
-//                 * @since 1.2
-//                 */
-//                static UnicodeBlock SPECIALS =
-//                                                          UnicodeBlock("SPECIALS");
-//
-//                /**
-//                 * @deprecated As of J2SE 5, use {@link #HIGH_SURROGATES},
-//                 *             {@link #HIGH_PRIVATE_USE_SURROGATES}, and
-//                 *             {@link #LOW_SURROGATES}. These  constants match
-//                 *             the block definitions of the Unicode Standard.
-//                 *             The {@link #of(char)} and {@link #of(int)} methods
-//                 *             return the  constants, not SURROGATES_AREA.
-//                 */
-//                @Deprecated
-//                static UnicodeBlock SURROGATES_AREA =
-//                                                          UnicodeBlock("SURROGATES_AREA");
-//
-//                /**
-//                 * Constant for the "Syriac" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock SYRIAC =
-//                                                          UnicodeBlock("SYRIAC");
-//
-//                /**
-//                 * Constant for the "Thaana" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock THAANA =
-//                                                          UnicodeBlock("THAANA");
-//
-//                /**
-//                 * Constant for the "Sinhala" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock SINHALA =
-//                                                          UnicodeBlock("SINHALA");
-//
-//                /**
-//                 * Constant for the "Myanmar" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock MYANMAR =
-//                                                          UnicodeBlock("MYANMAR");
-//
-//                /**
-//                 * Constant for the "Ethiopic" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock ETHIOPIC =
-//                                                          UnicodeBlock("ETHIOPIC");
-//
-//                /**
-//                 * Constant for the "Cherokee" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock CHEROKEE =
-//                                                          UnicodeBlock("CHEROKEE");
-//
-//                /**
-//                 * Constant for the "Unified Canadian Aboriginal Syllabics" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS =
-//                                                          UnicodeBlock("UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS",
-//                                                                          "UNIFIED CANADIAN ABORIGINAL SYLLABICS",
-//                                                                          "UNIFIEDCANADIANABORIGINALSYLLABICS");
-//
-//                /**
-//                 * Constant for the "Ogham" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock OGHAM =
-//                                                          UnicodeBlock("OGHAM");
-//
-//                /**
-//                 * Constant for the "Runic" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock RUNIC =
-//                                                          UnicodeBlock("RUNIC");
-//
-//                /**
-//                 * Constant for the "Khmer" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock KHMER =
-//                                                          UnicodeBlock("KHMER");
-//
-//                /**
-//                 * Constant for the "Mongolian" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock MONGOLIAN =
-//                                                          UnicodeBlock("MONGOLIAN");
-//
-//                /**
-//                 * Constant for the "Braille Patterns" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock BRAILLE_PATTERNS =
-//                                                          UnicodeBlock("BRAILLE_PATTERNS",
-//                                                                          "BRAILLE PATTERNS",
-//                                                                          "BRAILLEPATTERNS");
-//
-//                /**
-//                 * Constant for the "CJK Radicals Supplement" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock CJK_RADICALS_SUPPLEMENT =
-//                                                          UnicodeBlock("CJK_RADICALS_SUPPLEMENT",
-//                                                                          "CJK RADICALS SUPPLEMENT",
-//                                                                          "CJKRADICALSSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Kangxi Radicals" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock KANGXI_RADICALS =
-//                                                          UnicodeBlock("KANGXI_RADICALS",
-//                                                                          "KANGXI RADICALS",
-//                                                                          "KANGXIRADICALS");
-//
-//                /**
-//                 * Constant for the "Ideographic Description Characters" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock IDEOGRAPHIC_DESCRIPTION_CHARACTERS =
-//                                                          UnicodeBlock("IDEOGRAPHIC_DESCRIPTION_CHARACTERS",
-//                                                                          "IDEOGRAPHIC DESCRIPTION CHARACTERS",
-//                                                                          "IDEOGRAPHICDESCRIPTIONCHARACTERS");
-//
-//                /**
-//                 * Constant for the "Bopomofo Extended" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock BOPOMOFO_EXTENDED =
-//                                                          UnicodeBlock("BOPOMOFO_EXTENDED",
-//                                                                          "BOPOMOFO EXTENDED",
-//                                                                          "BOPOMOFOEXTENDED");
-//
-//                /**
-//                 * Constant for the "CJK Unified Ideographs Extension A" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A =
-//                                                          UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A",
-//                                                                          "CJK UNIFIED IDEOGRAPHS EXTENSION A",
-//                                                                          "CJKUNIFIEDIDEOGRAPHSEXTENSIONA");
-//
-//                /**
-//                 * Constant for the "Yi Syllables" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock YI_SYLLABLES =
-//                                                          UnicodeBlock("YI_SYLLABLES",
-//                                                                          "YI SYLLABLES",
-//                                                                          "YISYLLABLES");
-//
-//                /**
-//                 * Constant for the "Yi Radicals" Unicode character block.
-//                 * @since 1.4
-//                 */
-//                static UnicodeBlock YI_RADICALS =
-//                                                          UnicodeBlock("YI_RADICALS",
-//                                                                          "YI RADICALS",
-//                                                                          "YIRADICALS");
-//
-//                /**
-//                 * Constant for the "Cyrillic Supplementary" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock CYRILLIC_SUPPLEMENTARY =
-//                                                          UnicodeBlock("CYRILLIC_SUPPLEMENTARY",
-//                                                                          "CYRILLIC SUPPLEMENTARY",
-//                                                                          "CYRILLICSUPPLEMENTARY",
-//                                                                          "CYRILLIC SUPPLEMENT",
-//                                                                          "CYRILLICSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Tagalog" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock TAGALOG =
-//                                                          UnicodeBlock("TAGALOG");
-//
-//                /**
-//                 * Constant for the "Hanunoo" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock HANUNOO =
-//                                                          UnicodeBlock("HANUNOO");
-//
-//                /**
-//                 * Constant for the "Buhid" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock BUHID =
-//                                                          UnicodeBlock("BUHID");
-//
-//                /**
-//                 * Constant for the "Tagbanwa" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock TAGBANWA =
-//                                                          UnicodeBlock("TAGBANWA");
-//
-//                /**
-//                 * Constant for the "Limbu" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock LIMBU =
-//                                                          UnicodeBlock("LIMBU");
-//
-//                /**
-//                 * Constant for the "Tai Le" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock TAI_LE =
-//                                                          UnicodeBlock("TAI_LE",
-//                                                                          "TAI LE",
-//                                                                          "TAILE");
-//
-//                /**
-//                 * Constant for the "Khmer Symbols" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock KHMER_SYMBOLS =
-//                                                          UnicodeBlock("KHMER_SYMBOLS",
-//                                                                          "KHMER SYMBOLS",
-//                                                                          "KHMERSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Phonetic Extensions" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock PHONETIC_EXTENSIONS =
-//                                                          UnicodeBlock("PHONETIC_EXTENSIONS",
-//                                                                          "PHONETIC EXTENSIONS",
-//                                                                          "PHONETICEXTENSIONS");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Mathematical Symbols-A" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_MATHEMATICAL_SYMBOLS_A =
-//                                                          UnicodeBlock("MISCELLANEOUS_MATHEMATICAL_SYMBOLS_A",
-//                                                                          "MISCELLANEOUS MATHEMATICAL SYMBOLS-A",
-//                                                                          "MISCELLANEOUSMATHEMATICALSYMBOLS-A");
-//
-//                /**
-//                 * Constant for the "Supplemental Arrows-A" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SUPPLEMENTAL_ARROWS_A =
-//                                                          UnicodeBlock("SUPPLEMENTAL_ARROWS_A",
-//                                                                          "SUPPLEMENTAL ARROWS-A",
-//                                                                          "SUPPLEMENTALARROWS-A");
-//
-//                /**
-//                 * Constant for the "Supplemental Arrows-B" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SUPPLEMENTAL_ARROWS_B =
-//                                                          UnicodeBlock("SUPPLEMENTAL_ARROWS_B",
-//                                                                          "SUPPLEMENTAL ARROWS-B",
-//                                                                          "SUPPLEMENTALARROWS-B");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Mathematical Symbols-B" Unicode
-//                 * character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_MATHEMATICAL_SYMBOLS_B =
-//                                                          UnicodeBlock("MISCELLANEOUS_MATHEMATICAL_SYMBOLS_B",
-//                                                                          "MISCELLANEOUS MATHEMATICAL SYMBOLS-B",
-//                                                                          "MISCELLANEOUSMATHEMATICALSYMBOLS-B");
-//
-//                /**
-//                 * Constant for the "Supplemental Mathematical Operators" Unicode
-//                 * character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SUPPLEMENTAL_MATHEMATICAL_OPERATORS =
-//                                                          UnicodeBlock("SUPPLEMENTAL_MATHEMATICAL_OPERATORS",
-//                                                                          "SUPPLEMENTAL MATHEMATICAL OPERATORS",
-//                                                                          "SUPPLEMENTALMATHEMATICALOPERATORS");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Symbols and Arrows" Unicode character
-//                 * block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_SYMBOLS_AND_ARROWS =
-//                                                          UnicodeBlock("MISCELLANEOUS_SYMBOLS_AND_ARROWS",
-//                                                                          "MISCELLANEOUS SYMBOLS AND ARROWS",
-//                                                                          "MISCELLANEOUSSYMBOLSANDARROWS");
-//
-//                /**
-//                 * Constant for the "Katakana Phonetic Extensions" Unicode character
-//                 * block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock KATAKANA_PHONETIC_EXTENSIONS =
-//                                                          UnicodeBlock("KATAKANA_PHONETIC_EXTENSIONS",
-//                                                                          "KATAKANA PHONETIC EXTENSIONS",
-//                                                                          "KATAKANAPHONETICEXTENSIONS");
-//
-//                /**
-//                 * Constant for the "Yijing Hexagram Symbols" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock YIJING_HEXAGRAM_SYMBOLS =
-//                                                          UnicodeBlock("YIJING_HEXAGRAM_SYMBOLS",
-//                                                                          "YIJING HEXAGRAM SYMBOLS",
-//                                                                          "YIJINGHEXAGRAMSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Variation Selectors" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock VARIATION_SELECTORS =
-//                                                          UnicodeBlock("VARIATION_SELECTORS",
-//                                                                          "VARIATION SELECTORS",
-//                                                                          "VARIATIONSELECTORS");
-//
-//                /**
-//                 * Constant for the "Linear B Syllabary" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock LINEAR_B_SYLLABARY =
-//                                                          UnicodeBlock("LINEAR_B_SYLLABARY",
-//                                                                          "LINEAR B SYLLABARY",
-//                                                                          "LINEARBSYLLABARY");
-//
-//                /**
-//                 * Constant for the "Linear B Ideograms" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock LINEAR_B_IDEOGRAMS =
-//                                                          UnicodeBlock("LINEAR_B_IDEOGRAMS",
-//                                                                          "LINEAR B IDEOGRAMS",
-//                                                                          "LINEARBIDEOGRAMS");
-//
-//                /**
-//                 * Constant for the "Aegean Numbers" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock AEGEAN_NUMBERS =
-//                                                          UnicodeBlock("AEGEAN_NUMBERS",
-//                                                                          "AEGEAN NUMBERS",
-//                                                                          "AEGEANNUMBERS");
-//
-//                /**
-//                 * Constant for the "Old Italic" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock OLD_ITALIC =
-//                                                          UnicodeBlock("OLD_ITALIC",
-//                                                                          "OLD ITALIC",
-//                                                                          "OLDITALIC");
-//
-//                /**
-//                 * Constant for the "Gothic" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock GOTHIC =
-//                                                          UnicodeBlock("GOTHIC");
-//
-//                /**
-//                 * Constant for the "Ugaritic" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock UGARITIC =
-//                                                          UnicodeBlock("UGARITIC");
-//
-//                /**
-//                 * Constant for the "Deseret" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock DESERET =
-//                                                          UnicodeBlock("DESERET");
-//
-//                /**
-//                 * Constant for the "Shavian" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SHAVIAN =
-//                                                          UnicodeBlock("SHAVIAN");
-//
-//                /**
-//                 * Constant for the "Osmanya" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock OSMANYA =
-//                                                          UnicodeBlock("OSMANYA");
-//
-//                /**
-//                 * Constant for the "Cypriot Syllabary" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock CYPRIOT_SYLLABARY =
-//                                                          UnicodeBlock("CYPRIOT_SYLLABARY",
-//                                                                          "CYPRIOT SYLLABARY",
-//                                                                          "CYPRIOTSYLLABARY");
-//
-//                /**
-//                 * Constant for the "Byzantine Musical Symbols" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock BYZANTINE_MUSICAL_SYMBOLS =
-//                                                          UnicodeBlock("BYZANTINE_MUSICAL_SYMBOLS",
-//                                                                          "BYZANTINE MUSICAL SYMBOLS",
-//                                                                          "BYZANTINEMUSICALSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Musical Symbols" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock MUSICAL_SYMBOLS =
-//                                                          UnicodeBlock("MUSICAL_SYMBOLS",
-//                                                                          "MUSICAL SYMBOLS",
-//                                                                          "MUSICALSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Tai Xuan Jing Symbols" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock TAI_XUAN_JING_SYMBOLS =
-//                                                          UnicodeBlock("TAI_XUAN_JING_SYMBOLS",
-//                                                                          "TAI XUAN JING SYMBOLS",
-//                                                                          "TAIXUANJINGSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Mathematical Alphanumeric Symbols" Unicode
-//                 * character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock MATHEMATICAL_ALPHANUMERIC_SYMBOLS =
-//                                                          UnicodeBlock("MATHEMATICAL_ALPHANUMERIC_SYMBOLS",
-//                                                                          "MATHEMATICAL ALPHANUMERIC SYMBOLS",
-//                                                                          "MATHEMATICALALPHANUMERICSYMBOLS");
-//
-//                /**
-//                 * Constant for the "CJK Unified Ideographs Extension B" Unicode
-//                 * character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B =
-//                                                          UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B",
-//                                                                          "CJK UNIFIED IDEOGRAPHS EXTENSION B",
-//                                                                          "CJKUNIFIEDIDEOGRAPHSEXTENSIONB");
-//
-//                /**
-//                 * Constant for the "CJK Compatibility Ideographs Supplement" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT =
-//                                                          UnicodeBlock("CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT",
-//                                                                          "CJK COMPATIBILITY IDEOGRAPHS SUPPLEMENT",
-//                                                                          "CJKCOMPATIBILITYIDEOGRAPHSSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Tags" Unicode character block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock TAGS =
-//                                                          UnicodeBlock("TAGS");
-//
-//                /**
-//                 * Constant for the "Variation Selectors Supplement" Unicode character
-//                 * block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock VARIATION_SELECTORS_SUPPLEMENT =
-//                                                          UnicodeBlock("VARIATION_SELECTORS_SUPPLEMENT",
-//                                                                          "VARIATION SELECTORS SUPPLEMENT",
-//                                                                          "VARIATIONSELECTORSSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Supplementary Private Use Area-A" Unicode character
-//                 * block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SUPPLEMENTARY_PRIVATE_USE_AREA_A =
-//                                                          UnicodeBlock("SUPPLEMENTARY_PRIVATE_USE_AREA_A",
-//                                                                          "SUPPLEMENTARY PRIVATE USE AREA-A",
-//                                                                          "SUPPLEMENTARYPRIVATEUSEAREA-A");
-//
-//                /**
-//                 * Constant for the "Supplementary Private Use Area-B" Unicode character
-//                 * block.
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock SUPPLEMENTARY_PRIVATE_USE_AREA_B =
-//                                                          UnicodeBlock("SUPPLEMENTARY_PRIVATE_USE_AREA_B",
-//                                                                          "SUPPLEMENTARY PRIVATE USE AREA-B",
-//                                                                          "SUPPLEMENTARYPRIVATEUSEAREA-B");
-//
-//                /**
-//                 * Constant for the "High Surrogates" Unicode character block.
-//                 * This block represents codepoint values in the high surrogate
-//                 * range: U+D800 through U+DB7F
-//                 *
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock HIGH_SURROGATES =
-//                                                          UnicodeBlock("HIGH_SURROGATES",
-//                                                                          "HIGH SURROGATES",
-//                                                                          "HIGHSURROGATES");
-//
-//                /**
-//                 * Constant for the "High Private Use Surrogates" Unicode character
-//                 * block.
-//                 * This block represents codepoint values in the private use high
-//                 * surrogate range: U+DB80 through U+DBFF
-//                 *
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock HIGH_PRIVATE_USE_SURROGATES =
-//                                                          UnicodeBlock("HIGH_PRIVATE_USE_SURROGATES",
-//                                                                          "HIGH PRIVATE USE SURROGATES",
-//                                                                          "HIGHPRIVATEUSESURROGATES");
-//
-//                /**
-//                 * Constant for the "Low Surrogates" Unicode character block.
-//                 * This block represents codepoint values in the low surrogate
-//                 * range: U+DC00 through U+DFFF
-//                 *
-//                 * @since 1.5
-//                 */
-//                static UnicodeBlock LOW_SURROGATES =
-//                                                          UnicodeBlock("LOW_SURROGATES",
-//                                                                          "LOW SURROGATES",
-//                                                                          "LOWSURROGATES");
-//
-//                /**
-//                 * Constant for the "Arabic Supplement" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ARABIC_SUPPLEMENT =
-//                                                          UnicodeBlock("ARABIC_SUPPLEMENT",
-//                                                                          "ARABIC SUPPLEMENT",
-//                                                                          "ARABICSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "NKo" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock NKO =
-//                                                          UnicodeBlock("NKO");
-//
-//                /**
-//                 * Constant for the "Samaritan" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock SAMARITAN =
-//                                                          UnicodeBlock("SAMARITAN");
-//
-//                /**
-//                 * Constant for the "Mandaic" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MANDAIC =
-//                                                          UnicodeBlock("MANDAIC");
-//
-//                /**
-//                 * Constant for the "Ethiopic Supplement" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ETHIOPIC_SUPPLEMENT =
-//                                                          UnicodeBlock("ETHIOPIC_SUPPLEMENT",
-//                                                                          "ETHIOPIC SUPPLEMENT",
-//                                                                          "ETHIOPICSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Unified Canadian Aboriginal Syllabics Extended"
-//                 * Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED =
-//                                                          UnicodeBlock("UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED",
-//                                                                          "UNIFIED CANADIAN ABORIGINAL SYLLABICS EXTENDED",
-//                                                                          "UNIFIEDCANADIANABORIGINALSYLLABICSEXTENDED");
-//
-//                /**
-//                 * Constant for the "New Tai Lue" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock NEW_TAI_LUE =
-//                                                          UnicodeBlock("NEW_TAI_LUE",
-//                                                                          "NEW TAI LUE",
-//                                                                          "NEWTAILUE");
-//
-//                /**
-//                 * Constant for the "Buginese" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BUGINESE =
-//                                                          UnicodeBlock("BUGINESE");
-//
-//                /**
-//                 * Constant for the "Tai Tham" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock TAI_THAM =
-//                                                          UnicodeBlock("TAI_THAM",
-//                                                                          "TAI THAM",
-//                                                                          "TAITHAM");
-//
-//                /**
-//                 * Constant for the "Balinese" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BALINESE =
-//                                                          UnicodeBlock("BALINESE");
-//
-//                /**
-//                 * Constant for the "Sundanese" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock SUNDANESE =
-//                                                          UnicodeBlock("SUNDANESE");
-//
-//                /**
-//                 * Constant for the "Batak" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BATAK =
-//                                                          UnicodeBlock("BATAK");
-//
-//                /**
-//                 * Constant for the "Lepcha" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LEPCHA =
-//                                                          UnicodeBlock("LEPCHA");
-//
-//                /**
-//                 * Constant for the "Ol Chiki" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock OL_CHIKI =
-//                                                          UnicodeBlock("OL_CHIKI",
-//                                                                          "OL CHIKI",
-//                                                                          "OLCHIKI");
-//
-//                /**
-//                 * Constant for the "Vedic Extensions" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock VEDIC_EXTENSIONS =
-//                                                          UnicodeBlock("VEDIC_EXTENSIONS",
-//                                                                          "VEDIC EXTENSIONS",
-//                                                                          "VEDICEXTENSIONS");
-//
-//                /**
-//                 * Constant for the "Phonetic Extensions Supplement" Unicode character
-//                 * block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock PHONETIC_EXTENSIONS_SUPPLEMENT =
-//                                                          UnicodeBlock("PHONETIC_EXTENSIONS_SUPPLEMENT",
-//                                                                          "PHONETIC EXTENSIONS SUPPLEMENT",
-//                                                                          "PHONETICEXTENSIONSSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Combining Diacritical Marks Supplement" Unicode
-//                 * character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock COMBINING_DIACRITICAL_MARKS_SUPPLEMENT =
-//                                                          UnicodeBlock("COMBINING_DIACRITICAL_MARKS_SUPPLEMENT",
-//                                                                          "COMBINING DIACRITICAL MARKS SUPPLEMENT",
-//                                                                          "COMBININGDIACRITICALMARKSSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Glagolitic" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock GLAGOLITIC =
-//                                                          UnicodeBlock("GLAGOLITIC");
-//
-//                /**
-//                 * Constant for the "Latin Extended-C" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LATIN_EXTENDED_C =
-//                                                          UnicodeBlock("LATIN_EXTENDED_C",
-//                                                                          "LATIN EXTENDED-C",
-//                                                                          "LATINEXTENDED-C");
-//
-//                /**
-//                 * Constant for the "Coptic" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock COPTIC =
-//                                                          UnicodeBlock("COPTIC");
-//
-//                /**
-//                 * Constant for the "Georgian Supplement" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock GEORGIAN_SUPPLEMENT =
-//                                                          UnicodeBlock("GEORGIAN_SUPPLEMENT",
-//                                                                          "GEORGIAN SUPPLEMENT",
-//                                                                          "GEORGIANSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Tifinagh" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock TIFINAGH =
-//                                                          UnicodeBlock("TIFINAGH");
-//
-//                /**
-//                 * Constant for the "Ethiopic Extended" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ETHIOPIC_EXTENDED =
-//                                                          UnicodeBlock("ETHIOPIC_EXTENDED",
-//                                                                          "ETHIOPIC EXTENDED",
-//                                                                          "ETHIOPICEXTENDED");
-//
-//                /**
-//                 * Constant for the "Cyrillic Extended-A" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CYRILLIC_EXTENDED_A =
-//                                                          UnicodeBlock("CYRILLIC_EXTENDED_A",
-//                                                                          "CYRILLIC EXTENDED-A",
-//                                                                          "CYRILLICEXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Supplemental Punctuation" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock SUPPLEMENTAL_PUNCTUATION =
-//                                                          UnicodeBlock("SUPPLEMENTAL_PUNCTUATION",
-//                                                                          "SUPPLEMENTAL PUNCTUATION",
-//                                                                          "SUPPLEMENTALPUNCTUATION");
-//
-//                /**
-//                 * Constant for the "CJK Strokes" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CJK_STROKES =
-//                                                          UnicodeBlock("CJK_STROKES",
-//                                                                          "CJK STROKES",
-//                                                                          "CJKSTROKES");
-//
-//                /**
-//                 * Constant for the "Lisu" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LISU =
-//                                                          UnicodeBlock("LISU");
-//
-//                /**
-//                 * Constant for the "Vai" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock VAI =
-//                                                          UnicodeBlock("VAI");
-//
-//                /**
-//                 * Constant for the "Cyrillic Extended-B" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CYRILLIC_EXTENDED_B =
-//                                                          UnicodeBlock("CYRILLIC_EXTENDED_B",
-//                                                                          "CYRILLIC EXTENDED-B",
-//                                                                          "CYRILLICEXTENDED-B");
-//
-//                /**
-//                 * Constant for the "Bamum" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BAMUM =
-//                                                          UnicodeBlock("BAMUM");
-//
-//                /**
-//                 * Constant for the "Modifier Tone Letters" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MODIFIER_TONE_LETTERS =
-//                                                          UnicodeBlock("MODIFIER_TONE_LETTERS",
-//                                                                          "MODIFIER TONE LETTERS",
-//                                                                          "MODIFIERTONELETTERS");
-//
-//                /**
-//                 * Constant for the "Latin Extended-D" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LATIN_EXTENDED_D =
-//                                                          UnicodeBlock("LATIN_EXTENDED_D",
-//                                                                          "LATIN EXTENDED-D",
-//                                                                          "LATINEXTENDED-D");
-//
-//                /**
-//                 * Constant for the "Syloti Nagri" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock SYLOTI_NAGRI =
-//                                                          UnicodeBlock("SYLOTI_NAGRI",
-//                                                                          "SYLOTI NAGRI",
-//                                                                          "SYLOTINAGRI");
-//
-//                /**
-//                 * Constant for the "Common Indic Number Forms" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock COMMON_INDIC_NUMBER_FORMS =
-//                                                          UnicodeBlock("COMMON_INDIC_NUMBER_FORMS",
-//                                                                          "COMMON INDIC NUMBER FORMS",
-//                                                                          "COMMONINDICNUMBERFORMS");
-//
-//                /**
-//                 * Constant for the "Phags-pa" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock PHAGS_PA =
-//                                                          UnicodeBlock("PHAGS_PA",
-//                                                                          "PHAGS-PA");
-//
-//                /**
-//                 * Constant for the "Saurashtra" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock SAURASHTRA =
-//                                                          UnicodeBlock("SAURASHTRA");
-//
-//                /**
-//                 * Constant for the "Devanagari Extended" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock DEVANAGARI_EXTENDED =
-//                                                          UnicodeBlock("DEVANAGARI_EXTENDED",
-//                                                                          "DEVANAGARI EXTENDED",
-//                                                                          "DEVANAGARIEXTENDED");
-//
-//                /**
-//                 * Constant for the "Kayah Li" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock KAYAH_LI =
-//                                                          UnicodeBlock("KAYAH_LI",
-//                                                                          "KAYAH LI",
-//                                                                          "KAYAHLI");
-//
-//                /**
-//                 * Constant for the "Rejang" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock REJANG =
-//                                                          UnicodeBlock("REJANG");
-//
-//                /**
-//                 * Constant for the "Hangul Jamo Extended-A" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock HANGUL_JAMO_EXTENDED_A =
-//                                                          UnicodeBlock("HANGUL_JAMO_EXTENDED_A",
-//                                                                          "HANGUL JAMO EXTENDED-A",
-//                                                                          "HANGULJAMOEXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Javanese" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock JAVANESE =
-//                                                          UnicodeBlock("JAVANESE");
-//
-//                /**
-//                 * Constant for the "Cham" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CHAM =
-//                                                          UnicodeBlock("CHAM");
-//
-//                /**
-//                 * Constant for the "Myanmar Extended-A" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MYANMAR_EXTENDED_A =
-//                                                          UnicodeBlock("MYANMAR_EXTENDED_A",
-//                                                                          "MYANMAR EXTENDED-A",
-//                                                                          "MYANMAREXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Tai Viet" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock TAI_VIET =
-//                                                          UnicodeBlock("TAI_VIET",
-//                                                                          "TAI VIET",
-//                                                                          "TAIVIET");
-//
-//                /**
-//                 * Constant for the "Ethiopic Extended-A" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ETHIOPIC_EXTENDED_A =
-//                                                          UnicodeBlock("ETHIOPIC_EXTENDED_A",
-//                                                                          "ETHIOPIC EXTENDED-A",
-//                                                                          "ETHIOPICEXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Meetei Mayek" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MEETEI_MAYEK =
-//                                                          UnicodeBlock("MEETEI_MAYEK",
-//                                                                          "MEETEI MAYEK",
-//                                                                          "MEETEIMAYEK");
-//
-//                /**
-//                 * Constant for the "Hangul Jamo Extended-B" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock HANGUL_JAMO_EXTENDED_B =
-//                                                          UnicodeBlock("HANGUL_JAMO_EXTENDED_B",
-//                                                                          "HANGUL JAMO EXTENDED-B",
-//                                                                          "HANGULJAMOEXTENDED-B");
-//
-//                /**
-//                 * Constant for the "Vertical Forms" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock VERTICAL_FORMS =
-//                                                          UnicodeBlock("VERTICAL_FORMS",
-//                                                                          "VERTICAL FORMS",
-//                                                                          "VERTICALFORMS");
-//
-//                /**
-//                 * Constant for the "Ancient Greek Numbers" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ANCIENT_GREEK_NUMBERS =
-//                                                          UnicodeBlock("ANCIENT_GREEK_NUMBERS",
-//                                                                          "ANCIENT GREEK NUMBERS",
-//                                                                          "ANCIENTGREEKNUMBERS");
-//
-//                /**
-//                 * Constant for the "Ancient Symbols" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ANCIENT_SYMBOLS =
-//                                                          UnicodeBlock("ANCIENT_SYMBOLS",
-//                                                                          "ANCIENT SYMBOLS",
-//                                                                          "ANCIENTSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Phaistos Disc" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock PHAISTOS_DISC =
-//                                                          UnicodeBlock("PHAISTOS_DISC",
-//                                                                          "PHAISTOS DISC",
-//                                                                          "PHAISTOSDISC");
-//
-//                /**
-//                 * Constant for the "Lycian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LYCIAN =
-//                                                          UnicodeBlock("LYCIAN");
-//
-//                /**
-//                 * Constant for the "Carian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CARIAN =
-//                                                          UnicodeBlock("CARIAN");
-//
-//                /**
-//                 * Constant for the "Old Persian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock OLD_PERSIAN =
-//                                                          UnicodeBlock("OLD_PERSIAN",
-//                                                                          "OLD PERSIAN",
-//                                                                          "OLDPERSIAN");
-//
-//                /**
-//                 * Constant for the "Imperial Aramaic" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock IMPERIAL_ARAMAIC =
-//                                                          UnicodeBlock("IMPERIAL_ARAMAIC",
-//                                                                          "IMPERIAL ARAMAIC",
-//                                                                          "IMPERIALARAMAIC");
-//
-//                /**
-//                 * Constant for the "Phoenician" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock PHOENICIAN =
-//                                                          UnicodeBlock("PHOENICIAN");
-//
-//                /**
-//                 * Constant for the "Lydian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock LYDIAN =
-//                                                          UnicodeBlock("LYDIAN");
-//
-//                /**
-//                 * Constant for the "Kharoshthi" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock KHAROSHTHI =
-//                                                          UnicodeBlock("KHAROSHTHI");
-//
-//                /**
-//                 * Constant for the "Old South Arabian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock OLD_SOUTH_ARABIAN =
-//                                                          UnicodeBlock("OLD_SOUTH_ARABIAN",
-//                                                                          "OLD SOUTH ARABIAN",
-//                                                                          "OLDSOUTHARABIAN");
-//
-//                /**
-//                 * Constant for the "Avestan" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock AVESTAN =
-//                                                          UnicodeBlock("AVESTAN");
-//
-//                /**
-//                 * Constant for the "Inscriptional Parthian" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock INSCRIPTIONAL_PARTHIAN =
-//                                                          UnicodeBlock("INSCRIPTIONAL_PARTHIAN",
-//                                                                          "INSCRIPTIONAL PARTHIAN",
-//                                                                          "INSCRIPTIONALPARTHIAN");
-//
-//                /**
-//                 * Constant for the "Inscriptional Pahlavi" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock INSCRIPTIONAL_PAHLAVI =
-//                                                          UnicodeBlock("INSCRIPTIONAL_PAHLAVI",
-//                                                                          "INSCRIPTIONAL PAHLAVI",
-//                                                                          "INSCRIPTIONALPAHLAVI");
-//
-//                /**
-//                 * Constant for the "Old Turkic" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock OLD_TURKIC =
-//                                                          UnicodeBlock("OLD_TURKIC",
-//                                                                          "OLD TURKIC",
-//                                                                          "OLDTURKIC");
-//
-//                /**
-//                 * Constant for the "Rumi Numeral Symbols" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock RUMI_NUMERAL_SYMBOLS =
-//                                                          UnicodeBlock("RUMI_NUMERAL_SYMBOLS",
-//                                                                          "RUMI NUMERAL SYMBOLS",
-//                                                                          "RUMINUMERALSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Brahmi" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BRAHMI =
-//                                                          UnicodeBlock("BRAHMI");
-//
-//                /**
-//                 * Constant for the "Kaithi" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock KAITHI =
-//                                                          UnicodeBlock("KAITHI");
-//
-//                /**
-//                 * Constant for the "Cuneiform" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CUNEIFORM =
-//                                                          UnicodeBlock("CUNEIFORM");
-//
-//                /**
-//                 * Constant for the "Cuneiform Numbers and Punctuation" Unicode
-//                 * character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CUNEIFORM_NUMBERS_AND_PUNCTUATION =
-//                                                          UnicodeBlock("CUNEIFORM_NUMBERS_AND_PUNCTUATION",
-//                                                                          "CUNEIFORM NUMBERS AND PUNCTUATION",
-//                                                                          "CUNEIFORMNUMBERSANDPUNCTUATION");
-//
-//                /**
-//                 * Constant for the "Egyptian Hieroglyphs" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock EGYPTIAN_HIEROGLYPHS =
-//                                                          UnicodeBlock("EGYPTIAN_HIEROGLYPHS",
-//                                                                          "EGYPTIAN HIEROGLYPHS",
-//                                                                          "EGYPTIANHIEROGLYPHS");
-//
-//                /**
-//                 * Constant for the "Bamum Supplement" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock BAMUM_SUPPLEMENT =
-//                                                          UnicodeBlock("BAMUM_SUPPLEMENT",
-//                                                                          "BAMUM SUPPLEMENT",
-//                                                                          "BAMUMSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Kana Supplement" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock KANA_SUPPLEMENT =
-//                                                          UnicodeBlock("KANA_SUPPLEMENT",
-//                                                                          "KANA SUPPLEMENT",
-//                                                                          "KANASUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Ancient Greek Musical Notation" Unicode character
-//                 * block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ANCIENT_GREEK_MUSICAL_NOTATION =
-//                                                          UnicodeBlock("ANCIENT_GREEK_MUSICAL_NOTATION",
-//                                                                          "ANCIENT GREEK MUSICAL NOTATION",
-//                                                                          "ANCIENTGREEKMUSICALNOTATION");
-//
-//                /**
-//                 * Constant for the "Counting Rod Numerals" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock COUNTING_ROD_NUMERALS =
-//                                                          UnicodeBlock("COUNTING_ROD_NUMERALS",
-//                                                                          "COUNTING ROD NUMERALS",
-//                                                                          "COUNTINGRODNUMERALS");
-//
-//                /**
-//                 * Constant for the "Mahjong Tiles" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MAHJONG_TILES =
-//                                                          UnicodeBlock("MAHJONG_TILES",
-//                                                                          "MAHJONG TILES",
-//                                                                          "MAHJONGTILES");
-//
-//                /**
-//                 * Constant for the "Domino Tiles" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock DOMINO_TILES =
-//                                                          UnicodeBlock("DOMINO_TILES",
-//                                                                          "DOMINO TILES",
-//                                                                          "DOMINOTILES");
-//
-//                /**
-//                 * Constant for the "Playing Cards" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock PLAYING_CARDS =
-//                                                          UnicodeBlock("PLAYING_CARDS",
-//                                                                          "PLAYING CARDS",
-//                                                                          "PLAYINGCARDS");
-//
-//                /**
-//                 * Constant for the "Enclosed Alphanumeric Supplement" Unicode character
-//                 * block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ENCLOSED_ALPHANUMERIC_SUPPLEMENT =
-//                                                          UnicodeBlock("ENCLOSED_ALPHANUMERIC_SUPPLEMENT",
-//                                                                          "ENCLOSED ALPHANUMERIC SUPPLEMENT",
-//                                                                          "ENCLOSEDALPHANUMERICSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Enclosed Ideographic Supplement" Unicode character
-//                 * block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ENCLOSED_IDEOGRAPHIC_SUPPLEMENT =
-//                                                          UnicodeBlock("ENCLOSED_IDEOGRAPHIC_SUPPLEMENT",
-//                                                                          "ENCLOSED IDEOGRAPHIC SUPPLEMENT",
-//                                                                          "ENCLOSEDIDEOGRAPHICSUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Miscellaneous Symbols And Pictographs" Unicode
-//                 * character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS =
-//                                                          UnicodeBlock("MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS",
-//                                                                          "MISCELLANEOUS SYMBOLS AND PICTOGRAPHS",
-//                                                                          "MISCELLANEOUSSYMBOLSANDPICTOGRAPHS");
-//
-//                /**
-//                 * Constant for the "Emoticons" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock EMOTICONS =
-//                                                          UnicodeBlock("EMOTICONS");
-//
-//                /**
-//                 * Constant for the "Transport And Map Symbols" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock TRANSPORT_AND_MAP_SYMBOLS =
-//                                                          UnicodeBlock("TRANSPORT_AND_MAP_SYMBOLS",
-//                                                                          "TRANSPORT AND MAP SYMBOLS",
-//                                                                          "TRANSPORTANDMAPSYMBOLS");
-//
-//                /**
-//                 * Constant for the "Alchemical Symbols" Unicode character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock ALCHEMICAL_SYMBOLS =
-//                                                          UnicodeBlock("ALCHEMICAL_SYMBOLS",
-//                                                                          "ALCHEMICAL SYMBOLS",
-//                                                                          "ALCHEMICALSYMBOLS");
-//
-//                /**
-//                 * Constant for the "CJK Unified Ideographs Extension C" Unicode
-//                 * character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C =
-//                                                          UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C",
-//                                                                          "CJK UNIFIED IDEOGRAPHS EXTENSION C",
-//                                                                          "CJKUNIFIEDIDEOGRAPHSEXTENSIONC");
-//
-//                /**
-//                 * Constant for the "CJK Unified Ideographs Extension D" Unicode
-//                 * character block.
-//                 * @since 1.7
-//                 */
-//                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D =
-//                                                          UnicodeBlock("CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D",
-//                                                                          "CJK UNIFIED IDEOGRAPHS EXTENSION D",
-//                                                                          "CJKUNIFIEDIDEOGRAPHSEXTENSIOND");
-//
-//                /**
-//                 * Constant for the "Arabic Extended-A" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock ARABIC_EXTENDED_A =
-//                                                          UnicodeBlock("ARABIC_EXTENDED_A",
-//                                                                          "ARABIC EXTENDED-A",
-//                                                                          "ARABICEXTENDED-A");
-//
-//                /**
-//                 * Constant for the "Sundanese Supplement" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock SUNDANESE_SUPPLEMENT =
-//                                                          UnicodeBlock("SUNDANESE_SUPPLEMENT",
-//                                                                          "SUNDANESE SUPPLEMENT",
-//                                                                          "SUNDANESESUPPLEMENT");
-//
-//                /**
-//                 * Constant for the "Meetei Mayek Extensions" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock MEETEI_MAYEK_EXTENSIONS =
-//                                                          UnicodeBlock("MEETEI_MAYEK_EXTENSIONS",
-//                                                                          "MEETEI MAYEK EXTENSIONS",
-//                                                                          "MEETEIMAYEKEXTENSIONS");
-//
-//                /**
-//                 * Constant for the "Meroitic Hieroglyphs" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock MEROITIC_HIEROGLYPHS =
-//                                                          UnicodeBlock("MEROITIC_HIEROGLYPHS",
-//                                                                          "MEROITIC HIEROGLYPHS",
-//                                                                          "MEROITICHIEROGLYPHS");
-//
-//                /**
-//                 * Constant for the "Meroitic Cursive" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock MEROITIC_CURSIVE =
-//                                                          UnicodeBlock("MEROITIC_CURSIVE",
-//                                                                          "MEROITIC CURSIVE",
-//                                                                          "MEROITICCURSIVE");
-//
-//                /**
-//                 * Constant for the "Sora Sompeng" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock SORA_SOMPENG =
-//                                                          UnicodeBlock("SORA_SOMPENG",
-//                                                                          "SORA SOMPENG",
-//                                                                          "SORASOMPENG");
-//
-//                /**
-//                 * Constant for the "Chakma" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock CHAKMA =
-//                                                          UnicodeBlock("CHAKMA");
-//
-//                /**
-//                 * Constant for the "Sharada" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock SHARADA =
-//                                                          UnicodeBlock("SHARADA");
-//
-//                /**
-//                 * Constant for the "Takri" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock TAKRI =
-//                                                          UnicodeBlock("TAKRI");
-//
-//                /**
-//                 * Constant for the "Miao" Unicode character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock MIAO =
-//                                                          UnicodeBlock("MIAO");
-//
-//                /**
-//                 * Constant for the "Arabic Mathematical Alphabetic Symbols" Unicode
-//                 * character block.
-//                 * @since 1.8
-//                 */
-//                static UnicodeBlock ARABIC_MATHEMATICAL_ALPHABETIC_SYMBOLS =
-//                                                          UnicodeBlock("ARABIC_MATHEMATICAL_ALPHABETIC_SYMBOLS",
-//                                                                          "ARABIC MATHEMATICAL ALPHABETIC SYMBOLS",
-//                                                                          "ARABICMATHEMATICALALPHABETICSYMBOLS");
+                 UnicodeBlock(String &idName) : Subset(idName) {
+                    UnicodeBlock::map.put(idName, *this);
+                 }
+
+                /**
+                 * Creates a UnicodeBlock with the given identifier name and
+                 * alias name.
+                 */
+                UnicodeBlock(String &idName, String &alias) : Subset(idName) {
+                    UnicodeBlock::map.put(alias, *this);
+                }
+
+                /**
+                 * Creates a UnicodeBlock with the given identifier name and
+                 * alias names.
+                 */
+                template<typename ... Args>
+                UnicodeBlock(String idName, Args ... aliases) : Subset(idName) {
+                    std::initializer_list<String> paramList = {aliases...};
+                    for (String alias : paramList) {
+                        UnicodeBlock::map.put(alias, *this);
+                    }
+                }
+
+
+            public:
+
+                boolean operator==(const UnicodeBlock &leftValue) const;
+
+                /**
+                 * Constant for the "Basic Latin" Unicode character block.
+                 */
+                static UnicodeBlock BASIC_LATIN;
+
+                /**
+                 * Constant for the "Latin-1 Supplement" Unicode character block.
+                 */
+                static UnicodeBlock LATIN_1_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Latin Extended-A" Unicode character block
+                 */
+                static UnicodeBlock LATIN_EXTENDED_A;
+
+                /**
+                 * Constant for the "Latin Extended-B" Unicode character block.
+                 */
+                static UnicodeBlock LATIN_EXTENDED_B;
+
+                /**
+                 * Constant for the "IPA Extensions" Unicode character block.
+                 */
+                static UnicodeBlock IPA_EXTENSIONS;
+
+                /**
+                 * Constant for the "Spacing Modifier Letters" Unicode character block.
+                 */
+                static UnicodeBlock SPACING_MODIFIER_LETTERS;
+
+                /**
+                 * Constant for the "Combining Diacritical Marks" Unicode character block.
+                 */
+                static UnicodeBlock COMBINING_DIACRITICAL_MARKS;
+
+                /**
+                 * Constant for the "Greek and Coptic" Unicode character block.
+                 * This block was previously known as the "Greek" block
+                 */
+                static UnicodeBlock GREEK;
+
+                /**
+                 * Constant for the "Cyrillic" Unicode character block.
+                 */
+                static UnicodeBlock CYRILLIC;
+
+                /**
+                 * Constant for the "Armenian" Unicode character block.
+                 */
+                static UnicodeBlock ARMENIAN;
+
+                /**
+                 * Constant for the "Hebrew" Unicode character block.
+                 */
+                static UnicodeBlock HEBREW;
+
+                /**
+                 * Constant for the "Arabic" Unicode character block.
+                 */
+                static UnicodeBlock ARABIC;
+
+                /**
+                 * Constant for the "Devanagari" Unicode character block.
+                 */
+                static UnicodeBlock DEVANAGARI;
+
+                /**
+                 * Constant for the "Bengali" Unicode character block.
+                 */
+                static UnicodeBlock BENGALI;
+
+                /**
+                 * Constant for the "Gurmukhi" Unicode character block.
+                 */
+                static UnicodeBlock GURMUKHI;
+
+                /**
+                 * Constant for the "Gujarati" Unicode character block.
+                 */
+                static UnicodeBlock GUJARATI;
+
+                /**
+                 * Constant for the "Oriya" Unicode character block.
+                 */
+                static UnicodeBlock ORIYA;
+
+                /**
+                 * Constant for the "Tamil" Unicode character block.
+                 */
+                static UnicodeBlock TAMIL;
+
+                /**
+                 * Constant for the "Telugu" Unicode character block.
+                 */
+                static UnicodeBlock TELUGU;
+
+                /**
+                 * Constant for the "Kannada" Unicode character block.
+                 */
+                static UnicodeBlock KANNADA;
+
+                /**
+                 * Constant for the "Malayalam" Unicode character block.
+                 */
+                static UnicodeBlock MALAYALAM;
+
+                /**
+                 * Constant for the "Thai" Unicode character block.
+                 */
+                static UnicodeBlock THAI;
+
+                /**
+                 * Constant for the "Lao" Unicode character block.
+                 */
+                static UnicodeBlock LAO;
+
+                /**
+                 * Constant for the "Tibetan" Unicode character block.
+                 */
+                static UnicodeBlock TIBETAN;
+
+                /**
+                 * Constant for the "Georgian" Unicode character block.
+                 */
+                static UnicodeBlock GEORGIAN;
+
+                /**
+                 * Constant for the "Hangul Jamo" Unicode character block.
+                 */
+                static UnicodeBlock HANGUL_JAMO;
+
+                /**
+                 * Constant for the "Latin Extended Additional" Unicode character block.
+                 */
+                static UnicodeBlock LATIN_EXTENDED_ADDITIONAL;
+
+                /**
+                 * Constant for the "Greek Extended" Unicode character block.
+                 */
+                static UnicodeBlock GREEK_EXTENDED;
+
+                /**
+                 * Constant for the "General Punctuation" Unicode character block.
+                 */
+                static UnicodeBlock GENERAL_PUNCTUATION;
+
+                /**
+                 * Constant for the "Superscripts and Subscripts" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock SUPERSCRIPTS_AND_SUBSCRIPTS;
+
+                /**
+                 * Constant for the "Currency Symbols" Unicode character block.
+                 */
+                static UnicodeBlock CURRENCY_SYMBOLS;
+
+                /**
+                 * Constant for the "Combining Diacritical Marks for Symbols" Unicode
+                 * character block.
+                 * This block was previously known as "Combining Marks for Symbols".
+                 */
+                static UnicodeBlock COMBINING_MARKS_FOR_SYMBOLS;
+
+                /**
+                 * Constant for the "Letterlike Symbols" Unicode character block.
+                 */
+                static UnicodeBlock LETTERLIKE_SYMBOLS;
+
+                /**
+                 * Constant for the "Number Forms" Unicode character block.
+                 */
+                static UnicodeBlock NUMBER_FORMS;
+
+                /**
+                 * Constant for the "Arrows" Unicode character block.
+                 */
+                static UnicodeBlock ARROWS;
+
+                /**
+                 * Constant for the "Mathematical Operators" Unicode character block.
+                 */
+                static UnicodeBlock MATHEMATICAL_OPERATORS;
+
+                /**
+                 * Constant for the "Miscellaneous Technical" Unicode character block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_TECHNICAL;
+
+                /**
+                 * Constant for the "Control Pictures" Unicode character block.
+                 */
+                static UnicodeBlock CONTROL_PICTURES;
+
+                /**
+                 * Constant for the "Optical Character Recognition" Unicode character block.
+                 */
+                static UnicodeBlock OPTICAL_CHARACTER_RECOGNITION;
+
+                /**
+                 * Constant for the "Enclosed Alphanumerics" Unicode character block.
+                 */
+                static UnicodeBlock ENCLOSED_ALPHANUMERICS;
+
+                /**
+                 * Constant for the "Box Drawing" Unicode character block.
+                 */
+                static UnicodeBlock BOX_DRAWING;
+
+                /**
+                 * Constant for the "Block Elements" Unicode character block.
+                 */
+                static UnicodeBlock BLOCK_ELEMENTS;
+
+                /**
+                 * Constant for the "Geometric Shapes" Unicode character block.
+                 */
+                static UnicodeBlock GEOMETRIC_SHAPES;
+
+                /**
+                 * Constant for the "Miscellaneous Symbols" Unicode character block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_SYMBOLS;
+
+                /**
+                 * Constant for the "Dingbats" Unicode character block.
+                 */
+                static UnicodeBlock DINGBATS;
+
+                /**
+                 * Constant for the "CJK Symbols and Punctuation" Unicode character block.
+                 */
+                static UnicodeBlock CJK_SYMBOLS_AND_PUNCTUATION;
+
+                /**
+                 * Constant for the "Hiragana" Unicode character block.
+                 */
+                static UnicodeBlock HIRAGANA;
+
+                /**
+                 * Constant for the "Katakana" Unicode character block.
+                 */
+                static UnicodeBlock KATAKANA;
+
+                /**
+                 * Constant for the "Bopomofo" Unicode character block.
+                 */
+                static UnicodeBlock BOPOMOFO;
+
+                /**
+                 * Constant for the "Hangul Compatibility Jamo" Unicode character block.
+                 */
+                static UnicodeBlock HANGUL_COMPATIBILITY_JAMO;
+
+                /**
+                 * Constant for the "Kanbun" Unicode character block.
+                 */
+                static UnicodeBlock KANBUN;
+
+                /**
+                 * Constant for the "Enclosed CJK Letters and Months" Unicode character block.
+                 */
+                static UnicodeBlock ENCLOSED_CJK_LETTERS_AND_MONTHS;
+
+                /**
+                 * Constant for the "CJK Compatibility" Unicode character block.
+                 */
+                static UnicodeBlock CJK_COMPATIBILITY;
+
+                /**
+                 * Constant for the "CJK Unified Ideographs" Unicode character block.
+                 */
+                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS;
+
+                /**
+                 * Constant for the "Hangul Syllables" Unicode character block.
+                 */
+                static UnicodeBlock HANGUL_SYLLABLES;
+
+                /**
+                 * Constant for the "Private Use Area" Unicode character block.
+                 */
+                static UnicodeBlock PRIVATE_USE_AREA;
+
+                /**
+                 * Constant for the "CJK Compatibility Ideographs" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock CJK_COMPATIBILITY_IDEOGRAPHS;
+
+                /**
+                 * Constant for the "Alphabetic Presentation Forms" Unicode character block.
+                 */
+                static UnicodeBlock ALPHABETIC_PRESENTATION_FORMS;
+
+                /**
+                 * Constant for the "Arabic Presentation Forms-A" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock ARABIC_PRESENTATION_FORMS_A;
+
+                /**
+                 * Constant for the "Combining Half Marks" Unicode character block.
+                 */
+                static UnicodeBlock COMBINING_HALF_MARKS;
+
+                /**
+                 * Constant for the "CJK Compatibility Forms" Unicode character block.
+                 */
+                static UnicodeBlock CJK_COMPATIBILITY_FORMS;
+
+                /**
+                 * Constant for the "Small Form Variants" Unicode character block.
+                 */
+                static UnicodeBlock SMALL_FORM_VARIANTS;
+
+                /**
+                 * Constant for the "Arabic Presentation Forms-B" Unicode character block.
+                 */
+                static UnicodeBlock ARABIC_PRESENTATION_FORMS_B;
+
+                /**
+                 * Constant for the "Halfwidth and Fullwidth Forms" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock HALFWIDTH_AND_FULLWIDTH_FORMS;
+
+                /**
+                 * Constant for the "Specials" Unicode character block.
+                 */
+                static UnicodeBlock SPECIALS;
+
+                /**
+                 * Constant for the "Syriac" Unicode character block.
+                 */
+                static UnicodeBlock SYRIAC;
+
+                /**
+                 * Constant for the "Thaana" Unicode character block.
+                 */
+                static UnicodeBlock THAANA;
+
+                /**
+                 * Constant for the "Sinhala" Unicode character block.
+                 */
+                static UnicodeBlock SINHALA;
+
+                /**
+                 * Constant for the "Myanmar" Unicode character block.
+                 */
+                static UnicodeBlock MYANMAR;
+
+                /**
+                 * Constant for the "Ethiopic" Unicode character block.
+                 */
+                static UnicodeBlock ETHIOPIC;
+
+                /**
+                 * Constant for the "Cherokee" Unicode character block.
+                 */
+                static UnicodeBlock CHEROKEE;
+
+                /**
+                 * Constant for the "Unified Canadian Aboriginal Syllabics" Unicode character block.
+                 */
+                static UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS;
+
+                /**
+                 * Constant for the "Ogham" Unicode character block.
+                 */
+                static UnicodeBlock OGHAM;
+
+                /**
+                 * Constant for the "Runic" Unicode character block.
+                 */
+                static UnicodeBlock RUNIC;
+
+                /**
+                 * Constant for the "Khmer" Unicode character block.
+                 */
+                static UnicodeBlock KHMER;
+
+                /**
+                 * Constant for the "Mongolian" Unicode character block.
+                 */
+                static UnicodeBlock MONGOLIAN;
+
+                /**
+                 * Constant for the "Braille Patterns" Unicode character block.
+                 */
+                static UnicodeBlock BRAILLE_PATTERNS;
+
+                /**
+                 * Constant for the "CJK Radicals Supplement" Unicode character block.
+                 */
+                static UnicodeBlock CJK_RADICALS_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Kangxi Radicals" Unicode character block.
+                 */
+                static UnicodeBlock KANGXI_RADICALS;
+
+                /**
+                 * Constant for the "Ideographic Description Characters" Unicode character block.
+                 */
+                static UnicodeBlock IDEOGRAPHIC_DESCRIPTION_CHARACTERS;
+
+                /**
+                 * Constant for the "Bopomofo Extended" Unicode character block.
+                 */
+                static UnicodeBlock BOPOMOFO_EXTENDED;
+
+                /**
+                 * Constant for the "CJK Unified Ideographs Extension A" Unicode character block.
+                 */
+                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A;
+
+                /**
+                 * Constant for the "Yi Syllables" Unicode character block.
+                 */
+                static UnicodeBlock YI_SYLLABLES;
+
+                /**
+                 * Constant for the "Yi Radicals" Unicode character block.
+                 */
+                static UnicodeBlock YI_RADICALS;
+
+                /**
+                 * Constant for the "Cyrillic Supplementary" Unicode character block.
+                 */
+                static UnicodeBlock CYRILLIC_SUPPLEMENTARY;
+
+                /**
+                 * Constant for the "Tagalog" Unicode character block.
+                 */
+                static UnicodeBlock TAGALOG;
+
+                /**
+                 * Constant for the "Hanunoo" Unicode character block.
+                 */
+                static UnicodeBlock HANUNOO;
+
+                /**
+                 * Constant for the "Buhid" Unicode character block.
+                 */
+                static UnicodeBlock BUHID;
+
+                /**
+                 * Constant for the "Tagbanwa" Unicode character block.
+                 */
+                static UnicodeBlock TAGBANWA;
+
+                /**
+                 * Constant for the "Limbu" Unicode character block.
+                 */
+                static UnicodeBlock LIMBU;
+
+                /**
+                 * Constant for the "Tai Le" Unicode character block.
+                 */
+                static UnicodeBlock TAI_LE;
+
+                /**
+                 * Constant for the "Khmer Symbols" Unicode character block.
+                 */
+                static UnicodeBlock KHMER_SYMBOLS;
+
+                /**
+                 * Constant for the "Phonetic Extensions" Unicode character block.
+                 */
+                static UnicodeBlock PHONETIC_EXTENSIONS;
+
+                /**
+                 * Constant for the "Miscellaneous Mathematical Symbols-A" Unicode character block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_MATHEMATICAL_SYMBOLS_A;
+
+                /**
+                 * Constant for the "Supplemental Arrows-A" Unicode character block.
+                 */
+                static UnicodeBlock SUPPLEMENTAL_ARROWS_A;
+
+                /**
+                 * Constant for the "Supplemental Arrows-B" Unicode character block.
+                 */
+                static UnicodeBlock SUPPLEMENTAL_ARROWS_B;
+
+                /**
+                 * Constant for the "Miscellaneous Mathematical Symbols-B" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_MATHEMATICAL_SYMBOLS_B;
+
+                /**
+                 * Constant for the "Supplemental Mathematical Operators" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock SUPPLEMENTAL_MATHEMATICAL_OPERATORS;
+
+                /**
+                 * Constant for the "Miscellaneous Symbols and Arrows" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_SYMBOLS_AND_ARROWS;
+
+                /**
+                 * Constant for the "Katakana Phonetic Extensions" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock KATAKANA_PHONETIC_EXTENSIONS;
+
+                /**
+                 * Constant for the "Yijing Hexagram Symbols" Unicode character block.
+                 */
+                static UnicodeBlock YIJING_HEXAGRAM_SYMBOLS;
+
+                /**
+                 * Constant for the "Variation Selectors" Unicode character block.
+                 */
+                static UnicodeBlock VARIATION_SELECTORS;
+
+                /**
+                 * Constant for the "Linear B Syllabary" Unicode character block.
+                 */
+                static UnicodeBlock LINEAR_B_SYLLABARY;
+
+                /**
+                 * Constant for the "Linear B Ideograms" Unicode character block.
+                 */
+                static UnicodeBlock LINEAR_B_IDEOGRAMS;
+
+                /**
+                 * Constant for the "Aegean Numbers" Unicode character block.
+                 */
+                static UnicodeBlock AEGEAN_NUMBERS;
+
+                /**
+                 * Constant for the "Old Italic" Unicode character block.
+                 */
+                static UnicodeBlock OLD_ITALIC;
+
+                /**
+                 * Constant for the "Gothic" Unicode character block.
+                 */
+                static UnicodeBlock GOTHIC;
+
+                /**
+                 * Constant for the "Ugaritic" Unicode character block.
+                 */
+                static UnicodeBlock UGARITIC;
+
+                /**
+                 * Constant for the "Deseret" Unicode character block.
+                 */
+                static UnicodeBlock DESERET;
+
+                /**
+                 * Constant for the "Shavian" Unicode character block.
+                 */
+                static UnicodeBlock SHAVIAN;
+
+                /**
+                 * Constant for the "Osmanya" Unicode character block.
+                 */
+                static UnicodeBlock OSMANYA;
+
+                /**
+                 * Constant for the "Cypriot Syllabary" Unicode character block.
+                 */
+                static UnicodeBlock CYPRIOT_SYLLABARY;
+
+                /**
+                 * Constant for the "Byzantine Musical Symbols" Unicode character block.
+                 */
+                static UnicodeBlock BYZANTINE_MUSICAL_SYMBOLS;
+
+                /**
+                 * Constant for the "Musical Symbols" Unicode character block.
+                 */
+                static UnicodeBlock MUSICAL_SYMBOLS;
+
+                /**
+                 * Constant for the "Tai Xuan Jing Symbols" Unicode character block.
+                 */
+                static UnicodeBlock TAI_XUAN_JING_SYMBOLS;
+
+                /**
+                 * Constant for the "Mathematical Alphanumeric Symbols" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock MATHEMATICAL_ALPHANUMERIC_SYMBOLS;
+
+                /**
+                 * Constant for the "CJK Unified Ideographs Extension B" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B;
+
+                /**
+                 * Constant for the "CJK Compatibility Ideographs Supplement" Unicode character block.
+                 */
+                static UnicodeBlock CJK_COMPATIBILITY_IDEOGRAPHS_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Tags" Unicode character block.
+                 */
+                static UnicodeBlock TAGS;
+
+                /**
+                 * Constant for the "Variation Selectors Supplement" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock VARIATION_SELECTORS_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Supplementary Private Use Area-A" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock SUPPLEMENTARY_PRIVATE_USE_AREA_A;
+
+                /**
+                 * Constant for the "Supplementary Private Use Area-B" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock SUPPLEMENTARY_PRIVATE_USE_AREA_B;
+
+                /**
+                 * Constant for the "High Surrogates" Unicode character block.
+                 * This block represents codepoint values in the high surrogate
+                 * range: U+D800 through U+DB7F
+                 */
+                static UnicodeBlock HIGH_SURROGATES;
+
+                /**
+                 * Constant for the "High Private Use Surrogates" Unicode character
+                 * block.
+                 * This block represents codepoint values in the private use high
+                 * surrogate range: U+DB80 through U+DBFF
+                 */
+                static UnicodeBlock HIGH_PRIVATE_USE_SURROGATES;
+
+                /**
+                 * Constant for the "Low Surrogates" Unicode character block.
+                 * This block represents codepoint values in the low surrogate
+                 * range: U+DC00 through U+DFFF
+                 */
+                static UnicodeBlock LOW_SURROGATES;
+
+                /**
+                 * Constant for the "Arabic Supplement" Unicode character block.
+                 */
+                static UnicodeBlock ARABIC_SUPPLEMENT;
+
+                /**
+                 * Constant for the "NKo" Unicode character block.
+                 */
+                static UnicodeBlock NKO;
+
+                /**
+                 * Constant for the "Samaritan" Unicode character block.
+                 */
+                static UnicodeBlock SAMARITAN;
+
+                /**
+                 * Constant for the "Mandaic" Unicode character block.
+                 */
+                static UnicodeBlock MANDAIC;
+
+                /**
+                 * Constant for the "Ethiopic Supplement" Unicode character block.
+                 */
+                static UnicodeBlock ETHIOPIC_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Unified Canadian Aboriginal Syllabics Extended"
+                 * Unicode character block.
+                 */
+                static UnicodeBlock UNIFIED_CANADIAN_ABORIGINAL_SYLLABICS_EXTENDED;
+
+                /**
+                 * Constant for the "New Tai Lue" Unicode character block.
+                 */
+                static UnicodeBlock NEW_TAI_LUE;
+
+                /**
+                 * Constant for the "Buginese" Unicode character block.
+                 */
+                static UnicodeBlock BUGINESE;
+
+                /**
+                 * Constant for the "Tai Tham" Unicode character block.
+                 */
+                static UnicodeBlock TAI_THAM;
+
+                /**
+                 * Constant for the "Balinese" Unicode character block.
+                 */
+                static UnicodeBlock BALINESE;
+
+                /**
+                 * Constant for the "Sundanese" Unicode character block.
+                 */
+                static UnicodeBlock SUNDANESE;
+
+                /**
+                 * Constant for the "Batak" Unicode character block.
+                 */
+                static UnicodeBlock BATAK;
+
+                /**
+                 * Constant for the "Lepcha" Unicode character block.
+                 */
+                static UnicodeBlock LEPCHA;
+
+                /**
+                 * Constant for the "Ol Chiki" Unicode character block.
+                 */
+                static UnicodeBlock OL_CHIKI;
+
+                /**
+                 * Constant for the "Vedic Extensions" Unicode character block.
+                 */
+                static UnicodeBlock VEDIC_EXTENSIONS;
+
+                /**
+                 * Constant for the "Phonetic Extensions Supplement" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock PHONETIC_EXTENSIONS_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Combining Diacritical Marks Supplement" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock COMBINING_DIACRITICAL_MARKS_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Glagolitic" Unicode character block.
+                 */
+                static UnicodeBlock GLAGOLITIC;
+
+                /**
+                 * Constant for the "Latin Extended-C" Unicode character block.
+                 */
+                static UnicodeBlock LATIN_EXTENDED_C;
+
+                /**
+                 * Constant for the "Coptic" Unicode character block.
+                 */
+                static UnicodeBlock COPTIC;
+
+                /**
+                 * Constant for the "Georgian Supplement" Unicode character block.
+                 */
+                static UnicodeBlock GEORGIAN_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Tifinagh" Unicode character block.
+                 */
+                static UnicodeBlock TIFINAGH;
+
+                /**
+                 * Constant for the "Ethiopic Extended" Unicode character block.
+                 */
+                static UnicodeBlock ETHIOPIC_EXTENDED;
+
+                /**
+                 * Constant for the "Cyrillic Extended-A" Unicode character block.
+                 */
+                static UnicodeBlock CYRILLIC_EXTENDED_A;
+
+                /**
+                 * Constant for the "Supplemental Punctuation" Unicode character block.
+                 */
+                static UnicodeBlock SUPPLEMENTAL_PUNCTUATION;
+
+                /**
+                 * Constant for the "CJK Strokes" Unicode character block.
+                 */
+                static UnicodeBlock CJK_STROKES;
+
+                /**
+                 * Constant for the "Lisu" Unicode character block.
+                 */
+                static UnicodeBlock LISU;
+
+                /**
+                 * Constant for the "Vai" Unicode character block.
+                 */
+                static UnicodeBlock VAI;
+
+                /**
+                 * Constant for the "Cyrillic Extended-B" Unicode character block.
+                 */
+                static UnicodeBlock CYRILLIC_EXTENDED_B;
+
+                /**
+                 * Constant for the "Bamum" Unicode character block.
+                 */
+                static UnicodeBlock BAMUM;
+
+                /**
+                 * Constant for the "Modifier Tone Letters" Unicode character block.
+                 */
+                static UnicodeBlock MODIFIER_TONE_LETTERS;
+
+                /**
+                 * Constant for the "Latin Extended-D" Unicode character block.
+                 */
+                static UnicodeBlock LATIN_EXTENDED_D;
+
+                /**
+                 * Constant for the "Syloti Nagri" Unicode character block.
+                 */
+                static UnicodeBlock SYLOTI_NAGRI;
+
+                /**
+                 * Constant for the "Common Indic Number Forms" Unicode character block.
+                 */
+                static UnicodeBlock COMMON_INDIC_NUMBER_FORMS;
+
+                /**
+                 * Constant for the "Phags-pa" Unicode character block.
+                 */
+                static UnicodeBlock PHAGS_PA;
+
+                /**
+                 * Constant for the "Saurashtra" Unicode character block.
+                 */
+                static UnicodeBlock SAURASHTRA;
+
+                /**
+                 * Constant for the "Devanagari Extended" Unicode character block.
+                 */
+                static UnicodeBlock DEVANAGARI_EXTENDED;
+
+                /**
+                 * Constant for the "Kayah Li" Unicode character block.
+                 */
+                static UnicodeBlock KAYAH_LI;
+
+                /**
+                 * Constant for the "Rejang" Unicode character block.
+                 */
+                static UnicodeBlock REJANG;
+
+                /**
+                 * Constant for the "Hangul Jamo Extended-A" Unicode character block.
+                 */
+                static UnicodeBlock HANGUL_JAMO_EXTENDED_A;
+
+                /**
+                 * Constant for the "Javanese" Unicode character block.
+                 */
+                static UnicodeBlock JAVANESE;
+
+                /**
+                 * Constant for the "Cham" Unicode character block.
+                 */
+                static UnicodeBlock CHAM;
+
+                /**
+                 * Constant for the "Myanmar Extended-A" Unicode character block.
+                 */
+                static UnicodeBlock MYANMAR_EXTENDED_A;
+
+                /**
+                 * Constant for the "Tai Viet" Unicode character block.
+                 */
+                static UnicodeBlock TAI_VIET;
+
+                /**
+                 * Constant for the "Ethiopic Extended-A" Unicode character block.
+                 */
+                static UnicodeBlock ETHIOPIC_EXTENDED_A;
+
+                /**
+                 * Constant for the "Meetei Mayek" Unicode character block.
+                 */
+                static UnicodeBlock MEETEI_MAYEK;
+
+                /**
+                 * Constant for the "Hangul Jamo Extended-B" Unicode character block.
+                 */
+                static UnicodeBlock HANGUL_JAMO_EXTENDED_B;
+
+                /**
+                 * Constant for the "Vertical Forms" Unicode character block.
+                 */
+                static UnicodeBlock VERTICAL_FORMS;
+
+                /**
+                 * Constant for the "Ancient Greek Numbers" Unicode character block.
+                 */
+                static UnicodeBlock ANCIENT_GREEK_NUMBERS;
+
+                /**
+                 * Constant for the "Ancient Symbols" Unicode character block.
+                 */
+                static UnicodeBlock ANCIENT_SYMBOLS;
+
+                /**
+                 * Constant for the "Phaistos Disc" Unicode character block.
+                 */
+                static UnicodeBlock PHAISTOS_DISC ;
+
+                /**
+                 * Constant for the "Lycian" Unicode character block.
+                 */
+                static UnicodeBlock LYCIAN;
+
+                /**
+                 * Constant for the "Carian" Unicode character block.
+                 */
+                static UnicodeBlock CARIAN;
+
+                /**
+                 * Constant for the "Old Persian" Unicode character block.
+                 */
+                static UnicodeBlock OLD_PERSIAN;
+
+                /**
+                 * Constant for the "Imperial Aramaic" Unicode character block.
+                 */
+                static UnicodeBlock IMPERIAL_ARAMAIC;
+
+                /**
+                 * Constant for the "Phoenician" Unicode character block.
+                 */
+                static UnicodeBlock PHOENICIAN;
+
+                /**
+                 * Constant for the "Lydian" Unicode character block.
+                 */
+                static UnicodeBlock LYDIAN;
+
+                /**
+                 * Constant for the "Kharoshthi" Unicode character block.
+                 */
+                static UnicodeBlock KHAROSHTHI;
+
+                /**
+                 * Constant for the "Old South Arabian" Unicode character block.
+                 */
+                static UnicodeBlock OLD_SOUTH_ARABIAN;
+
+                /**
+                 * Constant for the "Avestan" Unicode character block.
+                 */
+                static UnicodeBlock AVESTAN;
+
+                /**
+                 * Constant for the "Inscriptional Parthian" Unicode character block.
+                 */
+                static UnicodeBlock INSCRIPTIONAL_PARTHIAN;
+
+                /**
+                 * Constant for the "Inscriptional Pahlavi" Unicode character block.
+                 */
+                static UnicodeBlock INSCRIPTIONAL_PAHLAVI;
+
+                /**
+                 * Constant for the "Old Turkic" Unicode character block.
+                 */
+                static UnicodeBlock OLD_TURKIC;
+
+                /**
+                 * Constant for the "Rumi Numeral Symbols" Unicode character block.
+                 */
+                static UnicodeBlock RUMI_NUMERAL_SYMBOLS;
+
+                /**
+                 * Constant for the "Brahmi" Unicode character block.
+                 */
+                static UnicodeBlock BRAHMI;
+
+                /**
+                 * Constant for the "Kaithi" Unicode character block.
+                 */
+                static UnicodeBlock KAITHI;
+
+                /**
+                 * Constant for the "Cuneiform" Unicode character block.
+                 */
+                static UnicodeBlock CUNEIFORM;
+
+                /**
+                 * Constant for the "Cuneiform Numbers and Punctuation" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock CUNEIFORM_NUMBERS_AND_PUNCTUATION;
+
+                /**
+                 * Constant for the "Egyptian Hieroglyphs" Unicode character block.
+                 */
+                static UnicodeBlock EGYPTIAN_HIEROGLYPHS;
+
+                /**
+                 * Constant for the "Bamum Supplement" Unicode character block.
+                 */
+                static UnicodeBlock BAMUM_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Kana Supplement" Unicode character block.
+                 */
+                static UnicodeBlock KANA_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Ancient Greek Musical Notation" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock ANCIENT_GREEK_MUSICAL_NOTATION;
+
+                /**
+                 * Constant for the "Counting Rod Numerals" Unicode character block.
+                 */
+                static UnicodeBlock COUNTING_ROD_NUMERALS;
+
+                /**
+                 * Constant for the "Mahjong Tiles" Unicode character block.
+                 */
+                static UnicodeBlock MAHJONG_TILES;
+
+                /**
+                 * Constant for the "Domino Tiles" Unicode character block.
+                 */
+                static UnicodeBlock DOMINO_TILES;
+
+                /**
+                 * Constant for the "Playing Cards" Unicode character block.
+                 */
+                static UnicodeBlock PLAYING_CARDS;
+
+                /**
+                 * Constant for the "Enclosed Alphanumeric Supplement" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock ENCLOSED_ALPHANUMERIC_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Enclosed Ideographic Supplement" Unicode character
+                 * block.
+                 */
+                static UnicodeBlock ENCLOSED_IDEOGRAPHIC_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Miscellaneous Symbols And Pictographs" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock MISCELLANEOUS_SYMBOLS_AND_PICTOGRAPHS;
+
+                /**
+                 * Constant for the "Emoticons" Unicode character block.
+                 */
+                static UnicodeBlock EMOTICONS;
+
+                /**
+                 * Constant for the "Transport And Map Symbols" Unicode character block.
+                 */
+                static UnicodeBlock TRANSPORT_AND_MAP_SYMBOLS;
+
+                /**
+                 * Constant for the "Alchemical Symbols" Unicode character block.
+                 */
+                static UnicodeBlock ALCHEMICAL_SYMBOLS;
+
+                /**
+                 * Constant for the "CJK Unified Ideographs Extension C" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_C;
+
+                /**
+                 * Constant for the "CJK Unified Ideographs Extension D" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock CJK_UNIFIED_IDEOGRAPHS_EXTENSION_D;
+
+                /**
+                 * Constant for the "Arabic Extended-A" Unicode character block.
+                 */
+                static UnicodeBlock ARABIC_EXTENDED_A;
+
+                /**
+                 * Constant for the "Sundanese Supplement" Unicode character block.
+                 */
+                static UnicodeBlock SUNDANESE_SUPPLEMENT;
+
+                /**
+                 * Constant for the "Meetei Mayek Extensions" Unicode character block.
+                 */
+                static UnicodeBlock MEETEI_MAYEK_EXTENSIONS;
+
+                /**
+                 * Constant for the "Meroitic Hieroglyphs" Unicode character block.
+                 */
+                static UnicodeBlock MEROITIC_HIEROGLYPHS;
+
+                /**
+                 * Constant for the "Meroitic Cursive" Unicode character block.
+                 */
+                static UnicodeBlock MEROITIC_CURSIVE;
+
+                /**
+                 * Constant for the "Sora Sompeng" Unicode character block.
+                 */
+                static UnicodeBlock SORA_SOMPENG;
+
+                /**
+                 * Constant for the "Chakma" Unicode character block.
+                 */
+                static UnicodeBlock CHAKMA;
+
+                /**
+                 * Constant for the "Sharada" Unicode character block.
+                 */
+                static UnicodeBlock SHARADA;
+
+                /**
+                 * Constant for the "Takri" Unicode character block.
+                 */
+                static UnicodeBlock TAKRI;
+
+                /**
+                 * Constant for the "Miao" Unicode character block.
+                 */
+                static UnicodeBlock MIAO;
+
+                /**
+                 * Constant for the "Arabic Mathematical Alphabetic Symbols" Unicode
+                 * character block.
+                 */
+                static UnicodeBlock ARABIC_MATHEMATICAL_ALPHABETIC_SYMBOLS;
 //
 //            private:
 //                static int blockStarts[] = {
