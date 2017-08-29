@@ -965,8 +965,8 @@ void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String, std::s
             if (!Character::isLowSurrogate(lowSurrogate)) {
                 return;
             }
-            codePoint = (lowSurrogate  - 0xDC00) & 0x3FF;
-            codePoint = codePoint | (highSurrogate - 0xD800) << 10;
+            codePoint = (lowSurrogate - 0xDC00) & 0x3FF;
+            codePoint = codePoint | ((highSurrogate - 0xD800) << 10);
         } else {
             codePoint = utf16String[index];
         }
