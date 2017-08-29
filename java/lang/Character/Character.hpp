@@ -78,6 +78,8 @@ namespace Java {
                 };
 
             class UnicodeBlock : public Subset {
+
+                static HashMap<String, UnicodeBlock> map;
             public:
                 /**
                  * Default constructor
@@ -90,8 +92,6 @@ namespace Java {
                  * @param name
                  */
                 UnicodeBlock(const String &name);
-
-                static HashMap<String, UnicodeBlock> map;
 
                 /**
                  * Creates a UnicodeBlock with the given identifier name.
