@@ -935,6 +935,7 @@ namespace Java {
 
         private:
             /**
+             * Convert an UTF-8 string to UTF-16 string.
              *
              * @param utf8String
              * @param utf16String
@@ -942,6 +943,7 @@ namespace Java {
             static void convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String);
 
             /**
+             * Convert an UTF-16 string to UTF-8 string.
              *
              * @param utf16String
              * @param utf8String
@@ -949,6 +951,7 @@ namespace Java {
             static void convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String);
 
             /**
+             * Checks if a byte is first byte.
              *
              * @param target
              * @return boolean
@@ -956,13 +959,15 @@ namespace Java {
             static boolean isFirstByte(char target);
 
             /**
+             * Gets number of trailing bytes after a first byte.
              *
              * @param firstByte
-             * @return
+             * @return int
              */
             static int getNumberOfTrailingBytesAfterFirstByte(char firstByte);
 
             /**
+             * Gets length of an UTF-8 byte sequences.
              *
              * @param utf8String
              * @return int

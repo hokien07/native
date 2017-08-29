@@ -24,8 +24,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <codecvt>
-#include <locale>
 #include "../StringBuilder/StringBuilder.hpp"
 #include "../NegativeArraySizeException/NegativeArraySizeException.hpp"
 #include "../IndexOutOfBoundsException/IndexOutOfBoundsException.hpp"
@@ -891,8 +889,8 @@ void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16st
     int index = 0;
     int codePoint;
     int numberOfTrailingBytes;
-    char16_t lowSurrogate;
     char16_t highSurrogate;
+    char16_t lowSurrogate;
     while (index < rawLength) {
         if (!isFirstByte(utf8String[index])) {
             // Invalid byte sequences.
@@ -943,8 +941,83 @@ void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16st
 }
 
 void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) {
-    std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-    utf8String = converter.to_bytes(utf16String);
+    int rawLength = static_cast<int>(utf16String.length());
+    int index = 0;
+    int codePoint;
+    char16_t highSurrogate;
+    char16_t lowSurrogate;
+    int numberOfBytes;
+    char byte1;
+    char byte2;
+    char byte3;
+    char byte4;
+    while (index < rawLength) {
+        if (Character::isSurrogate(utf16String[index])) {
+            highSurrogate = utf16String[index];
+            index = index + 1;
+            if (index >= rawLength) {
+                return;
+            }
+            lowSurrogate = utf16String[index];
+            if (!Character::isHighSurrogate(highSurrogate)) {
+                return;
+            }
+            if (!Character::isLowSurrogate(lowSurrogate)) {
+                return;
+            }
+            codePoint = (lowSurrogate  - 0xDC00) & 0x3FF;
+            codePoint = codePoint | (highSurrogate - 0xD800) << 10;
+        } else {
+            codePoint = utf16String[index];
+        }
+        index = index + 1;
+
+        // Changes unicode code point to UTF-8 encoded bytes.
+        if (codePoint >= 0x0000 && codePoint <= 0x007F) {
+            numberOfBytes = 1;
+        } else if (codePoint >= 0x0080 && codePoint <= 0x07FF) {
+            numberOfBytes = 2;
+        } else if (codePoint >= 0x0800 && codePoint <= 0xFFFF) {
+            numberOfBytes = 3;
+        } else if (codePoint >= 0x10000 && codePoint <= 0x10FFFF) {
+            numberOfBytes = 4;
+        } else {
+            numberOfBytes = -1;
+        }
+
+        switch (numberOfBytes) {
+            case 1:
+                byte1 = static_cast<char>(0b00000000 | (codePoint        & 0b01111111));
+                utf8String.push_back(byte1);
+                break;
+            case 2:
+                byte1 = static_cast<char>(0b11000000 | ((codePoint >> 6) & 0b00011111));
+                byte2 = static_cast<char>(0b10000000 | (codePoint        & 0b00111111));
+                utf8String.push_back(byte1);
+                utf8String.push_back(byte2);
+                break;
+            case 3:
+                byte1 = static_cast<char>(0b11100000 | ((codePoint >> 12) & 0b00001111));
+                byte2 = static_cast<char>(0b10000000 | ((codePoint >> 6)  & 0b00111111));
+                byte3 = static_cast<char>(0b10000000 | (codePoint         & 0b00111111));
+                utf8String.push_back(byte1);
+                utf8String.push_back(byte2);
+                utf8String.push_back(byte3);
+                break;
+            case 4:
+                byte1 = static_cast<char>(0b11110000 | ((codePoint >> 18) & 0b00000111));
+                byte2 = static_cast<char>(0b10000000 | ((codePoint >> 12) & 0b00111111));
+                byte3 = static_cast<char>(0b10000000 | ((codePoint >> 6)  & 0b00111111));
+                byte4 = static_cast<char>(0b10000000 | ( codePoint        & 0b00111111));
+                utf8String.push_back(byte1);
+                utf8String.push_back(byte2);
+                utf8String.push_back(byte3);
+                utf8String.push_back(byte4);
+                break;
+            default:
+                return;
+        }  // end switch
+    }  // end while
 }
 
 int StringBuilder::getUtf8StringLength(const std::string &utf8String) {
