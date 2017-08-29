@@ -462,3 +462,9 @@ TEST(JavaLang, CharacterForDigit) {
     // Digit >= 10
     ASSERT_EQUAL('e', Character::forDigit(14, 16));
 }
+
+TEST(JavaLang, CharacterIsValidCodePoint) {
+    ASSERT_TRUE(Character::isValidCodePoint(0x0324));
+    ASSERT_FALSE(Character::isValidCodePoint(0xFFFFFF));
+    ASSERT_FALSE(Character::isValidCodePoint(-1));
+}
