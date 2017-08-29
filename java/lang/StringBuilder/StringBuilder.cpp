@@ -886,12 +886,100 @@ void StringBuilder::reverseAllValidSurrogatePairs() {
     }
 }
 
-void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) const {
-    std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
-    utf16String = converter.from_bytes(utf8String);
+void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) {
+    int rawLength = static_cast<int>(utf8String.length());
+    int index = 0;
+    int codePoint;
+    int numberOfTrailingBytes;
+    char16_t lowSurrogate;
+    char16_t highSurrogate;
+    while (index < rawLength) {
+        if (!isFirstByte(utf8String[index])) {
+            // Invalid byte sequences.
+            return;
+        }
+        numberOfTrailingBytes = getNumberOfTrailingBytesAfterFirstByte(utf8String[index]);
+        switch (numberOfTrailingBytes) {
+            case 0:
+                codePoint = utf8String[index];
+                break;
+            case 1:
+                codePoint = utf8String[index] & 0b00011111;
+                break;
+            case 2:
+                codePoint = utf8String[index] & 0b00001111;
+                break;
+            case 3:
+                codePoint = utf8String[index] & 0b00000111;
+                break;
+            default:
+                // Invalid byte sequences.
+                return;
+        }
+        index = index + 1;
+
+        int trailingByteIndex = 0;
+        while (trailingByteIndex < numberOfTrailingBytes) {
+            if (index >= rawLength) {
+                // Invalid byte sequences.
+                return;
+            }
+            codePoint = codePoint << 6;
+            codePoint = codePoint + (utf8String[index] & 0b00111111);
+            trailingByteIndex = trailingByteIndex + 1;
+            index = index + 1;
+        }
+
+        if (codePoint < 0xFFFF) {
+            utf16String.push_back(static_cast<char16_t>(codePoint));
+        } else {
+            codePoint = codePoint - 0x10000;
+            highSurrogate = static_cast<char16_t>((static_cast<unsigned int>(codePoint) >> 10) + 0xD800);
+            lowSurrogate = static_cast<char16_t>((static_cast<unsigned int>(codePoint) & 0x3FF) + 0xDC00);
+            utf16String.push_back(highSurrogate);
+            utf16String.push_back(lowSurrogate);
+        }
+    }
 }
 
-void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) const {
+void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) {
     std::wstring_convert<std::codecvt_utf8_utf16<char16_t>, char16_t> converter;
     utf8String = converter.to_bytes(utf16String);
+}
+
+int StringBuilder::getUtf8StringLength(const std::string &utf8String) {
+    int rawLength = static_cast<int>(utf8String.length());
+    int length = 0;
+    int index;
+    for (index = 0; index < rawLength; ++index) {
+        if (isFirstByte(utf8String[index])) {
+            length = length + 1;
+        }
+    }
+    return length;
+}
+
+boolean StringBuilder::isFirstByte(char target) {
+    return (target & 0b11000000) != 0b10000000;
+}
+
+int StringBuilder::getNumberOfTrailingBytesAfterFirstByte(char firstByte) {
+    if ((firstByte & 0b10000000) == 0b00000000) {
+        return 0;
+    }
+
+    if ((firstByte & 0b11100000) == 0b11000000) {
+        return 1;
+    }
+
+    if ((firstByte & 0b11110000) == 0b11100000) {
+        return 2;
+    }
+
+    if ((firstByte & 0b11111000) == 0b11110000) {
+        return 3;
+    }
+
+    // Not first byte.
+    return -1;
 }

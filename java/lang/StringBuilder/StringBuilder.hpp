@@ -933,19 +933,41 @@ namespace Java {
              */
             void reverseAllValidSurrogatePairs();
 
+        private:
             /**
              *
              * @param utf8String
              * @param utf16String
              */
-            void convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) const;
+            static void convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String);
 
             /**
              *
              * @param utf16String
              * @param utf8String
              */
-            void convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) const;
+            static void convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String);
+
+            /**
+             *
+             * @param target
+             * @return boolean
+             */
+            static boolean isFirstByte(char target);
+
+            /**
+             *
+             * @param firstByte
+             * @return
+             */
+            static int getNumberOfTrailingBytesAfterFirstByte(char firstByte);
+
+            /**
+             *
+             * @param utf8String
+             * @return int
+             */
+            static int getUtf8StringLength(const std::string &utf8String);
         };  // class StringBuilder
     }  // namespace Lang
 }  // namespace Java
