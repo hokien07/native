@@ -30,7 +30,6 @@
 #include "../CharSequence/CharSequence.hpp"
 #include "../../Lang.hpp"
 #include "../../util/HashMap/HashMap.hpp"
-#include "../IllegalArgumentException/IllegalArgumentException.hpp"
 
 using namespace Java::Util;
 
@@ -1317,7 +1316,7 @@ namespace Java {
                     /**
                      * Unicode script "Common".
                      */
-                            COMMON,
+                            COMMON = 1,
 
                     /**
                      * Unicode script "Latin".
@@ -1855,6 +1854,8 @@ namespace Java {
 
                 static Array<UnicodeScript> scripts;
 
+                static Array<String> scriptNames;
+
                 /**
                  * Returns the enum constant representing the Unicode Script of which
                  * the given character (Unicode code point) is assigned to.
@@ -1863,46 +1864,20 @@ namespace Java {
                  * @return The UnicodeScript constant representing the
                  * Unicode Script of which this character is assigned to.
                  */
-                static UnicodeScript of(int codePoint);
+                //static UnicodeScript of(int codePoint);
 
-                /**
-                 * Returns the Script constant with the given Unicode Script
-                 * name or the Script name alias. Script names and their aliases are
-                 * determined by The Unicode Standard. The files Scripts&lt;version&gt;.txt
-                 * and PropertyValueAliases&lt;version&gt;.txt define Script names
-                 * and the Script name aliases for a particular version of the
-                 * standard. The {@link Character} class specifies the version of
-                 * the standard that it supports.
-                 * <p>
-                 * Character case is ignored for all of the valid Script names.
-                 * The en_US locale's case mapping rules are used to provide
-                 * case-insensitive string comparisons for Script name validation.
-                 * <p>
-                 *
-                 * @param scriptName A {@code Script} name.
-                 * @return The {@code Script} constant identified
-                 *         by {@code scriptName}
-                 * @throws IllegalArgumentException if {@code scriptName} is an
-                 *         invalid name
-                 * @throws NullPointerException if {@code scriptName} is null
-                 */
                 /**
                  * Returns the UnicodeScript constant with the given UnicodeScript
                  * name or the UnicodeScript name alias. Script names and their aliases are
                  * determined by The Unicode Standard.
                  *
                  * @param scriptName
-                 * @throw IllegalArgumentException if {@code scriptName} is an
+                 * @throw IllegalArgumentException if scriptName is an
                  *         invalid name
-                 * @return
+                 * @return Returns the Script constant with the given Unicode Script
+                 * name or the Script name alias.
                  */
-                static UnicodeScript forName(String scriptName) {
-                    scriptName = scriptName.toUpperCase();
-                    UnicodeScript script = aliases.get(scriptName);
-                    if (script.unicodeScript != UnicodeScript::DEFAULT)
-                        return script;
-                    return UnicodeScript(scriptName);
-                }
+                static UnicodeScript forName(String scriptName);
             };
 
 

@@ -308,6 +308,10 @@ boolean Character::isValidCodePoint(int codePoint) {
     return codePoint >= Character::MIN_CODE_POINT && codePoint <= Character::MAX_CODE_POINT;
 }
 
+int Character::getType(int codePoint) {
+    return 0;
+}
+
 HashMap<String, Character::UnicodeBlock> Character::UnicodeBlock::map;
 
 Character::UnicodeBlock::UnicodeBlock(const String &name) : Subset(name) {}
@@ -2395,7 +2399,113 @@ Array<Character::UnicodeScript> Character::UnicodeScript::scripts = {
                         COMMON,
                         INHERITED,
                         UNKNOWN
-                };
+};
+
+Array<String> Character::UnicodeScript::scriptNames = {
+        "COMMON",
+        "LATIN",
+        "GREEK",
+        "CYRILLIC",
+        "ARMENIAN",
+        "HEBREW",
+        "ARABIC",
+        "SYRIAC",
+        "THAANA",
+        "DEVANAGARI",
+        "BENGALI",
+        "GURMUKHI",
+        "GUJARATI",
+        "ORIYA",
+        "TAMIL",
+        "TELUGU",
+        "KANNADA",
+        "MALAYALAM",
+        "SINHALA",
+        "THAI",
+        "LAO",
+        "TIBETAN",
+        "MYANMAR",
+        "GEORGIAN",
+        "HANGUL",
+        "ETHIOPIC",
+        "CHEROKEE",
+        "CANADIAN_ABORIGINAL",
+        "OGHAM",
+        "RUNIC",
+        "KHMER",
+        "MONGOLIAN",
+        "HIRAGANA",
+        "KATAKANA",
+        "BOPOMOFO",
+        "HAN",
+        "YI",
+        "OLD_ITALIC",
+        "GOTHIC",
+        "DESERET",
+        "INHERITED",
+        "TAGALOG",
+        "HANUNOO",
+        "BUHID",
+        "TAGBANWA",
+        "LIMBU",
+        "TAI_LE",
+        "LINEAR_B",
+        "UGARITIC",
+        "SHAVIAN",
+        "OSMANYA",
+        "CYPRIOT",
+        "BRAILLE",
+        "BUGINESE",
+        "COPTIC",
+        "NEW_TAI_LUE",
+        "GLAGOLITIC",
+        "TIFINAGH",
+        "SYLOTI_NAGRI",
+        "OLD_PERSIAN",
+        "KHAROSHTHI",
+        "BALINESE",
+        "CUNEIFORM",
+        "PHOENICIAN",
+        "PHAGS_PA",
+        "NKO",
+        "SUNDANESE",
+        "BATAK",
+        "LEPCHA",
+        "OL_CHIKI",
+        "VAI",
+        "SAURASHTRA",
+        "KAYAH_LI",
+        "REJANG",
+        "LYCIAN",
+        "CARIAN",
+        "LYDIAN",
+        "CHAM",
+        "TAI_THAM",
+        "TAI_VIET",
+        "AVESTAN",
+        "EGYPTIAN_HIEROGLYPHS",
+        "SAMARITAN",
+        "MANDAIC",
+        "LISU",
+        "BAMUM",
+        "JAVANESE",
+        "MEETEI_MAYEK",
+        "IMPERIAL_ARAMAIC",
+        "OLD_SOUTH_ARABIAN",
+        "INSCRIPTIONAL_PARTHIAN",
+        "INSCRIPTIONAL_PAHLAVI",
+        "OLD_TURKIC",
+        "BRAHMI",
+        "KAITHI",
+        "MEROITIC_HIEROGLYPHS",
+        "MEROITIC_CURSIVE",
+        "SORA_SOMPENG",
+        "CHAKMA",
+        "SHARADA",
+        "TAKRI",
+        "MIAO",
+        "UNKNOWN"
+};
 
 HashMap<String, Character::UnicodeScript> Character::UnicodeScript::aliasesInit() {
     HashMap<String, Character::UnicodeScript> aliases;
@@ -2512,19 +2622,34 @@ boolean Character::UnicodeScript::operator==(const Character::UnicodeScript &oth
     return 0;
 }
 
-Character::UnicodeScript Character::UnicodeScript::of(int codePoint)  {
-    if (!isValidCodePoint(codePoint))
-        throw  IllegalArgumentException();
-    int type = getType(codePoint);
-    // leave SURROGATE and PRIVATE_USE for table lookup
-    if (type == UNASSIGNED)
-        return UNKNOWN;
-    int index = Arrays::binarySearch(scriptStarts, codePoint, scriptStarts.length);
-    if (index < 0)
-        index = -index - 2;
-    return scripts[index];
-}
+//Character::UnicodeScript Character::UnicodeScript::of(int codePoint)  {
+//    if (!isValidCodePoint(codePoint))
+//        throw IllegalArgumentException();
+//    int type = Character::getType(codePoint);
+//    // leave SURROGATE and PRIVATE_USE for table lookup
+//    if (type == UNASSIGNED)
+//        return UnicodeScript::Script::UNKNOWN;
+//    int index = Arrays::binarySearch(Character::UnicodeScript::scriptStarts, codePoint, scriptStarts.length);
+//    if (index < 0)
+//        index = -index - 2;
+//    return scripts[index];
+//}
 
 Character::UnicodeScript::UnicodeScript(String scriptName) {
-    UnicodeScript::Script::
+    int index = Arrays::binarySearch(Character::UnicodeScript::scriptNames,
+                                     scriptName, Character::UnicodeScript::scriptNames.length);
+
+    if (index == -1) {
+        throw IllegalArgumentException("No enum constant Character::UnicodeScript::" + scriptName);
+    }
+
+    *this = UnicodeScript((Character::UnicodeScript::Script) index);
+}
+
+Character::UnicodeScript Character::UnicodeScript::forName(String scriptName) {
+        scriptName = scriptName.toUpperCase();
+        UnicodeScript script = aliases.get(scriptName);
+        if (script.unicodeScript != UnicodeScript::DEFAULT)
+            return script;
+        return UnicodeScript(scriptName);
 }
