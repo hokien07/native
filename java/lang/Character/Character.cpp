@@ -29,7 +29,7 @@ Character::Character() {
     this->original = u'\0';
 }
 
-Character::Character(char16_t original) {
+Character::Character(unicode original) {
     this->original = original;
 }
 
@@ -42,15 +42,15 @@ int Character::charCount(int codePoint) const {
     return 1;
 }
 
-char16_t Character::charValue() const {
+unicode Character::charValue() const {
     return this->original;
 }
 
-int Character::codePointAt(const Array<char16_t> &charArray, int index) {
+int Character::codePointAt(const Array<unicode> &charArray, int index) {
     return codePointAtImpl(charArray, index, charArray.length);
 }
 
-int Character::codePointAt(const Array<char16_t> &charArray , int index, int limit) {
+int Character::codePointAt(const Array<unicode> &charArray , int index, int limit) {
     if (index >= limit || limit < 0 || limit > charArray.length) {
         throw IndexOutOfBoundsException();
     }
@@ -59,13 +59,13 @@ int Character::codePointAt(const Array<char16_t> &charArray , int index, int lim
 }
 
 // throws ArrayIndexOutOfBoundsException if index out of bounds
-int Character::codePointAtImpl(const Array<char16_t> &charArray, int index, int limit) {
+int Character::codePointAtImpl(const Array<unicode> &charArray, int index, int limit) {
     if (index < 0 || index >= charArray.length) {
         throw ArrayIndexOutOfBoundsException(index);
     }
-    char16_t char1 = charArray[ index ];
+    unicode char1 = charArray[ index ];
     if (isHighSurrogate(char1) && ++index < limit) {
-        char16_t char2 = charArray[ index ];
+        unicode char2 = charArray[ index ];
         if (isLowSurrogate(char2)) {
             return toCodePoint(char1, char2);
         }
@@ -73,11 +73,11 @@ int Character::codePointAtImpl(const Array<char16_t> &charArray, int index, int 
     return (int) char1;
 }
 
-int Character::codePointBefore(const Array<char16_t> &charArray , int index) {
+int Character::codePointBefore(const Array<unicode> &charArray , int index) {
     return codePointBeforeImpl(charArray, index, 0);
 }
 
-int Character::codePointBefore(const Array<char16_t> &charArray , int index, int start) {
+int Character::codePointBefore(const Array<unicode> &charArray , int index, int start) {
     if (index <= start || start < 0 || start >= charArray.length) {
         throw IndexOutOfBoundsException();
     }
@@ -85,13 +85,13 @@ int Character::codePointBefore(const Array<char16_t> &charArray , int index, int
 }
 
 // throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-int Character::codePointBeforeImpl(const Array<char16_t> &charArray, int index, int start) {
+int Character::codePointBeforeImpl(const Array<unicode> &charArray, int index, int start) {
     if (index < 1 || index >= charArray.length) {
         throw ArrayIndexOutOfBoundsException(index);
     }
-    char16_t c2 = charArray[ --index ];
+    unicode c2 = charArray[ --index ];
     if (isLowSurrogate(c2) && index > start) {
-        char16_t c1 = charArray[ --index ];
+        unicode c1 = charArray[ --index ];
         if (isHighSurrogate(c1)) {
             return toCodePoint(c1, c2);
         }
@@ -99,14 +99,14 @@ int Character::codePointBeforeImpl(const Array<char16_t> &charArray, int index, 
     return c2;
 }
 
-int Character::codePointCount(const Array<char16_t> &charArray, int offset, int count) {
+int Character::codePointCount(const Array<unicode> &charArray, int offset, int count) {
     if (count > charArray.length - offset || offset < 0 || count < 0) {
         throw IndexOutOfBoundsException();
     }
     return codePointCountImpl(charArray, offset, count);
 }
 
-int Character::codePointCountImpl(const Array<char16_t> &charArray, int offset, int count) {
+int Character::codePointCountImpl(const Array<unicode> &charArray, int offset, int count) {
     int endIndex = offset + count;
     int numberOfCodePoint = count;
     for (int i = offset; i < endIndex;) {
@@ -119,7 +119,7 @@ int Character::codePointCountImpl(const Array<char16_t> &charArray, int offset, 
     return numberOfCodePoint;
 }
 
-int Character::compare(char16_t charA, char16_t charB) {
+int Character::compare(unicode charA, unicode charB) {
     return charA - charB;
 }
 
@@ -127,19 +127,19 @@ int Character::compareTo(const Character &anotherCharacter) const {
     return compare(this->charValue(), anotherCharacter.charValue());
 }
 
-boolean Character::isHighSurrogate(char16_t character) {
+boolean Character::isHighSurrogate(unicode character) {
     return character >= MIN_HIGH_SURROGATE && character < ( MAX_HIGH_SURROGATE + 1 );
 }
 
-boolean Character::isLowSurrogate(char16_t character) {
+boolean Character::isLowSurrogate(unicode character) {
     return character >= MIN_LOW_SURROGATE && character < ( MAX_LOW_SURROGATE + 1 );
 }
 
-boolean Character::isSurrogate(char16_t target) {
+boolean Character::isSurrogate(unicode target) {
     return target >= MIN_SURROGATE && target < ( MAX_SURROGATE + 1 );
 }
 
-int Character::toCodePoint(char16_t high, char16_t low) {
+int Character::toCodePoint(unicode high, unicode low) {
     return (( high << 10 ) + low ) + ( MIN_SUPPLEMENTARY_CODE_POINT
                                        - ( MIN_HIGH_SURROGATE << 10 )
                                        - MIN_LOW_SURROGATE );
@@ -162,7 +162,7 @@ string Character::toString() const {
     return string_from_int(this->original);
 }
 
-int Character::digit(char16_t character, int radix) {
+int Character::digit(unicode character, int radix) {
     return Character::digit(static_cast<int>(character), radix);
 }
 
@@ -233,7 +233,7 @@ int Character::digit(int codePoint, int radix) {
     }
 }
 
-int Character::offsetByCodePointsImpl(const Array<char16_t> &charArray, int start, int count, int index,
+int Character::offsetByCodePointsImpl(const Array<unicode> &charArray, int start, int count, int index,
                                       int codePointOffset) {
     int offset = index;
     if (codePointOffset >= 0) {
@@ -263,12 +263,12 @@ int Character::offsetByCodePointsImpl(const Array<char16_t> &charArray, int star
     return offset;
 }
 
-long Character::hashCode(char16_t value) {
+long Character::hashCode(unicode value) {
     return (int) value;
 }
 
 int
-Character::offsetByCodePoints(const Array<char16_t> &charArray, int start, int count, int index,
+Character::offsetByCodePoints(const Array<unicode> &charArray, int start, int count, int index,
                               int codePointOffset) {
     if (count > charArray.length-start || start < 0 || count < 0
         || index < start || index > start + count) {
@@ -278,17 +278,17 @@ Character::offsetByCodePoints(const Array<char16_t> &charArray, int start, int c
     return offsetByCodePointsImpl(charArray, start, count, index, codePointOffset);
 }
 
-void Character::toSurrogates(int codePoint, Array<char16_t> &charArray, int index) {
+void Character::toSurrogates(int codePoint, Array<unicode> &charArray, int index) {
     charArray[index + 1] = Character::lowSurrogate(codePoint);
     charArray[index] = Character::highSurrogate(codePoint);
 }
 
-char16_t Character::lowSurrogate(int codePoint) {
-    return (char16_t) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
+unicode Character::lowSurrogate(int codePoint) {
+    return (unicode) ((codePoint & 0x3ff) + MIN_LOW_SURROGATE);
 }
 
-char16_t Character::highSurrogate(int codePoint) {
-    return (char16_t) (((unsigned long) codePoint >> 10)
+unicode Character::highSurrogate(int codePoint) {
+    return (unicode) (((unsigned long) codePoint >> 10)
                        + (MIN_HIGH_SURROGATE - (((unsigned long) MIN_SUPPLEMENTARY_CODE_POINT) >> 10)));
 }
 
@@ -297,7 +297,7 @@ boolean Character::isBmpCodePoint(int codePoint) {
     return (highOrderBitsOfCodePoint == 0);
 }
 
-char16_t Character::forDigit(int digit, int radix){
+unicode Character::forDigit(int digit, int radix){
     if ((digit >= radix) || (digit < 0)) {
         return '\0';
     }
@@ -307,10 +307,10 @@ char16_t Character::forDigit(int digit, int radix){
     }
 
     if (digit < 10) {
-        return (char16_t)('0' + digit);
+        return (unicode)('0' + digit);
     }
 
-    return (char16_t)('a' - 10 + digit);
+    return (unicode)('a' - 10 + digit);
 }
 
 boolean Character::isValidCodePoint(int codePoint) {

@@ -29,6 +29,8 @@
 
 #include "../Object/Object.hpp"
 
+typedef char16_t unicode;
+
 namespace Java {
 	namespace Lang {
 		class CharSequence {
@@ -48,7 +50,7 @@ namespace Java {
              * @param index
              * @return char16_t
              */
-            virtual char16_t charAt(int index) const = 0;
+            virtual unicode charAt(int index) const = 0;
 
             /**
              * Returns the length of this character sequence.

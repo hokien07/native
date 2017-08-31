@@ -42,7 +42,7 @@ namespace Java {
                 public virtual CharSequence
         {
         private:
-            char16_t *original = nullptr;
+            unicode *original = nullptr;
             mutable String backupForToString;
             int currentLength = 0;
             int currentCapacity = 0;
@@ -91,7 +91,7 @@ namespace Java {
              *
              * @param list
              */
-            StringBuilder(const std::initializer_list<char16_t > &target);
+            StringBuilder(const std::initializer_list<unicode > &target);
 
             /**
              * StringBuilder Constructor
@@ -150,13 +150,13 @@ namespace Java {
             StringBuilder &append(char target);
 
             /**
-             * Appends the string representation of the char16_t argument to this sequence.
+             * Appends the string representation of the unicode argument to this sequence.
              * The argument is appended to the contents of this sequence. The length of this sequence increases by 1.
              *
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(char16_t target);
+            StringBuilder &append(unicode target);
 
             /**
              * Appends the string representation of the Character array argument to this sequence.
@@ -176,7 +176,7 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(const Array<char16_t> &target);
+            StringBuilder &append(const Array<unicode> &target);
 
             /**
              * Appends the string representation of a subarray of the Character array argument to this sequence.
@@ -202,7 +202,7 @@ namespace Java {
              * @return StringBuilder
              * @throw IndexOutOfBoundsException - if offset < 0 or length < 0 or offset+length > target.length
              */
-            StringBuilder &append(const Array<char16_t> &target, int offset, int length);
+            StringBuilder &append(const Array<unicode> &target, int offset, int length);
 
             /**
              * Appends the specified character sequence to this sequence.
@@ -229,7 +229,7 @@ namespace Java {
              * @param target
              * @return StringBuilder
              */
-            StringBuilder &append(const std::initializer_list<char16_t> &target);
+            StringBuilder &append(const std::initializer_list<unicode> &target);
 
             /**
              * Appends the specified string to this character sequence.
@@ -347,10 +347,10 @@ namespace Java {
              * If the char value specified by the index is a surrogate, the surrogate value is returned.
              *
              * @param index
-             * @return char
+             * @return unicode
              * @throw IndexOutOfBoundsException - if index is negative or greater than or equal to length()
              */
-            char16_t charAt(int index) const;
+            unicode charAt(int index) const;
 
             /**
              * Returns the character (Unicode code point) at the specified index.
@@ -512,7 +512,7 @@ namespace Java {
              * @return StringBuilder
              * @throw IndexOutOfBoundsException - if the offset is invalid.
              */
-            StringBuilder &insert(int offset, char16_t target);
+            StringBuilder &insert(int offset, unicode target);
 
             /**
              * Inserts the string representation of the Character argument into this sequence.
@@ -532,7 +532,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if the offset is invalid.
              */
-            StringBuilder &insert(int offset, const Array<char16_t > &target);
+            StringBuilder &insert(int offset, const Array<unicode > &target);
 
             /**
              * Inserts the string representation of the Character array argument into this sequence.
@@ -557,7 +557,7 @@ namespace Java {
              * @return StringBuilder
              * @throw StringIndexOutOfBoundsException - if index is negative or greater than length(), or offset or length are negative, or (offset+length) is greater than target.length().
              */
-            StringBuilder &insert(int index, const Array<char16_t> &target, int offset, int length);
+            StringBuilder &insert(int index, const Array<unicode> &target, int offset, int length);
 
             /**
              * Inserts the string representation of a subarray of the 'target' array argument into this sequence.
@@ -823,7 +823,7 @@ namespace Java {
              * @param target
              * @throw IndexOutOfBoundsException - if index is negative or greater than or equal to length().
              */
-            void setCharAt(int index, char16_t target);
+            void setCharAt(int index, unicode target);
 
             /**
              * The character at the specified index is set to target.
