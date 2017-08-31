@@ -2276,7 +2276,7 @@ namespace Java {
              * @param object
              * @return boolean
              */
-            boolean equals(const Object &object) const;
+            boolean equals(const Object &object) const override;
 
             /**
              *
@@ -2296,7 +2296,7 @@ namespace Java {
              *
              * @return string
              */
-            string toString() const;
+            string toString() const override;
 
         public:
             /**

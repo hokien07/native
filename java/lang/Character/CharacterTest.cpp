@@ -90,6 +90,51 @@ TEST(JavaLang, CharacterCharValue) {
     ASSERT_EQUAL(u'ﾄ', variableTestCharValue.charValue());
 }
 
+TEST(JavaLang, CharacterCompareTo) {
+    // Create variable to test
+    Character character = 'a';
+    Character anotherCharacter = 'd';
+    int actualResult;
+
+    // Test equal case
+    actualResult = character.compareTo(Character('a'));
+    ASSERT_TRUE(actualResult == 0);
+
+    // Test charA > charB case
+    actualResult = anotherCharacter.compareTo(character);
+    ASSERT_TRUE(actualResult > 0);
+
+    // Test charA < charB case
+    actualResult = character.compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResult < 0);
+
+    // Test comparable
+    Comparable<Character> *comparable = &character;
+    actualResult = comparable->compareTo(anotherCharacter);
+    ASSERT_TRUE(actualResult < 0);
+}
+
+TEST(JavaLang, CharacterEquals) {
+    // Create variable to test
+    Character character = 'a';
+    Character anotherCharacter = 'd';
+    Character equalToCharacter = 'a';
+
+    // Test equal case
+    ASSERT_TRUE(character.equals(equalToCharacter));
+
+    // Test not equal
+    ASSERT_FALSE(character.equals(anotherCharacter));
+}
+
+TEST(JavaLang, CharacterHashCode) {
+    // Character to get hashcode
+    Character character = 'a';
+    ASSERT_EQUAL(97, character.hashCode());
+
+    ASSERT_EQUAL(97, Character::hashCode('a'));
+}
+
 TEST(JavaLang, CharacterCodePointAt) {
     // Create variable to test
     Array<char16_t> arrayCodePointAt;
@@ -275,30 +320,6 @@ TEST(JavaLang, CharacterCompare) {
     ASSERT_TRUE(actualResult < 0);
 }
 
-TEST(JavaLang, CharacterCompareTo) {
-    // Create variable to test
-    Character character = 'a';
-    Character anotherCharacter = 'd';
-    int actualResult;
-
-    // Test equal case
-    actualResult = character.compareTo(Character('a'));
-    ASSERT_TRUE(actualResult == 0);
-
-    // Test charA > charB case
-    actualResult = anotherCharacter.compareTo(character);
-    ASSERT_TRUE(actualResult > 0);
-
-    // Test charA < charB case
-    actualResult = character.compareTo(anotherCharacter);
-    ASSERT_TRUE(actualResult < 0);
-
-    // Test comparable
-    Comparable<Character> *comparable = &character;
-    actualResult = comparable->compareTo(anotherCharacter);
-    ASSERT_TRUE(actualResult < 0);
-}
-
 TEST(JavaLang, CharacterToCodePoint) {
     ASSERT_EQUAL(0x10437, Character::toCodePoint(u'\xD801', u'\xDC37'));
     ASSERT_EQUAL(0x24B62, Character::toCodePoint(u'\xD852', u'\xDF62'));
@@ -325,27 +346,6 @@ TEST(JavaLang, CharacterIsSurrogate) {
     ASSERT_TRUE(Character::isSurrogate(u'\xD852'));
     // Test invalid case
     ASSERT_FALSE(Character::isSurrogate(u'\x0030'));
-}
-
-TEST(JavaLang, CharacterEquals) {
-    // Create variable to test
-    Character character = 'a';
-    Character anotherCharacter = 'd';
-    Character equalToCharacter = 'a';
-
-    // Test equal case
-    ASSERT_TRUE(character.equals(equalToCharacter));
-
-    // Test not equal
-    ASSERT_FALSE(character.equals(anotherCharacter));
-}
-
-TEST(JavaLang, CharacterHashCode) {
-    // Character to get hashcode
-    Character character = 'a';
-    ASSERT_EQUAL(97, character.hashCode());
-
-    ASSERT_EQUAL(97, Character::hashCode('a'));
 }
 
 TEST(JavaLang, CharacterOffsetByCodePoint) {
