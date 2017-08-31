@@ -2412,14 +2412,6 @@ namespace Java {
 
             /**
              *
-             * @param digit
-             * @param radix
-             * @return
-             */
-            static unicode forDigit(int digit, int radix);
-
-            /**
-             *
              * @param codePoint
              * @return
              */
@@ -2440,6 +2432,14 @@ namespace Java {
              * @return
              */
             static int digit(int codePoint, int radix);
+
+            /**
+             *
+             * @param digit
+             * @param radix
+             * @return unicode
+             */
+            static unicode forDigit(int digit, int radix);
 
             /**
              *
