@@ -25,6 +25,7 @@
  */
 
 #include "Character.hpp"
+#include "../IllegalArgumentException/IllegalArgumentException.hpp"
 
 HashMap<String, Character::UnicodeBlock> Character::UnicodeBlock::map;
 

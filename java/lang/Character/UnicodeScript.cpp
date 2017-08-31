@@ -25,6 +25,8 @@
  */
 
 #include "Character.hpp"
+#include "../IllegalArgumentException/IllegalArgumentException.hpp"
+#include "../../util/Arrays/Arrays.hpp"
 
 Character::UnicodeScript::UnicodeScript() {
     this->unicodeScript = Character::UnicodeScript::Script::DEFAULT;
