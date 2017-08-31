@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Food Tiny Project. All rights reserved.
+ * Copyright (c) 2017 Food Tiny Project. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -29,6 +29,7 @@
 #include "../IndexOutOfBoundsException/IndexOutOfBoundsException.hpp"
 #include "../StringIndexOutOfBoundsException/StringIndexOutOfBoundsException.hpp"
 #include "../UnsupportedOperationException/UnsupportedOperationException.hpp"
+#include "../IllegalArgumentException/IllegalArgumentException.hpp"
 
 using namespace Java::Lang;
 
@@ -160,9 +161,9 @@ StringBuilder &StringBuilder::append(const CharSequence &target, int start, int 
     int newLength = currentLength + numberOfCharacter;
     this->ensureCapacity(newLength);
     int indexOfTarget;
-    int indexOfOrginal;
-    for (indexOfTarget = start, indexOfOrginal = this->currentLength; indexOfTarget < end; indexOfTarget++, indexOfOrginal++) {
-        this->original[indexOfOrginal] = targetUtf16[indexOfTarget];
+    int indexOfOriginal;
+    for (indexOfTarget = start, indexOfOriginal = this->currentLength; indexOfTarget < end; indexOfTarget++, ++indexOfOriginal) {
+        this->original[indexOfOriginal] = targetUtf16[indexOfTarget];
     }
 
     this->currentLength = newLength;
@@ -174,7 +175,7 @@ StringBuilder &StringBuilder::append(const std::initializer_list<char16_t> &targ
     this->ensureCapacity(newLength);
     int index = this->currentLength;
     std::initializer_list<char16_t>::const_iterator listIterator;
-    for (listIterator = target.begin(); listIterator != target.end(); listIterator++) {
+    for (listIterator = target.begin(); listIterator != target.end(); ++listIterator) {
         this->original[index] = *listIterator;
         index = index + 1;
     }
@@ -190,7 +191,7 @@ StringBuilder &StringBuilder::append(const_string target) {
     this->ensureCapacity(newLength);
     int indexOfOriginal;
     int indexOfString = 0;
-    for (indexOfOriginal = this->currentLength; indexOfOriginal < newLength; indexOfOriginal++) {
+    for (indexOfOriginal = this->currentLength; indexOfOriginal < newLength; ++indexOfOriginal) {
         this->original[indexOfOriginal] = targetUtf16[indexOfString];
         indexOfString = indexOfString + 1;
     }
@@ -234,8 +235,20 @@ StringBuilder &StringBuilder::append(const String &target) {
     return this->append(target.toString());
 }
 
+StringBuilder &StringBuilder::append(const StringBuffer &target) {
+    return this->append(target.toString());
+}
+
 StringBuilder &StringBuilder::appendCodePoint(int codePoint) {
-    // TODO
+    if (Character::isBmpCodePoint(codePoint)) {
+        return this->append(static_cast<char16_t>(codePoint));
+    } else if (Character::isValidCodePoint(codePoint)) {
+        this->append(Character::highSurrogate(codePoint));
+        this->append(Character::lowSurrogate(codePoint));
+        return *this;
+    } else {
+        throw IllegalArgumentException();
+    }
 }
 
 int StringBuilder::capacity() const {
@@ -257,7 +270,8 @@ int StringBuilder::codePointAt(int index) const {
 
     Array<char16_t> originalArray;
     int indexOfOriginal;
-    for (indexOfOriginal = 0; indexOfOriginal < this->currentLength; indexOfOriginal++) {
+    for (indexOfOriginal = 0; indexOfOriginal < this->currentLength;
+         indexOfOriginal++) {
         originalArray.push(this->original[indexOfOriginal]);
     }
     int result = Character::codePointAt(originalArray, index);
@@ -270,7 +284,9 @@ int StringBuilder::codePointBefore(int index) const {
 }
 
 int StringBuilder::codePointCount(int beginIndex, int endIndex) {
-    if (beginIndex < 0 || endIndex > this->currentLength || beginIndex > endIndex) {
+    if ((beginIndex < 0) ||
+        (endIndex > this->currentLength) ||
+        (beginIndex > endIndex)) {
         throw IndexOutOfBoundsException();
     }
 
@@ -334,7 +350,8 @@ void StringBuilder::ensureCapacity(int minimumCapacity) {
     this->currentCapacity = newCapacity;
 }
 
-void StringBuilder::getChars(int sourceBegin, int sourceEnd, Array<Character> &target, int targetBegin) const {
+void StringBuilder::getChars(int sourceBegin, int sourceEnd,
+                             Array<Character> &target, int targetBegin) const {
     if (sourceBegin < 0) {
         throw StringIndexOutOfBoundsException(sourceBegin);
     }
@@ -356,7 +373,8 @@ int StringBuilder::indexOf(const String &target) const{
 int StringBuilder::indexOf(const_string target) const {
     std::u16string targetUtf16;
     this->convertUtf8ToUtf16(target, targetUtf16);
-    std::u16string originalUtf16(this->original, static_cast<size_t>(this->currentLength));
+    std::u16string originalUtf16(this->original,
+                                 static_cast<size_t>(this->currentLength));
     return this->stringMatches(originalUtf16, targetUtf16, 0);
 }
 
@@ -367,7 +385,8 @@ int StringBuilder::indexOf(const String &target, int fromIndex) const {
 int StringBuilder::indexOf(const_string target, int fromIndex) const {
     std::u16string targetUtf16;
     this->convertUtf8ToUtf16(target, targetUtf16);
-    std::u16string originalUtf16(this->original, static_cast<size_t>(this->currentLength));
+    std::u16string originalUtf16(this->original,
+                                 static_cast<size_t>(this->currentLength));
     return  this->stringMatches(originalUtf16, targetUtf16, fromIndex);
 }
 
@@ -428,7 +447,7 @@ StringBuilder &StringBuilder::insert(int index, const Array<char16_t> &target, i
     memmove(newShiftPosition, oldShiftPosition, (size_t)sizeOfShiftMemory);
     int indexOfTarget;
     int indexOfOriginal = index;
-    for (indexOfTarget = offset; indexOfTarget < stopIndexOfTarget; indexOfTarget++) {
+    for (indexOfTarget = offset; indexOfTarget < stopIndexOfTarget; ++indexOfTarget) {
         this->original[indexOfOriginal] = target.get(indexOfTarget);
         indexOfOriginal = indexOfOriginal + 1;
     }
@@ -437,7 +456,8 @@ StringBuilder &StringBuilder::insert(int index, const Array<char16_t> &target, i
     return *this;
 }
 
-StringBuilder &StringBuilder::insert(int index, const Array<Character> &target, int offset, int length) {
+StringBuilder &StringBuilder::insert(int index, const Array<Character> &target,
+                                     int offset, int length) {
     if (index < 0 || index > this->currentLength) {
         throw StringIndexOutOfBoundsException(offset);
     }
@@ -456,7 +476,8 @@ StringBuilder &StringBuilder::insert(int index, const Array<Character> &target, 
     memmove(newShiftPosition, oldShiftPosition, (size_t)sizeOfShiftMemory);
     int indexOfTarget;
     int indexOfOriginal = index;
-    for (indexOfTarget = offset; indexOfTarget < stopIndexOfTarget; indexOfTarget++) {
+    for (indexOfTarget = offset;
+         indexOfTarget < stopIndexOfTarget; ++indexOfTarget) {
         this->original[indexOfOriginal] = target.get(indexOfTarget).charValue();
         indexOfOriginal = indexOfOriginal + 1;
     }
@@ -485,9 +506,12 @@ StringBuilder &StringBuilder::insert(int destinationOffset, const CharSequence &
     int newLength = this->currentLength + lengthOfSubStringOfTarget;
     this->ensureCapacity(newLength);
 
-    char16_t *newShiftPosition = this->original + destinationOffset + lengthOfSubStringOfTarget;
-    char16_t *oldShiftPosition = this->original + destinationOffset;
-    int sizeOfShiftMemory = (this->currentLength - destinationOffset) * sizeof(char16_t);
+    char16_t *newShiftPosition =
+            this->original + destinationOffset +lengthOfSubStringOfTarget;
+    char16_t *oldShiftPosition =
+            this->original + destinationOffset;
+    int sizeOfShiftMemory =
+            (this->currentLength - destinationOffset) * sizeof(char16_t);
     memmove(newShiftPosition, oldShiftPosition, (size_t)sizeOfShiftMemory);
 
     int indexOfOriginal = destinationOffset;
@@ -550,13 +574,14 @@ StringBuilder &StringBuilder::insert(int offset, const_string target) {
 
     char16_t *newShiftPosition = this->original + offset + targetLength;
     char16_t *oldShiftPosition = this->original + offset;
-    // Number of bytes of memory will be to shift = size of char type multiple with number of character begin from the offset to the end.
+    // Number of bytes of memory will be to shift = size of char type multiple
+    // with number of character begin from the offset to the end.
     int sizeOfShiftMemory = (this->currentLength - offset) * sizeof(char16_t);
     memmove(newShiftPosition, oldShiftPosition, (size_t)sizeOfShiftMemory);
 
     int indexOfOriginal = offset;
     int indexOfTarget;
-    for (indexOfTarget = 0; indexOfTarget < targetLength; indexOfTarget++) {
+    for (indexOfTarget = 0; indexOfTarget < targetLength; ++indexOfTarget) {
         this->original[indexOfOriginal] = targetUtf16[indexOfTarget];
         indexOfOriginal = indexOfOriginal + 1;
     }
@@ -572,8 +597,10 @@ int StringBuilder::lastIndexOf(const String &target) const {
 int StringBuilder::lastIndexOf(const_string target) const {
     std::u16string targetUtf16;
     this->convertUtf8ToUtf16(target, targetUtf16);
-    std::u16string originalUtf16(this->original, static_cast<size_t>(this->currentLength));
-    return this->stringMatchesReverse(originalUtf16, targetUtf16, this->currentLength);
+    std::u16string originalUtf16(this->original,
+                                 static_cast<size_t>(this->currentLength));
+    return this->stringMatchesReverse(originalUtf16,
+                                      targetUtf16, this->currentLength);
 }
 
 int StringBuilder::lastIndexOf(const String &target, int fromIndex) const {
@@ -583,7 +610,8 @@ int StringBuilder::lastIndexOf(const String &target, int fromIndex) const {
 int StringBuilder::lastIndexOf(const_string target, int fromIndex) const {
     std::u16string targetUtf16;
     this->convertUtf8ToUtf16(target, targetUtf16);
-    std::u16string originalUtf16(this->original, static_cast<size_t>(this->length()));
+    std::u16string originalUtf16(this->original,
+                                 static_cast<size_t>(this->length()));
     return this->stringMatchesReverse(originalUtf16, targetUtf16, fromIndex);
 }
 
@@ -595,8 +623,8 @@ int StringBuilder::offsetByCodePoints(int index, int codePointOffset) const {
     if (index < 0 || index > this->currentLength) {
         throw IndexOutOfBoundsException();
     }
-    // TODO: Waiting for Character::offsetByCodePoints
-    throw UnsupportedOperationException();
+
+
 }
 
 StringBuilder StringBuilder::replace(int start, int end, const String &target) {
@@ -625,10 +653,12 @@ StringBuilder StringBuilder::replace(int start, int end, const_string target) {
     int newLength = this->currentLength + lengthOfTarget - lengthOfSubStringWillBeOverwrite;
     this->ensureCapacity(newLength);
 
-    char16_t *newPositionOfTailPart = this->original + end + lengthOfTarget - lengthOfSubStringWillBeOverwrite;
+    char16_t *newPositionOfTailPart =
+            this->original + end + lengthOfTarget - lengthOfSubStringWillBeOverwrite;
     char16_t *oldPositionOfTailPart = this->original + end;
     int memorySizeOfTailPart = (this->currentLength - end) * sizeof(char16_t);
-    memmove(newPositionOfTailPart, oldPositionOfTailPart, (size_t)memorySizeOfTailPart);
+    memmove(newPositionOfTailPart,
+            oldPositionOfTailPart, (size_t)memorySizeOfTailPart);
 
     char16_t *insertPosition = this->original + start;
     int memorySizeForTarget = lengthOfTarget * sizeof(char16_t);
@@ -644,12 +674,13 @@ StringBuilder StringBuilder::reverse() {
     int oppositeIndex;
     int stopIndex = this->currentLength / 2;
     char16_t temp;
-    for (index = 0; index < stopIndex; index++) {
+    for (index = 0; index < stopIndex; ++index) {
         oppositeIndex = (this->currentLength - 1) - index;
         temp = this->original[index];
         this->original[index] = this->original[oppositeIndex];
         this->original[oppositeIndex] = temp;
-        if (Character::isSurrogate((this->original[index])) || Character::isSurrogate(this->original[oppositeIndex])) {
+        if (Character::isSurrogate((this->original[index])) ||
+                Character::isSurrogate(this->original[oppositeIndex])) {
             hasSurrogates = true;
         }
     }
@@ -701,15 +732,19 @@ String StringBuilder::substring(int start, int end) const {
         throw StringIndexOutOfBoundsException(end - start);
     }
 
-    std::u16string subStringUtf16(this->original, static_cast<size_t>(this->currentLength));
-    subStringUtf16 = subStringUtf16.substr(static_cast<size_t>(start), static_cast<size_t>(end - start));
+    std::u16string subStringUtf16(this->original,
+                                  static_cast<size_t>(this->currentLength));
+    subStringUtf16 = subStringUtf16.substr(static_cast<size_t>(start),
+                                           static_cast<size_t>(end - start));
     std::string subStringUtf8;
     this->convertUtf16ToUtf8(subStringUtf16, subStringUtf8);
     return subStringUtf8.c_str();
 }
 
 string StringBuilder::toString() const {
-    std::u16string copyOfOriginalWithNullTerminator(this->original, static_cast<size_t>(this->currentLength));
+    std::u16string copyOfOriginalWithNullTerminator(
+            this->original,
+            static_cast<size_t>(this->currentLength));
     std::string utf8String;
     this->convertUtf16ToUtf8(copyOfOriginalWithNullTerminator, utf8String);
     this->backupForToString = String(utf8String);
@@ -719,7 +754,8 @@ string StringBuilder::toString() const {
 void StringBuilder::trimToSize() {
     if (this->currentCapacity > this->currentLength) {
         int numberOfBytesForCapacity = this->currentLength * sizeof(char16_t);
-        this->original = (char16_t *)realloc(this->original, (size_t)numberOfBytesForCapacity);
+        this->original = (char16_t *)realloc(this->original,
+                                             (size_t)numberOfBytesForCapacity);
         this->currentCapacity = this->currentLength;
     }
 }
@@ -730,7 +766,8 @@ int *StringBuilder::initializeNextTable(const std::u16string &pattern) const{
         return nullptr;
     }
 
-    auto *nextTable = static_cast<int *>(calloc((size_t)lengthOfPattern, sizeof(int)));
+    auto *nextTable =
+            static_cast<int *>(calloc((size_t)lengthOfPattern, sizeof(int)));
 
     if (nextTable == nullptr) {
         return nullptr;
@@ -766,7 +803,8 @@ int *StringBuilder::initializeNextTable(const std::u16string &pattern) const{
     return nextTable;
 }
 
-int StringBuilder::stringMatches(const std::u16string &target, const std::u16string &pattern, int startIndex) const {
+int StringBuilder::stringMatches(const std::u16string &target,
+                                 const std::u16string &pattern, int startIndex) const {
     int lengthOfPattern = static_cast<int>(pattern.length());
     int lengthOfTarget = static_cast<int>(target.length());
 
@@ -817,7 +855,8 @@ int StringBuilder::stringMatches(const std::u16string &target, const std::u16str
     return -1;
 }
 
-int StringBuilder::stringMatchesReverse(const std::u16string &target, const std::u16string &pattern, int startIndex) const {
+int StringBuilder::stringMatchesReverse(const std::u16string &target,
+                                        const std::u16string &pattern, int startIndex) const {
     int lengthOfPattern = static_cast<int>(pattern.length());
     int lengthOfTarget =  static_cast<int>(target.length());
 
@@ -884,7 +923,8 @@ void StringBuilder::reverseAllValidSurrogatePairs() {
     }
 }
 
-void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16string &utf16String) {
+void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String,
+                                       std::u16string &utf16String) {
     int rawLength = static_cast<int>(utf8String.length());
     int index = 0;
     int codePoint;
@@ -896,7 +936,8 @@ void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16st
             // Invalid byte sequences.
             return;
         }
-        numberOfTrailingBytes = getNumberOfTrailingBytesAfterFirstByte(utf8String[index]);
+        numberOfTrailingBytes =
+                getNumberOfTrailingBytesAfterFirstByte(utf8String[index]);
         switch (numberOfTrailingBytes) {
             case 0:
                 codePoint = utf8String[index];
@@ -932,15 +973,18 @@ void StringBuilder::convertUtf8ToUtf16(const std::string &utf8String, std::u16st
             utf16String.push_back(static_cast<char16_t>(codePoint));
         } else {
             codePoint = codePoint - 0x10000;
-            highSurrogate = static_cast<char16_t>((static_cast<unsigned int>(codePoint) >> 10) + 0xD800);
-            lowSurrogate = static_cast<char16_t>((static_cast<unsigned int>(codePoint) & 0x3FF) + 0xDC00);
+            highSurrogate =
+                    static_cast<char16_t>((static_cast<unsigned int>(codePoint) >> 10) + 0xD800);
+            lowSurrogate =
+                    static_cast<char16_t>((static_cast<unsigned int>(codePoint) & 0x3FF) + 0xDC00);
             utf16String.push_back(highSurrogate);
             utf16String.push_back(lowSurrogate);
         }
     }
 }
 
-void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String, std::string &utf8String) {
+void StringBuilder::convertUtf16ToUtf8(const std::u16string &utf16String,
+                                       std::string &utf8String) {
     int rawLength = static_cast<int>(utf16String.length());
     int index = 0;
     int codePoint;

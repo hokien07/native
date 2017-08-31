@@ -23,11 +23,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef NATIVE_STRINGBUFFER_H
-#define NATIVE_STRINGBUFFER_H
+#ifndef NATIVE_JAVA_LANG_STRING_BUFFER_HPP_
+#define NATIVE_JAVA_LANG_STRING_BUFFER_HPP_
 
+#include "../../Lang.hpp"
 #include <mutex>
-#include "../StringBuilder/StringBuilder.hpp"
 
 namespace Java {
     namespace Lang {
@@ -1252,10 +1252,8 @@ namespace Java {
              */
             ~StringBuffer();
 
-        };
-    }
-}
+        };  // class StringBuilder
+    }  // namespace Lang
+}  // namespace Java
 
-
-
-#endif  // NATIVE_STRINGBUFFER_H
+#endif  // NATIVE_JAVA_LANG_STRING_BUFFER_HPP_

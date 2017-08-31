@@ -288,6 +288,11 @@ char16_t Character::highSurrogate(int codePoint) {
                        + (MIN_HIGH_SURROGATE - (((unsigned long) MIN_SUPPLEMENTARY_CODE_POINT) >> 10)));
 }
 
+boolean Character::isBmpCodePoint(int codePoint) {
+    unsigned int highOrderBitsOfCodePoint = static_cast<unsigned int>(codePoint) >> 16;
+    return (highOrderBitsOfCodePoint == 0);
+}
+
 char16_t Character::forDigit(int digit, int radix){
     if ((digit >= radix) || (digit < 0)) {
         return '\0';

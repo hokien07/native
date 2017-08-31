@@ -35,7 +35,7 @@ using namespace Java::Util;
 
 namespace Java {
     namespace Lang {
-        class Character : Object,
+        class Character : public virtual Object,
                           public virtual Comparable<Character> {
         private:
             class Subset  {
@@ -1880,7 +1880,6 @@ namespace Java {
                 static UnicodeScript forName(String scriptName);
             };
 
-
         public:
             /**
              * The number of bits used to represent a char value in unsigned binary form, constant 16.
@@ -2238,7 +2237,7 @@ namespace Java {
             /**
              * Destructor
              */
-            ~Character();
+            virtual ~Character();
 
         private:
             /**
@@ -2257,6 +2256,7 @@ namespace Java {
              * @return the Unicode code point at the given index
              */
             static int codePointAtImpl(const Array<char16_t> &charArray, int index, int limit);
+
             /**
              * Returns the code point preceding the given index of the char array,
              * where only array elements with index greater than or equal to start can be used.
@@ -2552,7 +2552,7 @@ namespace Java {
              * @param codePoint
              * @return the directionality property of the character.
              */
-            static byte getDirectionality(int codePoint) ;
+            static byte getDirectionality(int codePoint);
 
             /**
              * Returns the Unicode directionality property for the given character.
@@ -2561,7 +2561,7 @@ namespace Java {
              * @param character
              * @return the directionality property of the char value.
              */
-            static byte getDirectionality(char16_t character) ;
+            static byte getDirectionality(char16_t character);
 
             /**
              * Returns the Unicode name of the specified character codePoint,
@@ -2574,7 +2574,7 @@ namespace Java {
              * @throw IllegalArgumentException if the specified codePoint is not a valid Unicode code point.
              * @return the Unicode name of the specified character, or null if the code point is unassigned.
              */
-            static String getName(int codePoint) ;
+            static String getName(int codePoint);
 
             /**
              * Returns the int value that the specified character (Unicode code point) represents.
@@ -2584,7 +2584,7 @@ namespace Java {
              * -2 if the character has a numeric value that is not a nonnegative integer;
              * -1 if the character has no numeric value.
              */
-            static int getNumericValue(int codePoint) ;
+            static int getNumericValue(int codePoint);
 
             /**
              * Returns the int value that the specified Unicode character represents.
@@ -2594,7 +2594,7 @@ namespace Java {
              * -2 if the character has a numeric value that is not a nonnegative integer;
              * -1 if the character has no numeric value.
              */
-            static int getNumericValue(char16_t character) ;
+            static int getNumericValue(char16_t character);
 
             /**
              * Returns a value indicating a character's general category.
@@ -2605,7 +2605,7 @@ namespace Java {
              * @param character
              * @return a value of type int representing the character's general category.
              */
-            static int getType(char16_t character) ;
+            static int getType(char16_t character);
 
             /**
              * Returns a value indicating a character's general category.
@@ -2613,7 +2613,7 @@ namespace Java {
              * @param codePoint
              * @return a value of type int representing the character's general category.
              */
-            static int getType(int codePoint) ;
+            static int getType(int codePoint);
 
             /**
              * Returns a hash code for this Character; equal to the result of invoking charValue().
@@ -2628,7 +2628,7 @@ namespace Java {
              * @param value
              * @return a hash code for a char value
              */
-            static long hashCode(char16_t value) ;
+            static long hashCode(char16_t value);
 
             /**
              * Returns the leading surrogate (a high surrogate code unit) of the surrogate pair
@@ -2638,7 +2638,7 @@ namespace Java {
              * @param codePoint
              * @return the leading surrogate code unit used to represent the character in the UTF-16 encoding
              */
-            static char16_t highSurrogate(int codePoint) ;
+            static char16_t highSurrogate(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is an alphabet.
@@ -2646,7 +2646,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is a Unicode alphabet character, false otherwise.
              */
-            static boolean isAlphabetic(int codePoint) ;
+            static boolean isAlphabetic(int codePoint);
 
             /**
              * Determines whether the specified character (Unicode code point)
@@ -2657,7 +2657,7 @@ namespace Java {
              * @return true if the specified code point is between MIN_VALUE and MAX_VALUE inclusive;
              * false otherwise.
              */
-            static boolean isBmpCodePoint(int codePoint) ;
+            static boolean isBmpCodePoint(int codePoint);
 
             /**
              * Determines if a character is defined in Unicode.
@@ -2699,7 +2699,7 @@ namespace Java {
              * @param character
              * @return true if the character is a digit; false otherwise.
              */
-            static boolean isDigit(char16_t character) ;
+            static boolean isDigit(char16_t character);
 
             /**
              * Determines if the given char value is a Unicode high-surrogate
@@ -2711,7 +2711,7 @@ namespace Java {
              * @return true if the char value is between MIN_HIGH_SURROGATE
              * and MAX_HIGH_SURROGATE inclusive; false otherwise.
              */
-            static boolean isHighSurrogate(char16_t character) ;
+            static boolean isHighSurrogate(char16_t character);
 
             /**
              * Determines if the specified character (Unicode code point) should be regarded
@@ -2721,7 +2721,7 @@ namespace Java {
              * @return true if the character is an ignorable control character
              * that may be part of a Java or Unicode identifier; false otherwise.
              */
-            static boolean isIdentifierIgnorable(int codePoint) ;
+            static boolean isIdentifierIgnorable(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) should be regarded
@@ -2731,7 +2731,7 @@ namespace Java {
              * @return true if the character is an ignorable control character
              * that may be part of a Java or Unicode identifier; false otherwise.
              */
-            static boolean isIdentifierIgnorable(char16_t character) ;
+            static boolean isIdentifierIgnorable(char16_t character);
 
             /**
              * Determines if the specified character (Unicode code point)
@@ -2741,7 +2741,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is a Unicode ideograph character, false otherwise.
              */
-            static boolean isIdeographic(int codePoint) ;
+            static boolean isIdeographic(int codePoint);
 
             /**
              * Determines if the specified character is an ISO control character.
@@ -2766,7 +2766,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is an ISO control character; false otherwise.
              */
-            static boolean isISOControl(int codePoint) ;
+            static boolean isISOControl(int codePoint);
 
             /**
              * Determines if the specified character may be part
@@ -2778,7 +2778,7 @@ namespace Java {
              * @param character
              * @return true if the character may be part of a Java identifier; false otherwise.
              */
-            static boolean isJavaIdentifierPart(char16_t character) ;
+            static boolean isJavaIdentifierPart(char16_t character);
 
             /**
              * Determines if the specified character may be part
@@ -2799,7 +2799,7 @@ namespace Java {
              * @param character
              * @return true if the character may start a Java identifier; false otherwise.
              */
-            static boolean isJavaIdentifierStart(char16_t character) ;
+            static boolean isJavaIdentifierStart(char16_t character);
 
             /**
             * Determines if the specified character is permissible
@@ -2816,7 +2816,7 @@ namespace Java {
              * @param codePoint
              * @return Determines if the specified character (Unicode code point) is a letter.
              */
-            static boolean isLetter(int codePoint) ;
+            static boolean isLetter(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a letter.
@@ -2827,7 +2827,7 @@ namespace Java {
              * @param codePoint
              * @return Determines if the specified character (Unicode code point) is a letter.
              */
-            static boolean isLetter(char16_t character) ;
+            static boolean isLetter(char16_t character);
 
             /**
              * Determines if the specified character is a letter or digit.
@@ -2838,7 +2838,7 @@ namespace Java {
              * @param character
              * @return true if the character is a letter or digit; false otherwise.
              */
-            static boolean isLetterOrDigit(char16_t character) ;
+            static boolean isLetterOrDigit(char16_t character);
 
             /**
             * Determines if the specified character is a letter or digit.
@@ -2846,7 +2846,7 @@ namespace Java {
             * @param codePoint
             * @return true if the character is a letter or digit; false otherwise.
             */
-            static boolean isLetterOrDigit(int codePoint) ;
+            static boolean isLetterOrDigit(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a lowercase character.
@@ -2856,7 +2856,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is lowercase; false otherwise.
              */
-            static boolean isLowerCase(int codePoint) ;
+            static boolean isLowerCase(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a lowercase character.
@@ -2869,7 +2869,7 @@ namespace Java {
              * @param character
              * @return true if the character is lowercase; false otherwise.
              */
-            static boolean isLowerCase(char16_t character) ;
+            static boolean isLowerCase(char16_t character);
 
             /**
              * Determines if the given char value is a Unicode low-surrogate
@@ -2881,7 +2881,7 @@ namespace Java {
              * @return true if the char value is between MIN_LOW_SURROGATE
              * and MAX_LOW_SURROGATE inclusive; false otherwise.
              */
-            static boolean isLowSurrogate(char16_t character) ;
+            static boolean isLowSurrogate(char16_t character);
 
             /**
              * Determines whether the character is mirrored according to the Unicode specification.
@@ -2896,7 +2896,7 @@ namespace Java {
              * @param character
              * @return true if the char is mirrored, false if the char is not mirrored or is not defined.
              */
-            static boolean isMirrored(char16_t character) ;
+            static boolean isMirrored(char16_t character);
 
             /**
              * Determines whether the character is mirrored according to the Unicode specification.
@@ -2908,7 +2908,7 @@ namespace Java {
              * @param codePoint
              * @return true if the char is mirrored, false if the char is not mirrored or is not defined.
              */
-            static boolean isMirrored(int codePoint) ;
+            static boolean isMirrored(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a Unicode space character.
@@ -2918,7 +2918,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is a space character; false otherwise.
              */
-            static boolean isSpaceChar(int codePoint) ;
+            static boolean isSpaceChar(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a Unicode space character.
@@ -2931,7 +2931,7 @@ namespace Java {
              * @param character
              * @return true if the character is a space character; false otherwise.
              */
-            static boolean isSpaceChar(char16_t character) ;
+            static boolean isSpaceChar(char16_t character);
 
             /**
              * Determines whether the specified character (Unicode code point)
@@ -2941,7 +2941,7 @@ namespace Java {
              * @return true if the specified code point is between MIN_SUPPLEMENTARY_CODE_POINT
              * and MAX_CODE_POINT inclusive; false otherwise.
              */
-            static boolean isSupplementaryCodePoint(int codePoint) ;
+            static boolean isSupplementaryCodePoint(int codePoint);
 
             /**
              * Determines if the given char value is a Unicode surrogate code unit.
@@ -2954,7 +2954,7 @@ namespace Java {
              * @return true if the char value is between MIN_SURROGATE and MAX_SURROGATE inclusive;
              * false otherwise.
              */
-            static boolean isSurrogate(char16_t character) ;
+            static boolean isSurrogate(char16_t character);
 
             /**
              * Determines whether the specified pair of char values is a valid Unicode surrogate pair.
@@ -2963,7 +2963,7 @@ namespace Java {
              * @param low
              * @return Determines whether the specified pair of char values is a valid Unicode surrogate pair.
              */
-            static boolean isSurrogatePair(char16_t high, char16_t low) ;
+            static boolean isSurrogatePair(char16_t high, char16_t low);
 
             /**
              * Determines if the specified character (Unicode code point) is a titlecase character.
@@ -2971,7 +2971,7 @@ namespace Java {
              * @param codePoint
              * @return true if the character is titlecase; false otherwise.
              */
-            static boolean isTitleCase(int codePoint) ;
+            static boolean isTitleCase(int codePoint);
 
             /**
              * Determines if the specified character (Unicode code point) is a titlecase character.
@@ -2982,7 +2982,7 @@ namespace Java {
              * @param character
              * @return true if the character is titlecase; false otherwise.
              */
-            static boolean isTitleCase(char16_t character) ;
+            static boolean isTitleCase(char16_t character);
 
             /**
              * Determines if the specified character (Unicode code point) may be part of

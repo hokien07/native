@@ -445,6 +445,15 @@ TEST(JavaLang, CharacterLowSurrogate) {
     ASSERT_EQUAL(56387, Character::lowSurrogate(0x10043));
 }
 
+TEST(JavaLang, CharacterIsBmpCodePoint) {
+    // Basic Multilingual Plane.
+    ASSERT_TRUE(Character::isBmpCodePoint(0x1000));
+    // Supplementary Planes.
+    ASSERT_FALSE(Character::isBmpCodePoint(0x010000));
+    // "Negative code point".
+    ASSERT_FALSE(Character::isBmpCodePoint(-1));
+}
+
 TEST(JavaLang, CharacterForDigit) {
     // Digit > radix
     ASSERT_EQUAL('\0', Character::forDigit(5, 2));

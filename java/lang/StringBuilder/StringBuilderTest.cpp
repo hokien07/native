@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Food Tiny Project. All rights reserved.
+ * Copyright (c) 2017 Food Tiny Project. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -179,7 +179,12 @@ TEST(JavaLang, StringBuilderAppend) {
 }
 
 TEST(JavaLang, StringBuilderAppendCodePoint) {
-    // TODO
+    StringBuilder stringBuilder;
+    // U+10437: '𐐷'
+    stringBuilder.appendCodePoint(0x10437);
+    ASSERT_EQUAL(2, stringBuilder.length());
+    ASSERT_EQUAL(0xD801, stringBuilder.charAt(0));
+    ASSERT_EQUAL(0xDC37, stringBuilder.charAt(1));
 }
 
 TEST(JavaLang, StringBuilderCapacity) {

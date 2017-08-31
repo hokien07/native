@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016 Food Tiny Project. All rights reserved.
+ * Copyright (c) 2017 Food Tiny Project. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -24,12 +24,13 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef NATIVE_JAVA_LANG_STRINGBUILDER_HPP
-#define NATIVE_JAVA_LANG_STRINGBUILDER_HPP
+#ifndef NATIVE_JAVA_LANG_STRING_BUILDER_HPP_
+#define NATIVE_JAVA_LANG_STRING_BUILDER_HPP_
 
 #include <initializer_list>
 #include <string>
 #include "../../Lang.hpp"
+#include "../StringBuffer/StringBuffer.hpp"
 
 using namespace Java::IO;
 
@@ -37,7 +38,7 @@ namespace Java {
     namespace Lang {
         class StringBuilder :
                 public Object,
-                public virtual Serializable //,
+                public virtual Serializable
 //              public virtual CharSequence
                 // FIXME(truongchauhien): Remove this comment when support unicode for CharSequence and String.
         {
@@ -304,12 +305,9 @@ namespace Java {
             StringBuilder &append(long target);
 
             /**
-             * Appends the string representation of the Object argument.
-             *
-             * @param target
-             * @return StringBuilder
+             * This method is not supported.
              */
-//           StringBuilder &append(const Object &target); // FIXME: Object.toString() return hashcode and it changes every time (can not test).
+//          StringBuilder &append(const Object &target);
 
             /**
              * Appends the specified string to this character sequence.
@@ -325,7 +323,7 @@ namespace Java {
              * @param target
              * @return
              */
-//          StringBuilder &append(const StringBuffer &target); // FIXME: StringBuffer doesn't implemented.
+            StringBuilder &append(const StringBuffer &target);
 
             /**
              * Appends the string representation of the codePoint argument to this sequence.
@@ -977,4 +975,4 @@ namespace Java {
     }  // namespace Lang
 }  // namespace Java
 
-#endif  // NATIVE_JAVA_LANG_STRING_BUILDER_HPP
+#endif  // NATIVE_JAVA_LANG_STRING_BUILDER_HPP_
