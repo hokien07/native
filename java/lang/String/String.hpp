@@ -59,7 +59,7 @@ namespace Java {
 
 		public:
 			int getSize() const;
-			char charAt(int index) const;
+			char16_t charAt(int index) const;
 			int codePointAt();
 			int codePointBefore();
 			int codePointCount(int beginIndex, int endIndex);

@@ -2511,7 +2511,7 @@ namespace Java {
              * @param radix
              * @return the numeric value represented by the character in the specified radix.
              */
-            static int digit(char16_t character, int radix) ;
+            static int digit(char16_t character, int radix);
 
             /**
              * Returns the numeric value of the specified character (Unicode code point) in the specified radix.

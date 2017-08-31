@@ -162,6 +162,10 @@ string Character::toString() const {
     return string_from_int(this->original);
 }
 
+int Character::digit(char16_t character, int radix) {
+    return Character::digit(static_cast<int>(character), radix);
+}
+
 int Character::digit(int codePoint, int radix) {
     if (radix == 10) {
         switch (codePoint) {

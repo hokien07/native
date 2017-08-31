@@ -32,6 +32,7 @@ extern "C" {
 #include "../NegativeArraySizeException/NegativeArraySizeException.hpp"
 #include "../IndexOutOfBoundsException/IndexOutOfBoundsException.hpp"
 #include "../StringIndexOutOfBoundsException/StringIndexOutOfBoundsException.hpp"
+#include "../IllegalArgumentException/IllegalArgumentException.hpp"
 
 using namespace Java::Lang;
 
@@ -185,6 +186,18 @@ TEST(JavaLang, StringBuilderAppendCodePoint) {
     ASSERT_EQUAL(2, stringBuilder.length());
     ASSERT_EQUAL(0xD801, stringBuilder.charAt(0));
     ASSERT_EQUAL(0xDC37, stringBuilder.charAt(1));
+    // U+03A3: 'Σ'; This code point is in Basic Multilingual Plane.
+    stringBuilder.appendCodePoint(0x3A3);
+    ASSERT_EQUAL(3, stringBuilder.length());
+    ASSERT_EQUAL(u'Σ', stringBuilder.charAt(2));
+
+    try {
+        stringBuilder.appendCodePoint(-1);
+    } catch (IllegalArgumentException &ex) {
+
+    }
+    // Length won't be changed.
+    ASSERT_EQUAL(3, stringBuilder.length());
 }
 
 TEST(JavaLang, StringBuilderCapacity) {

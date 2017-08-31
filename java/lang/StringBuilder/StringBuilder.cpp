@@ -271,7 +271,7 @@ int StringBuilder::codePointAt(int index) const {
     Array<char16_t> originalArray;
     int indexOfOriginal;
     for (indexOfOriginal = 0; indexOfOriginal < this->currentLength;
-         indexOfOriginal++) {
+         ++indexOfOriginal) {
         originalArray.push(this->original[indexOfOriginal]);
     }
     int result = Character::codePointAt(originalArray, index);
@@ -294,7 +294,7 @@ int StringBuilder::codePointCount(int beginIndex, int endIndex) {
     int numberOfCharacters = endIndex - beginIndex;
     int index;
     int stopIndex = beginIndex + numberOfCharacters;
-    for (index = 0; index < stopIndex; index++) {
+    for (index = 0; index < stopIndex; ++index) {
         originalArray.push(this->original[index]);
     }
     int result = Character::codePointCount(originalArray, 0, numberOfCharacters);

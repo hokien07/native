@@ -38,9 +38,8 @@ namespace Java {
     namespace Lang {
         class StringBuilder :
                 public Object,
-                public virtual Serializable
-//              public virtual CharSequence
-                // FIXME(truongchauhien): Remove this comment when support unicode for CharSequence and String.
+                public virtual Serializable,
+                public virtual CharSequence
         {
         private:
             char16_t *original = nullptr;

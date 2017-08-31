@@ -106,7 +106,7 @@ String String::clone() {
  * @param index
  * @return String
  */
-char String::charAt(int index) const{
+char16_t String::charAt(int index) const{
 	if(index < 0 || index > this->size - 1) {
 		throw StringIndexOutOfBoundsException("String index out of range");
 	}
