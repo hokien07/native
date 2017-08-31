@@ -25,6 +25,8 @@
 #include "../IllegalArgumentException/IllegalArgumentException.hpp"
 #include "../../util/Arrays/Arrays.hpp"
 
+// Start region: Constructor.
+
 Character::Character() {
     this->original = u'\0';
 }
@@ -34,6 +36,10 @@ Character::Character(unicode original) {
 }
 
 Character::~Character() = default;
+
+// End region: Constructors.
+
+// Start region: Instance methods.
 
 int Character::charCount(int codePoint) const {
     if (codePoint >= MIN_SUPPLEMENTARY_CODE_POINT) {
@@ -50,27 +56,42 @@ int Character::codePointAt(const Array<unicode> &charArray, int index) {
     return codePointAtImpl(charArray, index, charArray.length);
 }
 
+int Character::compareTo(const Character &anotherCharacter) const {
+    return compare(this->charValue(), anotherCharacter.charValue());
+}
+
+boolean Character::equals(const Character &object) const {
+    return this->original == object.original;
+}
+
+boolean Character::equals(const Object &object) const {
+    // TODO (truongchauhien): Back to this later.
+    return true;
+}
+
+int Character::getType(int codePoint) {
+    return 0;
+}
+
+long Character::hashCode() const {
+    return Character::hashCode(this->original);
+}
+
+string Character::toString() const {
+    // TODO (truongchauhien): This method return "mysterious" result.
+    return string_from_int(this->original);
+}
+
+// End region: Instance methods.
+
+// Start region: Public static methods.
+
 int Character::codePointAt(const Array<unicode> &charArray , int index, int limit) {
     if (index >= limit || limit < 0 || limit > charArray.length) {
         throw IndexOutOfBoundsException();
     }
 
     return codePointAtImpl(charArray, index, limit);
-}
-
-// throws ArrayIndexOutOfBoundsException if index out of bounds
-int Character::codePointAtImpl(const Array<unicode> &charArray, int index, int limit) {
-    if (index < 0 || index >= charArray.length) {
-        throw ArrayIndexOutOfBoundsException(index);
-    }
-    unicode char1 = charArray[ index ];
-    if (isHighSurrogate(char1) && ++index < limit) {
-        unicode char2 = charArray[ index ];
-        if (isLowSurrogate(char2)) {
-            return toCodePoint(char1, char2);
-        }
-    }
-    return (int) char1;
 }
 
 int Character::codePointBefore(const Array<unicode> &charArray , int index) {
@@ -84,21 +105,6 @@ int Character::codePointBefore(const Array<unicode> &charArray , int index, int 
     return codePointBeforeImpl(charArray, index, start);
 }
 
-// throws ArrayIndexOutOfBoundsException if index-1 out of bounds
-int Character::codePointBeforeImpl(const Array<unicode> &charArray, int index, int start) {
-    if (index < 1 || index >= charArray.length) {
-        throw ArrayIndexOutOfBoundsException(index);
-    }
-    unicode c2 = charArray[ --index ];
-    if (isLowSurrogate(c2) && index > start) {
-        unicode c1 = charArray[ --index ];
-        if (isHighSurrogate(c1)) {
-            return toCodePoint(c1, c2);
-        }
-    }
-    return c2;
-}
-
 int Character::codePointCount(const Array<unicode> &charArray, int offset, int count) {
     if (count > charArray.length - offset || offset < 0 || count < 0) {
         throw IndexOutOfBoundsException();
@@ -106,25 +112,8 @@ int Character::codePointCount(const Array<unicode> &charArray, int offset, int c
     return codePointCountImpl(charArray, offset, count);
 }
 
-int Character::codePointCountImpl(const Array<unicode> &charArray, int offset, int count) {
-    int endIndex = offset + count;
-    int numberOfCodePoint = count;
-    for (int i = offset; i < endIndex;) {
-        if (isHighSurrogate(charArray[ i++ ]) && i < endIndex
-            && isLowSurrogate(charArray[ i ])) {
-            numberOfCodePoint--;
-            i++;
-        }
-    }
-    return numberOfCodePoint;
-}
-
 int Character::compare(unicode charA, unicode charB) {
     return charA - charB;
-}
-
-int Character::compareTo(const Character &anotherCharacter) const {
-    return compare(this->charValue(), anotherCharacter.charValue());
 }
 
 boolean Character::isHighSurrogate(unicode character) {
@@ -143,23 +132,6 @@ int Character::toCodePoint(unicode high, unicode low) {
     return (( high << 10 ) + low ) + ( MIN_SUPPLEMENTARY_CODE_POINT
                                        - ( MIN_HIGH_SURROGATE << 10 )
                                        - MIN_LOW_SURROGATE );
-}
-
-std::ostream &operator<<(std::ostream &os, const Character &target) {
-    os << target.charValue();
-    return os;
-}
-
-boolean Character::equals(const Character &object) const {
-    return this->original == object.original;
-}
-
-long Character::hashCode() const {
-    return Character::hashCode(this->original);
-}
-
-string Character::toString() const {
-    return string_from_int(this->original);
 }
 
 int Character::digit(unicode character, int radix) {
@@ -233,36 +205,6 @@ int Character::digit(int codePoint, int radix) {
     }
 }
 
-int Character::offsetByCodePointsImpl(const Array<unicode> &charArray, int start, int count, int index,
-                                      int codePointOffset) {
-    int offset = index;
-    if (codePointOffset >= 0) {
-        int limit = start + count;
-        for (index = 0; offset < limit && index < codePointOffset; index++) {
-            if (isHighSurrogate(charArray[offset++]) && offset < limit
-                && isLowSurrogate(charArray[offset])) {
-                offset++;
-            }
-        }
-
-        if (index < codePointOffset) {
-            throw IndexOutOfBoundsException();
-        }
-    } else {
-        for (index = codePointOffset; offset > start && index < 0; index++) {
-            if (isLowSurrogate(charArray[--offset]) && offset > start
-                && isHighSurrogate(charArray[offset-1])) {
-                offset--;
-            }
-        }
-
-        if (index < 0) {
-            throw IndexOutOfBoundsException();
-        }
-    }
-    return offset;
-}
-
 long Character::hashCode(unicode value) {
     return (int) value;
 }
@@ -276,11 +218,6 @@ Character::offsetByCodePoints(const Array<unicode> &charArray, int start, int co
     }
 
     return offsetByCodePointsImpl(charArray, start, count, index, codePointOffset);
-}
-
-void Character::toSurrogates(int codePoint, Array<unicode> &charArray, int index) {
-    charArray[index + 1] = Character::lowSurrogate(codePoint);
-    charArray[index] = Character::highSurrogate(codePoint);
 }
 
 unicode Character::lowSurrogate(int codePoint) {
@@ -317,9 +254,96 @@ boolean Character::isValidCodePoint(int codePoint) {
     return codePoint >= Character::MIN_CODE_POINT && codePoint <= Character::MAX_CODE_POINT;
 }
 
-int Character::getType(int codePoint) {
-    return 0;
+// End region: Public static methods.
+
+// Start region: Operators.
+
+std::ostream &operator<<(std::ostream &os, const Character &target) {
+    os << target.charValue();
+    return os;
 }
+
+// End region: Operators.
+
+// Start region: Private static methods.
+
+int Character::codePointAtImpl(const Array<unicode> &charArray, int index, int limit) {
+    if (index < 0 || index >= charArray.length) {
+        throw ArrayIndexOutOfBoundsException(index);
+    }
+    unicode char1 = charArray[ index ];
+    if (isHighSurrogate(char1) && ++index < limit) {
+        unicode char2 = charArray[ index ];
+        if (isLowSurrogate(char2)) {
+            return toCodePoint(char1, char2);
+        }
+    }
+    return (int) char1;
+}
+
+int Character::codePointBeforeImpl(const Array<unicode> &charArray, int index, int start) {
+    if (index < 1 || index >= charArray.length) {
+        throw ArrayIndexOutOfBoundsException(index);
+    }
+    unicode c2 = charArray[ --index ];
+    if (isLowSurrogate(c2) && index > start) {
+        unicode c1 = charArray[ --index ];
+        if (isHighSurrogate(c1)) {
+            return toCodePoint(c1, c2);
+        }
+    }
+    return c2;
+}
+
+int Character::codePointCountImpl(const Array<unicode> &charArray, int offset, int count) {
+    int endIndex = offset + count;
+    int numberOfCodePoint = count;
+    for (int i = offset; i < endIndex;) {
+        if (isHighSurrogate(charArray[ i++ ]) && i < endIndex
+            && isLowSurrogate(charArray[ i ])) {
+            numberOfCodePoint--;
+            i++;
+        }
+    }
+    return numberOfCodePoint;
+}
+
+int Character::offsetByCodePointsImpl(const Array<unicode> &charArray, int start, int count, int index,
+                                      int codePointOffset) {
+    int offset = index;
+    if (codePointOffset >= 0) {
+        int limit = start + count;
+        for (index = 0; offset < limit && index < codePointOffset; index++) {
+            if (isHighSurrogate(charArray[offset++]) && offset < limit
+                && isLowSurrogate(charArray[offset])) {
+                offset++;
+            }
+        }
+
+        if (index < codePointOffset) {
+            throw IndexOutOfBoundsException();
+        }
+    } else {
+        for (index = codePointOffset; offset > start && index < 0; index++) {
+            if (isLowSurrogate(charArray[--offset]) && offset > start
+                && isHighSurrogate(charArray[offset-1])) {
+                offset--;
+            }
+        }
+
+        if (index < 0) {
+            throw IndexOutOfBoundsException();
+        }
+    }
+    return offset;
+}
+
+void Character::toSurrogates(int codePoint, Array<unicode> &charArray, int index) {
+    charArray[index + 1] = Character::lowSurrogate(codePoint);
+    charArray[index] = Character::highSurrogate(codePoint);
+}
+
+// End region: Private static methods.
 
 HashMap<String, Character::UnicodeBlock> Character::UnicodeBlock::map;
 

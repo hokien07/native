@@ -1831,7 +1831,7 @@ namespace Java {
                      * Unicode script "default", for uninitallized script
                      */
                             DEFAULT
-                };  // class UnicodeScript
+                };
 
             private:
                 static HashMap<String, UnicodeScript> aliases;
@@ -1878,7 +1878,7 @@ namespace Java {
                  * name or the Script name alias.
                  */
                 static UnicodeScript forName(String scriptName);
-            };
+            };  // class UnicodeScript
 
         public:
             /**
@@ -2270,6 +2270,13 @@ namespace Java {
              * @return
              */
             boolean equals(const Character &object) const;
+
+            /**
+             *
+             * @param object
+             * @return boolean
+             */
+            boolean equals(const Object &object) const;
 
             /**
              *
