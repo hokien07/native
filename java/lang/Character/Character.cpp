@@ -22,8 +22,8 @@
 #include "Character.hpp"
 #include "../IndexOutOfBoundsException/IndexOutOfBoundsException.hpp"
 #include "../ArrayIndexOutOfBoundsException/ArrayIndexOutOfBoundsException.hpp"
-#include "../IllegalArgumentException/IllegalArgumentException.hpp"
 #include "../../util/Arrays/Arrays.hpp"
+#include "../CharacterData/CharacterData.hpp"
 
 // Start region: Constructor.
 
@@ -52,7 +52,7 @@ unicode Character::charValue() const {
     return this->original;
 }
 
-int Character::codePointAt(const Array<unicode> &charArray, int index) {
+int Character::codePointAt(const Array<unicode> &charArray, int index){
     return codePointAtImpl(charArray, index, charArray.length);
 }
 

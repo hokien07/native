@@ -2308,7 +2308,7 @@ namespace Java {
              * @throw IndexOutOfBoundsException - if the value index is negative
              * or not less than length of sequence.
              */
-            static int codePointAt(CharSequence &sequence, int index) ;
+            static int codePointAt(CharSequence &sequence, int index);
 
             /**
              * Returns the code point at the given index of the char array.
@@ -2319,7 +2319,7 @@ namespace Java {
              * @throw IndexOutOfBoundsException - if the value index is negative
              * or not less than the length of the char array.
              */
-            static int codePointAt(const Array<unicode> &charArray, int index) ;
+            static int codePointAt(const Array<unicode> &charArray, int index);
 
             /**
              * Returns the code point at the given index of the char array,
@@ -2333,7 +2333,7 @@ namespace Java {
              * or not less than the limit argument, or if the limit argument is negative
              * or greater than the length of the char array.
              */
-            static int codePointAt(const Array<unicode> &charArray, int index, int limit) ;
+            static int codePointAt(const Array<unicode> &charArray, int index, int limit);
 
             /**
              * Returns the code point preceding the given index of the CharSequence.
