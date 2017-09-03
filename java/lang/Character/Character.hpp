@@ -28,10 +28,7 @@
 #define NATIVE_JAVA_LANG_CHARACTER_HPP_
 
 #include "../CharSequence/CharSequence.hpp"
-#include "../../Lang.hpp"
 #include "../../util/HashMap/HashMap.hpp"
-
-using namespace Java::Util;
 
 namespace Java {
     namespace Lang {
@@ -3026,3 +3023,4 @@ namespace Java {
 }  // namespace Java
 
 #endif  // NATIVE_JAVA_LANG_CHARACTER_HPP_
+

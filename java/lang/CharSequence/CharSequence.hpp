@@ -63,4 +63,5 @@ namespace Java {
 	}  // namespace Lang
 }  // namespace Java
 
+
 #endif  // JAVA_LANG_CHAR_SEQUENCE_HPP_

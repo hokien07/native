@@ -31,9 +31,11 @@
 #include "../UnsupportedOperationException/UnsupportedOperationException.hpp"
 #include "../IllegalArgumentException/IllegalArgumentException.hpp"
 
+
 using namespace Java::Lang;
 
-StringBuilder::StringBuilder() : StringBuilder(defaultCapacity) { }
+StringBuilder::StringBuilder() : StringBuilder(defaultCapacity) {
+}
 
 StringBuilder::StringBuilder(int capacity) {
     if (capacity < 0) {
@@ -53,9 +55,9 @@ StringBuilder::StringBuilder(const_string target) {
 }
 
 StringBuilder::StringBuilder(const String &target) {
-    int newCapacity = defaultCapacity + target.length();
-    this->ensureCapacity(newCapacity);
-    this->append(target.toString());
+	int newCapacity = defaultCapacity + target.length();
+	this->ensureCapacity(newCapacity);
+	this->append(target.toString());
 }
 
 StringBuilder::StringBuilder(const std::initializer_list<unicode> &target) {
@@ -65,9 +67,9 @@ StringBuilder::StringBuilder(const std::initializer_list<unicode> &target) {
 }
 
 StringBuilder::StringBuilder(const CharSequence &charSequence) {
-    int newCapaity = defaultCapacity + charSequence.length();
-    this->ensureCapacity(newCapaity);
-    this->append(charSequence);
+	int newCapaity = defaultCapacity + charSequence.length();
+	this->ensureCapacity(newCapaity);
+	this->append(charSequence);
 }
 
 StringBuilder::StringBuilder(const StringBuilder &target) {
@@ -77,11 +79,10 @@ StringBuilder::StringBuilder(const StringBuilder &target) {
         this->original[index] = target.original[index];
     }
     this->currentLength = target.currentLength;
-    this->currentCapacity = target.currentCapacity;
-}
+    this->currentCapacity = target.currentCapacity; }
 
 StringBuilder::~StringBuilder() {
-    free(original);
+	free(original);
 }
 
 StringBuilder &StringBuilder::append(const Boolean &target) {
@@ -252,7 +253,7 @@ StringBuilder &StringBuilder::appendCodePoint(int codePoint) {
 }
 
 int StringBuilder::capacity() const {
-    return this->currentCapacity;
+	return this->currentCapacity;
 }
 
 unicode StringBuilder::charAt(int index) const {
@@ -279,8 +280,8 @@ int StringBuilder::codePointAt(int index) const {
 }
 
 int StringBuilder::codePointBefore(int index) const {
-    int beforeOfIndex = index - 1;
-    return this->codePointAt(beforeOfIndex);
+	int beforeOfIndex = index - 1;
+	return this->codePointAt(beforeOfIndex);
 }
 
 int StringBuilder::codePointCount(int beginIndex, int endIndex) {
@@ -366,8 +367,8 @@ void StringBuilder::getChars(int sourceBegin, int sourceEnd,
     throw UnsupportedOperationException();
 }
 
-int StringBuilder::indexOf(const String &target) const{
-    return this->indexOf(target.toString());
+int StringBuilder::indexOf(const String &target) const {
+	return this->indexOf(target.toString());
 }
 
 int StringBuilder::indexOf(const_string target) const {
@@ -379,7 +380,7 @@ int StringBuilder::indexOf(const_string target) const {
 }
 
 int StringBuilder::indexOf(const String &target, int fromIndex) const {
-    return this->indexOf(target.toString(), fromIndex);
+	return this->indexOf(target.toString(), fromIndex);
 }
 
 int StringBuilder::indexOf(const_string target, int fromIndex) const {
@@ -591,7 +592,7 @@ StringBuilder &StringBuilder::insert(int offset, const_string target) {
 }
 
 int StringBuilder::lastIndexOf(const String &target) const {
-    return this->lastIndexOf(target.toString());
+	return this->lastIndexOf(target.toString());
 }
 
 int StringBuilder::lastIndexOf(const_string target) const {
@@ -604,7 +605,7 @@ int StringBuilder::lastIndexOf(const_string target) const {
 }
 
 int StringBuilder::lastIndexOf(const String &target, int fromIndex) const {
-    return this->lastIndexOf(target.toString(), fromIndex);
+	return this->lastIndexOf(target.toString(), fromIndex);
 }
 
 int StringBuilder::lastIndexOf(const_string target, int fromIndex) const {
@@ -616,19 +617,17 @@ int StringBuilder::lastIndexOf(const_string target, int fromIndex) const {
 }
 
 int StringBuilder::length() const {
-    return this->currentLength;
+	return this->currentLength;
 }
 
 int StringBuilder::offsetByCodePoints(int index, int codePointOffset) const {
     if (index < 0 || index > this->currentLength) {
         throw IndexOutOfBoundsException();
     }
-
-
 }
 
 StringBuilder StringBuilder::replace(int start, int end, const String &target) {
-    return this->replace(start, end, target.toString());
+	return this->replace(start, end, target.toString());
 }
 
 StringBuilder StringBuilder::replace(int start, int end, const_string target) {
@@ -718,7 +717,7 @@ void StringBuilder::setLength(int newLength) {
 }
 
 String StringBuilder::substring(int start) const {
-    return this->substring(start, this->currentLength);
+	return this->substring(start, this->currentLength);
 }
 
 String StringBuilder::substring(int start, int end) const {

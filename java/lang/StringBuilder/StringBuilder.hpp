@@ -762,7 +762,7 @@ namespace Java {
              *
              * @return int
              */
-            int length() const;
+            int length() const override;
 
             /**
              * Returns the index within this sequence that is offset from the given index by codePointOffset code points.
