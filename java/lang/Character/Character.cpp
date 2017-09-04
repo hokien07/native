@@ -25,6 +25,7 @@
 #include "../../util/Arrays/Arrays.hpp"
 #include "../CharacterData/CharacterData.hpp"
 
+
 // Start region: Constructor.
 
 Character::Character() {

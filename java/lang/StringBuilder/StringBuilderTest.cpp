@@ -64,7 +64,8 @@ TEST(JavaLang, StringBuilderConstructor) {
 
     StringBuilder initializerListStringBuilder({u'a', u'b', u'c'});
     ASSERT_EQUAL(3, initializerListStringBuilder.length());
-    ASSERT_EQUAL(StringBuilder::defaultCapacity + initializerListStringBuilder.length(), initializerListStringBuilder.capacity());
+    ASSERT_EQUAL(StringBuilder::defaultCapacity + initializerListStringBuilder.length(),
+                 initializerListStringBuilder.capacity());
 
     CharSequence *charSequence = new String(u8"Hello!");
     StringBuilder charSequenceStringBuilder(*charSequence);
@@ -201,8 +202,8 @@ TEST(JavaLang, StringBuilderAppendCodePoint) {
 }
 
 TEST(JavaLang, StringBuilderCapacity) {
-    StringBuilder stringBuilder(100);
-    ASSERT_EQUAL(100, stringBuilder.capacity());
+	StringBuilder stringBuilder(100);
+	ASSERT_EQUAL(100, stringBuilder.capacity());
 }
 
 TEST(JavaLang, StringBuilderCharAt) {
@@ -219,15 +220,15 @@ TEST(JavaLang, StringBuilderCharAt) {
 }
 
 TEST(JavaLang, StringBuilderCodePointAt) {
-    // TODO
+	// TODO
 }
 
 TEST(JavaLang, StringBuilderCodePointBefore) {
-    // TODO
+	// TODO
 }
 
 TEST(JavaLang, StringBuilderCodePointCount) {
-    // TODO
+	// TODO
 }
 
 TEST(JavaLang, StringBuilderDeleteRange) {
@@ -293,7 +294,7 @@ TEST(JavaLang, StringBuilderEnsureCapacity) {
 }
 
 TEST(JavaLang, StringBuilderGetChars) {
-    // TODO
+	// TODO
 }
 
 TEST(JavaLang, StringBuilderIndexOf) {
@@ -571,6 +572,7 @@ TEST(JavaLang, StringBuilderLength) {
 
     StringBuilder utf8StringBuilder(u8"Việt Nam");
     ASSERT_EQUAL(8, utf8StringBuilder.length());
+
 }
 
 TEST(JavaLang, StringBuilderReplace) {
