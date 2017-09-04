@@ -28,12 +28,14 @@
 #define JAVA_LANG_CHAR_SEQUENCE_HPP_
 
 #include "../Object/Object.hpp"
+#include <string>
+#include <unordered_map>
 
 typedef char16_t unicode;
 
 namespace Java {
 	namespace Lang {
-		class CharSequence {
+        class CharSequence {
 		public:
             /**
              * Returns a string containing the characters in this sequence
@@ -60,6 +62,30 @@ namespace Java {
              */
             virtual int length() const = 0;
 		};  // class CharSequence
+
+		class UnicodeSupporter {
+        public:
+            struct UnicodeDataEntry {
+            public:
+                /*0*/ int codeValue;
+                /*1*/ std::string characterName;
+                /*2*/ std::string generalCategory;
+                /*3*/ int canonicalCombiningClasses;
+                /*4*/ std::string bidirectionalcategory;
+                /*5*/ std::string characterDecompositionMapping;
+                /*6*/ std::string decimalDigitValue;
+                /*7*/ std::string digitValue;
+                /*8*/ std::string numericValue;
+                /*9*/ char mirrored;
+                /*10*/std::string unicode1Dot0Name;
+                /*11*/std::string iso10646CommentField;
+                /*12*/int uppercaseMapping;
+                /*13*/int lowercaseMapping;
+                /*14*/int titlecaseMapping;
+            };
+
+            static std::unordered_map<int, UnicodeDataEntry> unicodeData;
+		};
 	}  // namespace Lang
 }  // namespace Java
 
