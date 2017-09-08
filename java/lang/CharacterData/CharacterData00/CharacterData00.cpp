@@ -2073,7 +2073,7 @@ int CharacterData00::findInCharMap(int character) {
 
 Array<int> CharacterData00::initA() {
     Array<int> result;
-    int i = 0, j = 0;
+    int i = 0;
     while (i < (930 * 2)) {
         int entry = A_DATA[i++] << 16;
         result.push(entry | A_DATA[i++]);

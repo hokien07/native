@@ -24,43 +24,35 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//
-// Created by razor on 01/09/2017.
-//
+#ifndef NATIVE_CHRACTERDATA01_HPP
+#define NATIVE_CHRACTERDATA01_HPP
 
-#ifndef NATIVE_CHARACTERDATA00_HPP
-#define NATIVE_CHARACTERDATA00_HPP
-
-#include "../../../Lang.hpp"
 #include "../CharacterData.hpp"
 
 namespace Java {
     namespace Lang {
-        class CharacterData00 : public virtual CharacterData {
+        class CharacterData01 : public virtual CharacterData {
         private:
-            // The following tables and code generated using:
-            // java GenerateCharacter -plane 0 -template /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/characterdata/CharacterData00.java.template -spec /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/UnicodeData.txt -specialcasing /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/SpecialCasing.txt -proplist /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/PropList.txt -o /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/build/linux-amd64/jdk/gensrc/java/lang/CharacterData00.java -string -usecharforbyte 11 4 1
-            // In all, the character property tables require 19144 bytes.
-            static char16_t charMap [][2][3];
-            //// The X table has 2048 entries for a total of 4096 bytes.
-            //
+            //The X table has 2048 entries for a total of 4096 bytes.
             static Array<char16_t> X;
-            //            // The Y table has 5664 entries for a total of 11328 bytes.
-            //
+
+            // The Y table has 2176 entries for a total of 4352 bytes.
             static Array<char16_t> Y;
 
-            // The A table has 930 entries for a total of 3720 bytes.
+            // The A table has 320 entries for a total of 1280 bytes.
             static Array<int> A;
 
+            // Data for A table
             static Array<char16_t> A_DATA;
 
-            // The B table has 930 entries for a total of 1860 bytes.
+            // The B table has 320 entries for a total of 640 bytes.
             static Array<char16_t> B;
         public:
-            static CharacterData00 instance;
+            static CharacterData01 instance;
 
         private:
-            CharacterData00() = default;
+            CharacterData01() = default;
+
         public:
             int getProperties(int character) override;
 
@@ -102,26 +94,9 @@ namespace Java {
 
             boolean isMirrored(int character) override;
 
-            int toUpperCaseEx(int character) override;
-
-            Array<char16_t> toUpperCaseCharArray(int character) override;
-
-
-            /**
-             * Finds the character in the uppercase mapping table.
-             *
-             * @param character
-             * @return the index location ch in the table or -1 if not found
-             */
-            int findInCharMap(int character);
-
             static Array<int> initA();
-
         };
     }
 }
 
-
-#endif //NATIVE_CHARACTERDATA00_HPP
-
-
+#endif //NATIVE_CHRACTERDATA01_HPP
