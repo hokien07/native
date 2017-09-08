@@ -29,63 +29,67 @@
 
 #include "../../Lang.hpp"
 
+using namespace Java::Lang;
+
 namespace Java {
     namespace Lang {
-        class CharacterData{
 
+        class CharacterData {
         public:
             virtual int getProperties(int character) = 0;
+
             virtual int getType(int character) = 0;
+
             virtual boolean isWhitespace(int character) = 0;
+
             virtual boolean isMirrored(int character) = 0;
+
             virtual boolean isJavaIdentifierStart(int character) = 0;
+
             virtual boolean isJavaIdentifierPart(int character) = 0;
+
             virtual boolean isUnicodeIdentifierStart(int character) = 0;
+
             virtual boolean isUnicodeIdentifierPart(int character) = 0;
+
             virtual boolean isIdentifierIgnorable(int character) = 0;
+
             virtual int toLowerCase(int character) = 0;
+
             virtual int toUpperCase(int character) = 0;
+
             virtual int toTitleCase(int character) = 0;
+
             virtual int digit(int character, int radix) = 0;
+
             virtual int getNumericValue(int character) = 0;
+
             virtual char16_t getDirectionality(int character) = 0;
 
             //need to implement for JSR204
-            virtual int toUpperCaseEx(int character) = 0;
-            virtual Array<char16_t> toUpperCaseCharArray(int character) = 0;
-            virtual boolean isOtherLowercase(int character) = 0;
-            virtual boolean isOtherUppercase(int character) = 0;
-            virtual boolean isOtherAlphabetic(int character) = 0;
-            virtual boolean isIdeographic(int character) = 0;
+            virtual int toUpperCaseEx(int character) {
+                return toUpperCase(character);
+            }
 
-            // Character <= 0xff (basic latin) is handled by internal fast-path
-            // to avoid initializing large tables.
-            // Note: performance of this "fast-path" code may be sub-optimal
-            // in negative cases for some accessors due to complicated ranges.
-            // Should revisit after optimization of table initialization.
+            virtual Array<char16_t> toUpperCaseCharArray(int character) {
+                return Array<char16_t>();
+            }
 
-            /*static CharacterData &of(int character) {
+            virtual boolean isOtherLowercase(int character) {
+                return false;
+            }
 
-                if (character >> 8 == 0) {     // fast-path
-                    return CharacterDataLatin1.instance;
-                } else {
-                    switch (character >> 16) {  //plane 00-16
-                        case(0):
-                            return CharacterData00.instance;
-                        case(1):
-                            return CharacterData01.instance;
-                        case(2):
-                            return CharacterData02.instance;
-                        case(14):
-                            return CharacterData0E.instance;
-                        case(15):   // Private Use
-                        case(16):   // Private Use
-                            return CharacterDataPrivateUse.instance;
-                        default:
-                            return CharacterDataUndefined.instance;
-                    }
-                }
-            }*/
+            virtual boolean isOtherUppercase(int character) {
+                return false;
+            }
+
+            virtual boolean isOtherAlphabetic(int character) {
+                return false;
+            }
+
+            virtual boolean isIdeographic(int character) {
+                return false;
+            }
         };
     }
 }

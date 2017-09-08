@@ -31,8 +31,8 @@
 #ifndef NATIVE_CHARACTERDATA00_HPP
 #define NATIVE_CHARACTERDATA00_HPP
 
-#include "../CharacterData.hpp"
 #include "../../../Lang.hpp"
+#include "../CharacterData.hpp"
 
 namespace Java {
     namespace Lang {
@@ -123,3 +123,5 @@ namespace Java {
 
 
 #endif //NATIVE_CHARACTERDATA00_HPP
+
+

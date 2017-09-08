@@ -24,19 +24,79 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//
-// Created by razor on 07/09/2017.
-//
-
 #ifndef NATIVE_CHRACTERDATA01_HPP
 #define NATIVE_CHRACTERDATA01_HPP
 
+#include "../CharacterData.hpp"
 
+namespace Java {
+    namespace Lang {
+        class CharacterData01 : public virtual CharacterData {
+        private:
+            //The X table has 2048 entries for a total of 4096 bytes.
+            static Array<char16_t> X;
 
-class ChracterData01 {
+            // The Y table has 2176 entries for a total of 4352 bytes.
+            static Array<char16_t> Y;
 
-};
+            // The A table has 320 entries for a total of 1280 bytes.
+            static Array<int> A;
 
+            // Data for A table
+            static Array<char16_t> A_DATA;
 
+            // The B table has 320 entries for a total of 640 bytes.
+            static Array<char16_t> B;
+        public:
+            static CharacterData01 instance;
+
+        private:
+            CharacterData01() = default;
+
+        public:
+            int getProperties(int character) override;
+
+            int getPropertiesEx(int character);
+
+            int getType(int character) override;
+
+            boolean isOtherLowercase(int character) override;
+
+            boolean isOtherUppercase(int character) override;
+
+            boolean isOtherAlphabetic(int character) override;
+
+            boolean isIdeographic(int character) override;
+
+            boolean isJavaIdentifierStart(int character) override;
+
+            boolean isJavaIdentifierPart(int character) override;
+
+            boolean isUnicodeIdentifierStart(int character) override;
+
+            boolean isUnicodeIdentifierPart(int character) override;
+
+            boolean isIdentifierIgnorable(int character) override;
+
+            int toLowerCase(int character) override;
+
+            int toUpperCase(int character) override;
+
+            int toTitleCase(int character) override;
+
+            int digit(int character, int radix) override;
+
+            int getNumericValue(int character) override;
+
+            boolean isWhitespace(int character) override;
+
+            char16_t getDirectionality(int character) override;
+
+            boolean isMirrored(int character) override;
+
+            static Array<int> initA();
+        };
+    }
+}
 
 #endif //NATIVE_CHRACTERDATA01_HPP
