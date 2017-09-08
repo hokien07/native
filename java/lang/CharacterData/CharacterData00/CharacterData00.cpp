@@ -1612,9 +1612,9 @@ boolean CharacterData00::isMirrored(int character) {
     return ((properties & 0x80000000) != 0);
 }
 
-char16_t CharacterData00::getDirectionality(int character) {
+int CharacterData00::getDirectionality(int character) {
     int val = getProperties(character);
-    char directionality = (byte)((val & 0x78000000) >> 27);
+    int directionality = (byte)((val & 0x78000000) >> 27);
     if (directionality == 0xF ) {
         switch(character) {
             case 0x202A :

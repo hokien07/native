@@ -61,6 +61,18 @@ namespace Java {
 
         private:
             CharacterData00() = default;
+
+
+
+            /**
+             * Finds the character in the uppercase mapping table.
+             *
+             * @param character
+             * @return the index location ch in the table or -1 if not found
+             */
+            int findInCharMap(int character);
+
+            static Array<int> initA();
         public:
             int getProperties(int character) override;
 
@@ -98,25 +110,13 @@ namespace Java {
 
             boolean isWhitespace(int character) override;
 
-            char16_t getDirectionality(int character) override;
+            int getDirectionality(int character) override;
 
             boolean isMirrored(int character) override;
 
             int toUpperCaseEx(int character) override;
 
             Array<char16_t> toUpperCaseCharArray(int character) override;
-
-
-            /**
-             * Finds the character in the uppercase mapping table.
-             *
-             * @param character
-             * @return the index location ch in the table or -1 if not found
-             */
-            int findInCharMap(int character);
-
-            static Array<int> initA();
-
         };
     }
 }

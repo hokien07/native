@@ -64,7 +64,7 @@ namespace Java {
 
             virtual int getNumericValue(int character) = 0;
 
-            virtual char16_t getDirectionality(int character) = 0;
+            virtual int getDirectionality(int character) = 0;
 
             //need to implement for JSR204
             virtual int toUpperCaseEx(int character) {

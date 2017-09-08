@@ -53,6 +53,8 @@ namespace Java {
         private:
             CharacterData01() = default;
 
+            static Array<int> initA();
+
         public:
             int getProperties(int character) override;
 
@@ -90,11 +92,9 @@ namespace Java {
 
             boolean isWhitespace(int character) override;
 
-            char16_t getDirectionality(int character) override;
+            int getDirectionality(int character) override;
 
             boolean isMirrored(int character) override;
-
-            static Array<int> initA();
         };
     }
 }

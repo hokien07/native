@@ -776,7 +776,8 @@ int CharacterData01::toLowerCase(int character) {
         int offset = val << 5 >> (5 + 18);
         mapChar = character + offset;
     }
-    return  mapChar;}
+    return  mapChar;
+}
 
 int CharacterData01::toUpperCase(int character) {
     int mapChar = character;
@@ -972,11 +973,11 @@ boolean CharacterData01::isWhitespace(int character) {
     int properties = getProperties(character);
     return ((properties & 0x00007000) == 0x00004000);}
 
-char16_t CharacterData01::getDirectionality(int character) {
+int CharacterData01::getDirectionality(int character) {
     int val = getProperties(character);
-    char16_t directionality = (byte)((val & 0x78000000) >> 27);
+    int directionality = (byte)((val & 0x78000000) >> 27);
     if (directionality == 0xF ) {
-        directionality = (char16_t) Character::DIRECTIONALITY_UNDEFINED;
+        directionality = Character::DIRECTIONALITY_UNDEFINED;
     }
     return directionality;
 }
