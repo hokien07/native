@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /**
  * Copyright (c) 2017 Food Tiny Project. All rights reserved.
  *
