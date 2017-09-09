@@ -24,25 +24,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-//
-// Created by razor on 01/09/2017.
-//
+#ifndef NATIVE_CHARACTERDATA02_HPP
+#define NATIVE_CHARACTERDATA02_HPP
 
-#ifndef NATIVE_CHARACTERDATA00_HPP
-#define NATIVE_CHARACTERDATA00_HPP
-
-#include "../../../Lang.hpp"
 #include "../CharacterData.hpp"
 
 namespace Java {
     namespace Lang {
-        class CharacterData00 : public virtual CharacterData {
+        class CharacterData02 : public virtual CharacterData {
         private:
-            // The following tables and code generated using:
-            // java GenerateCharacter -plane 0 -template /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/characterdata/CharacterData00.java.template -spec /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/UnicodeData.txt -specialcasing /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/SpecialCasing.txt -proplist /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/jdk/make/data/unicodedata/PropList.txt -o /HUDSON3/workspace/8-2-build-linux-amd64/jdk8u144/9417/build/linux-amd64/jdk/gensrc/java/lang/CharacterData00.java -string -usecharforbyte 11 4 1
-            // In all, the character property tables require 19144 bytes.
-            static char16_t charMap [][2][3];
-            //// The X table has 2048 entries for a total of 4096 bytes.
+            // The X table has 2048 entries for a total of 4096 bytes.
             //
             static Array<char16_t> X;
             //            // The Y table has 5664 entries for a total of 11328 bytes.
@@ -57,18 +48,10 @@ namespace Java {
             // The B table has 930 entries for a total of 1860 bytes.
             static Array<char16_t> B;
         public:
-            static CharacterData00 instance;
+            static CharacterData02 instance;
 
         private:
-            CharacterData00() = default;
-
-            /**
-             * Finds the character in the uppercase mapping table.
-             *
-             * @param character
-             * @return the index location ch in the table or -1 if not found
-             */
-            int findInCharMap(int character);
+            CharacterData02() = default;
 
             static Array<int> initA();
         public:
@@ -111,15 +94,9 @@ namespace Java {
             int getDirectionality(int character) override;
 
             boolean isMirrored(int character) override;
-
-            int toUpperCaseEx(int character) override;
-
-            Array<char16_t> toUpperCaseCharArray(int character) override;
         };
     }
 }
 
 
-#endif //NATIVE_CHARACTERDATA00_HPP
-
-
+#endif //NATIVE_CHARACTERDATA02_HPP
