@@ -102,5 +102,10 @@ int URLConnection::getConnectTimeout() {
 }
 
 string URLConnection::toString() const {
-	return this->url.toString();
+	return String(String("sun.net.www.protocol.http.HttpURLConnection:")
+                  + String(this->url.toString())).toString();
+}
+
+String URLConnection::getContentEncoding() {
+    return String();
 }
