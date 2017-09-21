@@ -29,59 +29,107 @@
 
 #include "../Number/Number.hpp"
 #include "../String/String.hpp"
+#include "../Comparable/Comparable.hpp"
+#include <iostream>
+#include <bitset>
+
+using namespace Java::Lang;
 
 namespace Java {
-		namespace Lang {
-				class Short : public virtual Number {
-				private:
-						short original;
-						string originalString;
-				
-				public:
-						Short();
-						Short(short original);
-						Short(const Short &target);
-						~Short();
-				
-				public:
-						char charValue() const;
-						short shortValue() const;
-						int intValue() const;
-						long longValue() const;
-						float floatValue() const;
-						double doubleValue() const;
-						string toString() const;
-						
-						static Short parseShort(String target);
-				
-				public:
-						Short operator=(const Short &target);
-						Short operator+(const Short &target);
-						Short operator-(const Short &target);
-						Short operator/(const Short &target);
-						Short operator*(const Short &target);
-						Short operator%(const Short &target);
-						
-						boolean operator==(const Short &target) const;
-						boolean operator!=(const Short &target) const;
-						boolean operator<(const Short &target) const;
-						boolean operator>(const Short &target) const;
-						boolean operator<=(const Short &target) const;
-						boolean operator>=(const Short &target) const;
-						
-						void operator+=(const Short &target);
-						void operator-=(const Short &target);
-						void operator*=(const Short &target);
-						void operator/=(const Short &target);
-						void operator%=(const Short &target);
-				
-				public:
-						friend std::ostream &operator<<(std::ostream &os, const Short &target) {
-							os << target.original;
-							return os;
-						}
-				};
-		}
-}
+    namespace Lang {
+        class Short;
 
-#endif  // JAVA_LANG_SHORT_SHORT_HPP_
+        class Short: public Number, public virtual Comparable<Short> {
+        private:
+            short original;
+            string originalString;
+
+        private:
+            /**
+             * Max value of unsigned short
+             */
+            static constexpr unsigned short UNSIGNED_SHORT_MAX = 0xffffffff;
+
+            /**
+             * Min value of unsigned short
+             */
+            static constexpr unsigned short UNSIGNED_SHORT_MIN = 0;
+
+        public:
+            /**
+             * The number of bits used to represent an short value in two's complement binary form.
+             */
+            static const short SIZE = 32;
+
+            /**
+             * The number of bytes used to represent an short value in two's complement binary form.
+             */
+            static const short BYTE = SIZE / 8;
+
+            /**
+             * A constant holding the maximum value of short type.
+             */
+
+            static constexpr short MAX_VALUE = std::numeric_limits<short>::max();
+
+            /**
+             * A constant holding the minimum value of short type.
+             */
+            static constexpr short MIN_VALUE = std::numeric_limits<short>::min();
+
+        public:
+            /**
+             * Short initialization
+             *
+             */
+            Short();
+
+            /**
+             * Short initialization with specific original value
+             *
+             * @param original
+             */
+            Short(short original);
+
+            /**
+             * Short initialization with specifix original value from string
+             *
+             * @param inputString
+             */
+            Short(string inputString);
+
+            /**
+             * Copy Constructor
+             *
+             * @param Short @target
+             */
+            Short(const Short &target);
+
+            /**
+             * Short Destructor
+             */
+            ~Short();
+
+        public:
+            char charValue() const;
+            short shortValue() const;
+            int intValue() const;
+            long longValue() const;
+//            float floatValue() const;
+//            double doubleValue() const;
+            string stringValue() const;
+//            string toString() override const;
+
+
+        public:
+
+            boolean operator==(const Short &target) const;
+            boolean operator!=(const Short &target) const;
+            boolean operator<(const Short &target) const;
+            boolean operator>(const Short &target) const;
+            boolean operator<=(const Short &target) const;
+            boolean operator>=(const Short &target) const;
+        };
+    }
+}
+#endif  // JAVA_LANG_SHORT_SHORT_HPP

@@ -29,90 +29,205 @@ extern "C" {
 }
 
 #include "Short.hpp"
-#include "../Long/Long.hpp"
+#include "../NumberFormatException/NumberFormatException.hpp"
+#include "../UnsupportedOperationException/UnsupportedOperationException.hpp"
+#include "../ArithmeticException/ArithmeticException.hpp"
 
 using namespace Java::Lang;
 
 TEST (JavaLang, ShortConstructor) {
-	
-	// 	Given empty value for Short constructor and assign value - Return Long
-	Short emptyShort;
-	emptyShort = 3;
-	ASSERT_EQUAL(3, emptyShort.longValue());
-	
-	// Given value for Short constructor and assign value - Return Integer
-	Short validShort = 3;
-	ASSERT_EQUAL(3, validShort.intValue());
-	
+    //Test Short::Short()
+    Short shortConstructorNoneParameter;
+    ASSERT_EQUAL(0, shortConstructorNoneParameter.shortValue());
+    ASSERT_STR((string) "0", shortConstructorNoneParameter.toString());
+
+    //Test Short::Short(String stringInput)
+    Short shortConstructorStringParameter((String) "69");
+    ASSERT_EQUAL(69, shortConstructorStringParameter.shortValue());
+    ASSERT_STR((string) "69", shortConstructorNoneParameter.toString());
+
+    //Test Short::Short(const Short &short)
+    Short shortConstructorShortParameter = 69;
+    ASSERT_STR(69, shortConstructorShortParameter.shortValue());
+    ASSERT_STR((string) "69", shortConstructorShortParameter.toString());
 }
 
 TEST (JavaLang, ShortComparision) {
-	// Give a valid number and make a comparision
-	Short validNumber = 30000;
-	Short targetNumber;
-	
-	// Test validNumber is equal targetNumber
-	targetNumber = 30000;
-	ASSERT_TRUE(validNumber == targetNumber);
-	
-	// Test validNumber is not equal targetNumber
-	targetNumber = 13000;
-	ASSERT_TRUE(validNumber != targetNumber);
-	
-	// Test validNumber is less than targetNumber
-	targetNumber = 31000;
-	ASSERT_TRUE(validNumber < targetNumber);
-	
-	// Test validNumber is equal or less then targetNumber
-	targetNumber = 31300;
-	ASSERT_TRUE(validNumber <= targetNumber);
-	
-	// Test validNumber is more than targetNumber
-	targetNumber = 29000;
-	ASSERT_TRUE(validNumber > targetNumber);
-	
-	// Test validNumber is equal or more than targetNumber
-	targetNumber = 23777;
-	ASSERT_TRUE(validNumber >= targetNumber);
+    //Give a valid number of make a comparision
+    Short validNumberComparision = 10;
+    Short targetNumberComparision;
+
+    // Test validNumber is equal targetNumber
+    targetNumberComparision = 10;
+    ASSERT_TRUE(validNumberComparision == targetNumberComparision);
+
+    //Test validNumber is not equal targetNumber
+    targetNumberComparision = 11;
+    ASSERT_TRUE(validNumberComparision != targetNumberComparision);
+
+    //Test validNumber is less than targetNumber
+    targetNumberComparision = 20;
+    ASSERT_TRUE(validNumberComparision < targetNumberComparision);
+
+    //Test validNumber is equal or less than targetNumber;
+    targetNumberComparision = 21;
+    ASSERT_TRUE(validNumberComparision <= targetNumberComparision);
+
+    //Test validNumber is greater than targetNumber
+    targetNumberComparision = 15;
+    ASSERT_TRUE(validNumberComparision > targetNumberComparision);
+
+    //Test validNumber is equal or greater than targetNumber
+    targetNumberComparision = 13;
+    ASSERT_TRUE(validNumberComparision >= targetNumberComparision);
+
 }
 
 TEST (JavaLang, ShortOperator) {
-	// 	Given a valid number
-	Long validNumber = 5;
-	Long targetNumber = 3;
-	
-	// Make a summation with targetNumber
-	Long summationNumber = 8;
-	ASSERT_TRUE(summationNumber == ( validNumber + targetNumber ));
-	
-	// Make a subtraction with targetNumber
-	Long subtractionNumber = 2;
-	ASSERT_TRUE(subtractionNumber == ( validNumber - targetNumber ));
-	
-	// Make a multiplication with targetNumber
-	Long multiplicationNumber = 15;
-	ASSERT_TRUE(multiplicationNumber == ( validNumber * targetNumber ));
-	
-	// Make a division with targetNumber
-	Long divisionNumber = 1;
-	ASSERT_TRUE(divisionNumber == ( validNumber / targetNumber ));
-	
-	// Make a modulo with targetNumber
-	Long modNumber = 2;
-	ASSERT_TRUE(modNumber == ( validNumber % targetNumber ));
+    //Create variable
+    Short validNumberOperator = 2;
+    Short targetNumberOperator = 3;
+    Short expectedResult;
+    Short actualResult;
+
+    //Make a summation
+    expectedResult = 5;
+    actualResult = validNumberOperator + targetNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    expectedResult = 5;
+    actualResult += validNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    //Make a subtraction
+    expectedResult = -1;
+    actualResult = validNumberOperator - targetNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    expectedResult = -3;
+    actualResult -= validNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    //Make a multiplication
+    expectedResult = 6;
+    actualResult = validNumberOperator * targetNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    expectedResult = 12;
+    actualResult *= validNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    //Make a division
+    expectedResult = 0;
+    actualResult = validNumberOperator / targetNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    try {
+        actualResult = validNumberOperator / 0;
+    }
+    catch(ArithmeticException &e) {
+        ASSERT_STR("Divide by zero", e.getMessage().toString());
+    }
+
+    expectedResult = 5;
+    actualResult = 10;
+    actualResult /= validNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    try {
+        actualResult /= 0;
+    }
+    catch(ArithmeticException &e) {
+        ASSERT_STR("Divide by zero", e.getMessage().toString());
+    }
+
+    //Make a modulo
+    expectedResult = 2;
+    actualResult = validNumberOperator % targetNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    try {
+        actualResult = validNumberOperator % 0;
+    }
+    catch(ArithmeticException &e) {
+        ASSERT_STR("Divide by zero", e.getMessage().toString());
+    }
+
+    expectedResult = 1;
+    actualResult = 3;
+    actualResult %= validNumberOperator;
+    ASSERT_EQUAL(expectedResult.shortValue(), actualResult.shortValue());
+
+    try {
+        actualResult /= 0;
+    }
+    catch(ArithmeticException &e) {
+        ASSERT_STR("Divide by zero", e.getMessage().toString());
+    }
 }
 
-TEST (JavaLang, ShortParseShort) {
-	// Given value for Long constructor and assign value - Return long
-	Short validShortPointer = Short::parseShort("6");
-	ASSERT_EQUAL(6, validShortPointer.shortValue());
+TEST (JavaLang, ShortCompareTo) {
+    // Give Short value to compare with target
+    Short validValueCompareTo = 10;
+    Short lessThanValueCompareTo = 9;
+    Short equalValueCompareTo = 10;
+    Short greaterValueCompareTo = 11;
+
+    //Return 1 if validValue is greater than lessThanValue
+    ASSERT_EQUAL(1, validValueCompareTo.compareTo(lessThanValueCompareTo));
+
+    //Return 0 if validValue is greater than equalValue
+    ASSERT_EQUAL(0, validValueCompareTo.compareTo(equalValueCompareTo));
+
+    //Return -1 if validValue is less than greaterThanValue
+    ASSERT_EQUAL(-1, validValueCompareTo.compareTo(greaterValueCompareTo));
+
+    //TODO
 }
 
-TEST (JavaLang, ShortToString) {
-	// Give a valid Short object then compare result of method toString - Should be equals
-	Short validShort = 12344;
-	
-	string expect = (string) "12344";
-	string result = validShort.toString();
-	ASSERT_STR(expect, result);
+TEST (JavaLang, ShortCharValue) {
+    Short zeroShortCharValue = 0;
+    Short oneShortCharValue = 1;
+    Short positiveShortCharValue = 15;
+    Short maxShortCharValue;
+    Short minShortCharValue;
+
+    //Make a comparison between expected result and the real result
+    char expectedResultCharValue = '0';
+    char realResultCharValue = zeroShortCharValue.charValue();
+    ASSERT_EQUAL(expectedResultCharValue, realResultCharValue);
+
+    //Make a comparison between expected result and the real result
+    expectedResultCharValue = '1';
+    realResultCharValue = oneShortCharValue.charValue();
+    ASSERT_EQUAL(expectedResultCharValue, realResultCharValue);
+
+    // Make a comparison between expected result and the real result
+    expectedResultCharValue = '1';
+    realResultCharValue = positiveShortCharValue.charValue();
+    ASSERT_EQUAL(expectedResultCharValue, realResultCharValue);
 }
+
+TEST (JavaLang, ShortStringValue) {
+    Short zeroShortStringValue = 0;
+    Short oneShortStringValue = 1;
+    Short positiveShortStringValue = 15;
+    Short maxShortStringValue;
+    Short minShortStringValue;
+
+    //Make a comparison between expected result and the real result
+    string expectedResultStringValue = (string) "0";
+    string realResultStringValue = zeroShortStringValue.stringValue();
+    ASSERT_STR(expectedResultStringValue, realResultStringValue);
+
+    //Make a comparison between expected result and the real result
+    expectedResultStringValue = (string) "1";
+    realResultStringValue = oneShortStringValue.stringValue();
+    ASSERT_STR(expectedResultStringValue, realResultStringValue);
+
+    //Make a comparison between expected result and the real result
+    expectedResultStringValue = (string) "15";
+    realResultStringValue = positiveShortStringValue.stringValue();
+    ASSERT_STR(expectedResultStringValue, realResultStringValue);
+}
+
