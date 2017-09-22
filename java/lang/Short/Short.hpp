@@ -117,6 +117,7 @@ namespace Java {
             long longValue() const;
 //            float floatValue() const;
 //            double doubleValue() const;
+            byte byteValue();
             string stringValue() const;
 //            string toString() override const;
 
