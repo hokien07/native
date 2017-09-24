@@ -771,6 +771,8 @@ TEST (JavaLang, ShortParseShort) {
     }
 }
 
-TEST (JavaLang, ShortParseUnsignedShort)
+TEST (JavaLang, ShortParseUnsignedShort) {
+
+}
 
 

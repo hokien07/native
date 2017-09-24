@@ -112,17 +112,23 @@ namespace Java {
 
         public:
             char charValue() const;
-            short shortValue() const;
-            int intValue() const;
-            long longValue() const;
-//            float floatValue() const;
-//            double doubleValue() const;
+            short shortValue() const override;
+            int intValue() const override;
+            long longValue() const override;
+            float floatValue() const override;
+            double doubleValue() const override;
             byte byteValue();
+
             string stringValue() const;
-//            string toString() override const;
+            string toString() override const;
 
 
         public:
+            Short operator+(const Short &target);
+            Short operator-(const Short &target);
+            Short operator/(const Short &target);
+            Short operator*(const Short &target);
+            Short operator%(const Short &target);
 
             boolean operator==(const Short &target) const;
             boolean operator!=(const Short &target) const;
@@ -130,6 +136,52 @@ namespace Java {
             boolean operator>(const Short &target) const;
             boolean operator<=(const Short &target) const;
             boolean operator>=(const Short &target) const;
+
+            Short &operator+=(const Short &target);
+            Short &operator-=(const Short &target);
+            Short &operator*=(const Short &target);
+            Short &operator%=(const Short &target);
+
+            static short compare(short shortA, short shortB);
+            static short compareUnsigned(short shortA, short shortB);
+            static Short decode(String inputString);
+            static short divideUnsigned(short devidend, short divisor);
+
+            long hashCode() const override;
+            static short hashCode(short inputShort);
+            static short highestOneBit(short inputShort);
+
+            static short lowestOneBit(short inputShort);
+            static short max(short shortA, short shortB);
+            static short min(short shortA, short shortB);
+
+            static short numberOfLeadingZeros(short inputShort);
+            static short numberOfTrailingZeros(short inputShort);
+            static short parseShort(String inputString, int radix);
+            static short parseShort(String inputString);
+            static short parseUnsignedShort(String inputString, int radix);
+            static short parseUnsignedShort(String inputString);
+            static short remainderUnsigned(short deividend, short divisor);
+            static short reverseShort(short inputShort);
+            static short reverseBytes(short inputShort);
+            static short rotateLeft(short inputShort, short distance);
+            static short signum(short inputShort);
+            static short sum(short shortA, short shortB);
+            static String toBinaryString(short inputShort);
+            static String toHexString(short inputShort);
+            static String toOctalString(short inputShort);
+            static String toString(short inputShort);
+            static long toUnsignedLong(short longValue);
+            static String toUnsignedString(short inputShort, int radix);
+            static String toUnsignedString(short inputShort);
+            static Short valueOf(String inputString);
+            static Short valueOf(short inputShort);
+            static Short valueOf(String inputString, int radix);
+
+            friend std::ostream &operator<<(std::ostream &os, const Short &target) {
+                std:: cout << target.original;
+                return os;
+            }
         };
     }
 }
