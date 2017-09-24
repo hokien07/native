@@ -162,9 +162,10 @@ namespace Java {
             static short parseUnsignedShort(String inputString, int radix);
             static short parseUnsignedShort(String inputString);
             static short remainderUnsigned(short deividend, short divisor);
-            static short reverseShort(short inputShort);
+            static short reverse(short inputShort);
             static short reverseBytes(short inputShort);
             static short rotateLeft(short inputShort, short distance);
+            static short rotateRight(short inputShort, short distance);
             static short signum(short inputShort);
             static short sum(short shortA, short shortB);
             static String toBinaryString(short inputShort);

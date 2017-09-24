@@ -772,7 +772,121 @@ TEST (JavaLang, ShortParseShort) {
 }
 
 TEST (JavaLang, ShortParseUnsignedShort) {
+    String stringInput;
+    short expectedResult;
+    short actualResult;
+    short exceptionResult;
 
+    //Case all case of inputString a string of type decimal number
+    stringInput = (String) "0";
+    expectedResult = 0;
+    actualResult = Short::parseUnsignedShort(stringInput);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    stringInput = (String) "1";
+    exceptionResult = 2;
+    actualResult = Short::parseUnsignedShort(stringInput);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    stringInput = (String) "-1";
+    try {
+        exceptionResult = Short::parseUnsignedShort(stringInput);
+    }
+    catch (NumberFormatException &e) {
+        ASSERT_STR("Illegal leading minus sign", e.getMessage().toString());
+    }
+
+    stringInput = "13";
+    expectedResult = 13;
+    actualResult = Short::parseUnsignedShort(stringInput);
+    ASSERT_EQUAL(expectedResult, actualResult);
+
+    stringInput = "Not a Number";
+    try {
+        exceptionResult = Short::parseUnsignedShort(stringInput);
+    }
+    catch (NumberFormatException &e) {
+        ASSERT_STR("Not a number", e.getMessage().toString());
+    }
+
+    //Test out of range
+    stringInput = (String) "979474398729487239847";
+    try {
+        exceptionResult = Short::parseUnsignedShort(stringInput);
+    }
+    catch (NumberFormatException &e) {
+        ASSERT_STR("Unsigned short out of range")
+    }
 }
+
+TEST (JavaLang, ShortRemainderUnsigned) {
+    // Give 4 short values
+    short positiveDividend = 10;
+    short positiveDivisor = 4;
+    short negativeDividend = -10;
+    short negativeDivisor = -4;
+
+    //Divide by zero
+    try {
+        short exceptionResult = Short::remainderUnsigned(positiveDividend, 0);
+    }
+    catch (ArithmeticException &e) {
+        ASSERT_STR("Divide by zero", e.getMessage().toString());
+    }
+
+    //Positive divide
+    ASSERT_EQUAL(0, Short::remainderUnsigned(0, positiveDivisor));
+    ASSERT_EQUAL(2, Short::remainderUnsigned(positiveDividend, positiveDivisor));
+    ASSERT_EQUAL(2, Short::remainderUnsigned(positiveDivisor, positiveDividend));
+
+    //Negative divide
+    ASSERT_EQUAL(0, Short::remainderUnsigned(0, negativeDivisor));
+    ASSERT_EQUAL(-10, Short::remainderUnsigned(negativeDividend, negativeDivisor));
+    ASSERT_EQUAL(4, Short::remainderUnsigned(negativeDivisor, negativeDividend));
+
+    //Mix divide
+    ASSERT_EQUAL(0, Short::remainderUnsigned((0, positiveDivisor)));
+    ASSERT_EQUAL(2, Short::remainderUnsigned(negativeDividend, negativeDivisor);
+    ASSERT_EQUAL(2, Short::remainderUnsigned(negativeDivisor, negativeDividend));
+}
+
+TEST (JavaLang, ShortReverse) {
+    ASSERT_EQUAL(0, Short::reverse(0));
+    ASSERT_EQUAL(-32768, Short::reverse(1));
+    ASSERT_EQUAL(-1, Short::reverse(-1));
+    ASSERT_EQUAL(-2, Short::reverse(Short::MAX_VALUE));
+    ASSERT_EQUAL(1, Short::reverse(Short::MIN_VALUE));
+}
+
+TEST (JavaLang, ShortReverseBytes) {
+    ASSERT_EQUAL(0, Short::reverseBytes(0));
+    ASSERT_EQUAL(16777216, Short::reverseBytes(1));
+    ASSERT_EQUAL(-1, Short::reverseBytes(-1));
+    ASSERT_EQUAL(218103808, Short::reverseBytes(13));
+    ASSERT_EQUAL(-129, Short::reverseBytes(Short::MAX_VALUE));
+    ASSERT_EQUAL(128, Short::reverseBytes(Short::MIN_VALUE));
+}
+
+TEST (JavaLang, ShortRotateLeft) {
+    ASSERT_EQUAL(-2147483648, Short::rotateLeft(1, -1));
+    ASSERT_EQUAL(8192, Short::rotateLeft(1, 13));
+    ASSERT_EQUAL(1, Short::rotateLeft(1, Short::MIN_VALUE));
+}
+
+TEST (JavaLang, ShortRotateRight) {
+    ASSERT_EQUAL(1, Short::rotateRight(1, 0));
+    ASSERT_EQUAL(-2147483648, Short::rotateRight(1, 1));
+    ASSERT_EQUAL(2, Short::rotateRight(1, -1));
+    ASSERT_EQUAL(524288, Short::rotateRight(1, 13));
+    ASSERT_EQUAL(2, Short::rotateRight(1, Short::MAX_VALUE));
+    ASSERT_EQUAL(1, Short::rotateRight(1, Short::MIN_VALUE));
+}
+
+TEST (JavaLang, ShortSignum) {
+    ASSERT_EQUAL(0, Short::signum(0));
+    ASSERT_EQUAL(1, Short::signum(1));
+    ASSERT_EQUAL(-1, Short::signum(-1));
+}
+
 
 
