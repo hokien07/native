@@ -356,19 +356,19 @@ TEST (KernelString, ConvertToBoolean) {
 	// Than check if the result is FALSE or not
 	char *target4 = "FALSE";
 	int boolean4 = string_to_boolean(target4);
-	ASSERT_FALSE(boolean4);
+	assertFalse(boolean4);
 	
 	// Input a string representing "False" to convert from string to boolean
 	// Than check if the result is FALSE or not
 	char *target5 = "False";
 	int boolean5 = string_to_boolean(target5);
-	ASSERT_FALSE(boolean5);
+	assertFalse(boolean5);
 	
 	// Input a string representing "False" to convert from string to boolean
 	// Than check if the result is FALSE or not
 	char *target6 = "false";
 	int boolean6 = string_to_boolean(target6);
-	ASSERT_FALSE(boolean6);
+	assertFalse(boolean6);
 }
 
 TEST (KernelString, ConvertFromBoolean) {

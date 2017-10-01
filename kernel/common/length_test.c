@@ -120,5 +120,5 @@ TEST (KernelCommon, IsEmpty) {
 	assertTrue(is_empty(target2));
 
 	char *target3 = "abcd";
-	ASSERT_FALSE(is_empty(target3));
+	assertFalse(is_empty(target3));
 }

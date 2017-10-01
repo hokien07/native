@@ -880,13 +880,13 @@
 //
 //    // Test case FALSE
 //    date = Date(2017, 8, 10, 8, 01, 13);
-//    ASSERT_FALSE(date.after(tempDate));
+//    assertFalse(date.after(tempDate));
 //
 //    date = Date(2017, 7, 5, 8, 01, 13);
-//    ASSERT_FALSE(date.after(tempDate));
+//    assertFalse(date.after(tempDate));
 //
 //    date = Date(2016, 8, 5, 8, 01, 13);
-//    ASSERT_FALSE(date.after(tempDate));
+//    assertFalse(date.after(tempDate));
 //}
 //
 //TEST(JavaUtil, DateBefore) {
@@ -906,13 +906,13 @@
 //
 //    // Test case FALSE
 //    date = Date(2017, 8, 10, 8, 01, 13);
-//    ASSERT_FALSE(date.before(tempDate));
+//    assertFalse(date.before(tempDate));
 //
 //    date = Date(2017, 9, 13, 8, 01, 13);
-//    ASSERT_FALSE(date.before(tempDate));
+//    assertFalse(date.before(tempDate));
 //
 //    date = Date(2018, 8, 14, 8, 01, 13);
-//    ASSERT_FALSE(date.before(tempDate));
+//    assertFalse(date.before(tempDate));
 //}
 //
 //TEST(JavaUtil, DateClone) {

@@ -123,7 +123,7 @@ TEST(JavaUtilConcurrent, SemaphoreTryAcquireNotPassingPermits) {
         testThread.join();
     }
 
-    ASSERT_FALSE(result);
+    assertFalse(result);
     assertEquals(expectPermits, semaphoreObject.availablePermits());
 }
 

@@ -112,7 +112,7 @@ TEST(JavaUtil, ArrayListContains) {
     boolean result = validArrayList.contains("loint");
     assertTrue(result);
     result = validArrayList.contains("huuphuoc");
-    ASSERT_FALSE(result);
+    assertFalse(result);
 }
 
 TEST(JavaUtil, ArrayListIsEmpty) {
@@ -124,7 +124,7 @@ TEST(JavaUtil, ArrayListIsEmpty) {
 	// Give an valid ArrayList - Should equal
 	ArrayList<Float> validArrayList = {1.2, 1.4};
 	result = validArrayList.isEmpty();
-	ASSERT_FALSE(result);
+	assertFalse(result);
 
 	// Compare string of validArrayList - Should equal
 	string stringExpect = (string) "[1.2, 1.4]";
@@ -262,7 +262,7 @@ TEST(JavaUtil, ArrayListRemoveElement) {
     result = validArrayList.remove("012");
     stringExpect = (string) "[123, 789]";
     stringResult = validArrayList.toString();
-    ASSERT_FALSE(result);
+    assertFalse(result);
     ASSERT_STR(stringExpect, stringResult);
 }
 

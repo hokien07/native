@@ -150,10 +150,10 @@ TEST (KernelString, ProcessStartsWith) {
 	assertTrue(string_startswith(target, prefix));
 	
 	prefix = "Nope";
-	ASSERT_FALSE(string_startswith(target, prefix));
+	assertFalse(string_startswith(target, prefix));
 	
 	prefix = "Prefix is longer than target";
-	ASSERT_FALSE(string_startswith(target, prefix));
+	assertFalse(string_startswith(target, prefix));
 }
 
 TEST (KernelString, ProcessEndsWith) {
@@ -162,13 +162,13 @@ TEST (KernelString, ProcessEndsWith) {
 	assertTrue(string_endswith(target, suffix));
 	
 	suffix = "Nope";
-	ASSERT_FALSE(string_endswith(target, suffix));
+	assertFalse(string_endswith(target, suffix));
 	
 	suffix = "Suffix is longer than target";
-	ASSERT_FALSE(string_endswith(target, suffix));
+	assertFalse(string_endswith(target, suffix));
 	
 	suffix = "Suffix is longer than target";
-	ASSERT_FALSE(string_endswith(target, suffix));
+	assertFalse(string_endswith(target, suffix));
 }
 
 TEST (KernelString, ProcessIndexOf) {
@@ -492,15 +492,15 @@ TEST (KernelString, ProcessEquals) {
 	
 	target1 = (char *) "hello";
 	target2 = NULL;
-	ASSERT_FALSE(string_equals(target1, target2));
+	assertFalse(string_equals(target1, target2));
 	
 	target1 = NULL;
 	target2 = (char *) "hello";
-	ASSERT_FALSE(string_equals(target1, target2));
+	assertFalse(string_equals(target1, target2));
 	
 	target1 = "hello  world ";
 	target2 = "  hello world";
-	ASSERT_FALSE(string_equals(target1, target2));
+	assertFalse(string_equals(target1, target2));
 	
 	target1 = "abcd";
 	target2 = "abcd";
@@ -519,7 +519,7 @@ TEST (KernelString, ProcessReverse) {
 	assertTrue(string_equals(correct_reverse, reverse_of_target));
 	
 	// Test fail with wrong reverse string
-	ASSERT_FALSE(string_equals(wrong_reverse, reverse_of_target));
+	assertFalse(string_equals(wrong_reverse, reverse_of_target));
 	
 	free(reverse_of_target);
 }
@@ -535,7 +535,7 @@ TEST (KernelString, ProcessMatches) {
 	assertTrue(string_equals(correct_reverse, reverse_of_target));
 	
 	// Test fail with wrong reverse string
-	ASSERT_FALSE(string_equals(wrong_reverse, reverse_of_target));
+	assertFalse(string_equals(wrong_reverse, reverse_of_target));
 	free(reverse_of_target);
 }
 
