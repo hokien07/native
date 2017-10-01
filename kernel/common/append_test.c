@@ -40,9 +40,9 @@ TEST (KernelCommon, AppendPointerChar) {
 		'\0'
 	};
 	char *append = "dog";
-	ASSERT_EQUAL(8, length_pointer_pointer_char(target));
+	assertEquals(8, length_pointer_pointer_char(target));
 	char **result = append_pointer_char(target, append);
-	ASSERT_EQUAL(9, length_pointer_pointer_char(result));
+	assertEquals(9, length_pointer_pointer_char(result));
 	ASSERT_STR("The", result[ 0 ]);
 	ASSERT_STR("quick", result[ 1 ]);
 	ASSERT_STR("brown", result[ 2 ]);
@@ -55,7 +55,7 @@ TEST (KernelCommon, AppendPointerChar) {
 	append = "";
 	free(result);
 	result = append_pointer_char(target, append);
-	ASSERT_EQUAL(9, length_pointer_pointer_char(result));
+	assertEquals(9, length_pointer_pointer_char(result));
 	free(result);
 }
 

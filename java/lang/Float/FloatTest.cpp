@@ -283,49 +283,49 @@ TEST(JavaLang, FloatCharValue) {
 	variableTestCharValue = POSITIVE_INFINITY;
 	expectedResultCharValue = 'i';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test NEGATIVE_INFINITY
 	variableTestCharValue = NEGATIVE_INFINITY;
 	expectedResultCharValue = '-';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 
 //    // Test NaN_NUMBER
 //    variableTestCharValue = NaN_NUMBER;
 //    expectedResultCharValue = 45;  // 110 in MacOS
 //    actualResultCharValue = variableTestCharValue.charValue();
-//    ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+//    assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test MAX_VALUE
 	variableTestCharValue = MAX_VALUE;
 	expectedResultCharValue = '3';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test MIN_NORMAL
 	variableTestCharValue = MIN_NORMAL;
 	expectedResultCharValue = '1';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test MIN_VALUE
 	variableTestCharValue = MIN_VALUE;
 	expectedResultCharValue = '1';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test valid case
 	variableTestCharValue = 13.02;
 	expectedResultCharValue = '1';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test valid case
 	variableTestCharValue = 20.31;
 	expectedResultCharValue = '2';
 	actualResultCharValue = variableTestCharValue.charValue();
-	ASSERT_EQUAL(expectedResultCharValue , actualResultCharValue);
+	assertEquals(expectedResultCharValue , actualResultCharValue);
 	
 	// Test invalid case
 	variableTestCharValue = 13.02;
@@ -389,49 +389,49 @@ TEST(JavaLang, FloatShortValue) {
 	variableTestShortValue = POSITIVE_INFINITY;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test NEGATIVE_INFINITY
 	variableTestShortValue = NEGATIVE_INFINITY;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test NaN_NUMBER
 	variableTestShortValue = NaN_NUMBER;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test MAX_VALUE
 	variableTestShortValue = MAX_VALUE;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test MIN_NORMAL
 	variableTestShortValue = MIN_NORMAL;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test MIN_VALUE
 	variableTestShortValue = MIN_VALUE;
 	expectedResultShortValue = 0;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test valid case
 	variableTestShortValue = 5.9;
 	expectedResultShortValue = 5;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test valid case
 	variableTestShortValue = 5.4;
 	expectedResultShortValue = 5;
 	actualResultShortValue = variableTestShortValue.shortValue();
-	ASSERT_EQUAL(expectedResultShortValue , actualResultShortValue);
+	assertEquals(expectedResultShortValue , actualResultShortValue);
 	
 	// Test invalid case
 	variableTestShortValue = 6;
@@ -450,49 +450,49 @@ TEST(JavaLang, FloatIntValue) {
 	variableTestIntValue = POSITIVE_INFINITY;
 	expectedResultIntValue = -2147483648;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test NEGATIVE_INFINITY
 	variableTestIntValue = NEGATIVE_INFINITY;
 	expectedResultIntValue = -2147483648;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test NaN_NUMBER
 	variableTestIntValue = NaN_NUMBER;
 	expectedResultIntValue = -2147483648;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test MAX_VALUE
 	variableTestIntValue = MAX_VALUE;
 	expectedResultIntValue = -2147483648;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test MIN_NORMAL
 	variableTestIntValue = MIN_NORMAL;
 	expectedResultIntValue = 0;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test MIN_VALUE
 	variableTestIntValue = MIN_VALUE;
 	expectedResultIntValue = 0;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test valid case
 	variableTestIntValue = 5.9;
 	expectedResultIntValue = 5;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test valid case
 	variableTestIntValue = 5.4;
 	expectedResultIntValue = 5;
 	actualResultIntValue = variableTestIntValue.intValue();
-	ASSERT_EQUAL(expectedResultIntValue , actualResultIntValue);
+	assertEquals(expectedResultIntValue , actualResultIntValue);
 	
 	// Test invalid case
 	variableTestIntValue = 6;
@@ -511,49 +511,49 @@ TEST(JavaLang, FloatLongValue) {
 	variableTestLongValue = POSITIVE_INFINITY;
 	expectedResultLongValue = -9223372036854775808;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test NEGATIVE_INFINITY
 	variableTestLongValue = NEGATIVE_INFINITY;
 	expectedResultLongValue = -9223372036854775808;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test NaN_NUMBER
 	variableTestLongValue = NaN_NUMBER;
 	expectedResultLongValue = -9223372036854775808;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test MAX_VALUE
 	variableTestLongValue = MAX_VALUE;
 	expectedResultLongValue = -9223372036854775808;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test MIN_NORMAL
 	variableTestLongValue = MIN_NORMAL;
 	expectedResultLongValue = 0;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test MIN_VALUE
 	variableTestLongValue = MIN_VALUE;
 	expectedResultLongValue = 0;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test valid case
 	variableTestLongValue = 5.9;
 	expectedResultLongValue = 5;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test valid case
 	variableTestLongValue = 5.4;
 	expectedResultLongValue = 5;
 	actualResultLongValue = variableTestLongValue.longValue();
-	ASSERT_EQUAL(expectedResultLongValue , actualResultLongValue);
+	assertEquals(expectedResultLongValue , actualResultLongValue);
 	
 	// Test invalid case
 	variableTestLongValue = 6;

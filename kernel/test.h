@@ -113,60 +113,62 @@ void CTEST_ERR(const char *fmt, ...);  // doesn't return
 #define CTEST2_SKIP(sname, tname) __CTEST2_INTERNAL(sname, tname, 1)
 
 
-void assert_str(const char *exp, const char *real, const char *caller, int line);
-#define ASSERT_STR(exp, real) assert_str(exp, real, __FILE__, __LINE__)
+void assert_str(const char *expected, const char *actual, const char *caller, int line);
+#define ASSERT_STR(expected, actual) assert_str(expected, actual, __FILE__, __LINE__)
 
-void assert_data(const unsigned char *exp, size_t expsize,
-	const unsigned char *real, size_t realsize,
+void assert_data(const unsigned char *expected, size_t expsize,
+	const unsigned char *actual, size_t realsize,
 	const char *caller, int line);
-#define ASSERT_DATA(exp, expsize, real, realsize) \
-    assert_data(exp, expsize, real, realsize, __FILE__, __LINE__)
+#define ASSERT_DATA(expected, expsize, actual, realsize) \
+    assert_data(expected, expsize, actual, realsize, __FILE__, __LINE__)
 
-void assert_equal(intmax_t exp, intmax_t real, const char *caller, int line);
-#define ASSERT_EQUAL(exp, real) assert_equal(exp, real, __FILE__, __LINE__)
+/**
+ * Asserts that two intmax_t are equal.
+ *
+ * @param expected
+ * @param actual
+ */
+void assertEquals(intmax_t expected, intmax_t actual);
 
-void assert_equal_u(uintmax_t exp, uintmax_t real, const char *caller, int line);
-#define ASSERT_EQUAL_U(exp, real) assert_equal_u(exp, real, __FILE__, __LINE__)
+void assert_not_equal(intmax_t expected, intmax_t actual, const char *caller, int line);
+#define ASSERT_NOT_EQUAL(expected, actual) assert_not_equal(expected, actual, __FILE__, __LINE__)
 
-void assert_not_equal(intmax_t exp, intmax_t real, const char *caller, int line);
-#define ASSERT_NOT_EQUAL(exp, real) assert_not_equal(exp, real, __FILE__, __LINE__)
+void assert_not_equal_u(uintmax_t expected, uintmax_t actual, const char *caller, int line);
+#define ASSERT_NOT_EQUAL_U(expected, actual) assert_not_equal_u(expected, actual, __FILE__, __LINE__)
 
-void assert_not_equal_u(uintmax_t exp, uintmax_t real, const char *caller, int line);
-#define ASSERT_NOT_EQUAL_U(exp, real) assert_not_equal_u(exp, real, __FILE__, __LINE__)
+void assert_interval(intmax_t exp1, intmax_t exp2, intmax_t actual, const char *caller, int line);
+#define ASSERT_INTERVAL(exp1, exp2, actual) assert_interval(exp1, exp2, actual, __FILE__, __LINE__)
 
-void assert_interval(intmax_t exp1, intmax_t exp2, intmax_t real, const char *caller, int line);
-#define ASSERT_INTERVAL(exp1, exp2, real) assert_interval(exp1, exp2, real, __FILE__, __LINE__)
+void assert_null(void *actual, const char *caller, int line);
+#define ASSERT_NULL(actual) assert_null((void*)actual, __FILE__, __LINE__)
 
-void assert_null(void *real, const char *caller, int line);
-#define ASSERT_NULL(real) assert_null((void*)real, __FILE__, __LINE__)
+void assert_not_null(const void *actual, const char *caller, int line);
+#define ASSERT_NOT_NULL(actual) assert_not_null(actual, __FILE__, __LINE__)
 
-void assert_not_null(const void *real, const char *caller, int line);
-#define ASSERT_NOT_NULL(real) assert_not_null(real, __FILE__, __LINE__)
+void assert_true(int actual, const char *caller, int line);
+#define ASSERT_TRUE(actual) assert_true(actual, __FILE__, __LINE__)
 
-void assert_true(int real, const char *caller, int line);
-#define ASSERT_TRUE(real) assert_true(real, __FILE__, __LINE__)
-
-void assert_false(int real, const char *caller, int line);
-#define ASSERT_FALSE(real) assert_false(real, __FILE__, __LINE__)
+void assert_false(int actual, const char *caller, int line);
+#define ASSERT_FALSE(actual) assert_false(actual, __FILE__, __LINE__)
 
 void assert_fail(const char *caller, int line);
 #define ASSERT_FAIL() assert_fail(__FILE__, __LINE__)
 
-void assert_dbl_near(double exp, double real, int precision, const char *caller, int line);
-#define ASSERT_DBL_NEAR(exp, real) assert_dbl_near(exp, real, 15, __FILE__, __LINE__)
-#define ASSERT_DBL_NEAR_PRE(exp, real, precision) assert_dbl_near(exp, real, precision, __FILE__, __LINE__)
+void assert_dbl_near(double expected, double actual, int precision, const char *caller, int line);
+#define ASSERT_DBL_NEAR(expected, actual) assert_dbl_near(expected, actual, 15, __FILE__, __LINE__)
+#define ASSERT_DBL_NEAR_PRE(expected, actual, precision) assert_dbl_near(expected, actual, precision, __FILE__, __LINE__)
 
-void assert_dbl_far(double exp, double real, int precision, const char *caller, int line);
-#define ASSERT_DBL_FAR(exp, real) assert_dbl_far(exp, real, 15, __FILE__, __LINE__)
-#define ASSERT_DBL_FAR_PRE(exp, real, precision) assert_dbl_far(exp, real, precision, __FILE__, __LINE__)
+void assert_dbl_far(double expected, double actual, int precision, const char *caller, int line);
+#define ASSERT_DBL_FAR(expected, actual) assert_dbl_far(expected, actual, 15, __FILE__, __LINE__)
+#define ASSERT_DBL_FAR_PRE(expected, actual, precision) assert_dbl_far(expected, actual, precision, __FILE__, __LINE__)
 
-void assert_float_near(float exp, float real, int precision, const char *caller, int line);
-#define ASSERT_FLOAT_NEAR(exp, real) assert_float_near(exp, real, 6, __FILE__, __LINE__)
-#define ASSERT_FLOAT_NEAR_PRE(exp, real, precision) assert_float_near(exp, real, precision, __FILE__, __LINE__)
+void assert_float_near(float expected, float actual, int precision, const char *caller, int line);
+#define ASSERT_FLOAT_NEAR(expected, actual) assert_float_near(expected, actual, 6, __FILE__, __LINE__)
+#define ASSERT_FLOAT_NEAR_PRE(expected, actual, precision) assert_float_near(expected, actual, precision, __FILE__, __LINE__)
 
-void assert_float_far(float exp, float real, int precision, const char *caller, int line);
-#define ASSERT_FLOAT_FAR(exp, real) assert_float_far(exp, real, 6, __FILE__, __LINE__)
-#define ASSERT_FLOAT_FAR_PRE(exp, real, precision) assert_float_far(exp, real, precision, __FILE__, __LINE__)
+void assert_float_far(float expected, float actual, int precision, const char *caller, int line);
+#define ASSERT_FLOAT_FAR(expected, actual) assert_float_far(expected, actual, 6, __FILE__, __LINE__)
+#define ASSERT_FLOAT_FAR_PRE(expected, actual, precision) assert_float_far(expected, actual, precision, __FILE__, __LINE__)
 
 
 
@@ -275,75 +277,69 @@ void CTEST_ERR(const char* fmt, ...)
     longjmp(ctest_err, 1);
 }
 
-void assert_str(const char* exp, const char*  real, const char* caller, int line) {
-    if ((exp == NULL && real != NULL) ||
-	(exp != NULL && real == NULL) ||
-	(exp && real && strcmp(exp, real) != 0)) {
-	CTEST_ERR("%s:%d\nEXPECTED\n'%s'\nACTUAL \n'%s'\n", caller, line, exp, real);
+void assert_str(const char* expected, const char*  actual, const char* caller, int line) {
+    if ((expected == NULL && actual != NULL) ||
+	(expected != NULL && actual == NULL) ||
+	(expected && actual && strcmp(expected, actual) != 0)) {
+	CTEST_ERR("%s:%d\nEXPECTED\n'%s'\nACTUAL \n'%s'\n", caller, line, expected, actual);
     }
 }
 
-void assert_data(const unsigned char* exp, size_t expsize,
-		 const unsigned char* real, size_t realsize,
+void assert_data(const unsigned char* expected, size_t expsize,
+		 const unsigned char* actual, size_t realsize,
 		 const char* caller, int line) {
     size_t i;
     if (expsize != realsize) {
 	CTEST_ERR("%s:%d  expected %" PRIuMAX " bytes, got %" PRIuMAX, caller, line, (uintmax_t) expsize, (uintmax_t) realsize);
     }
     for (i=0; i<expsize; i++) {
-	if (exp[i] != real[i]) {
+	if (expected[i] != actual[i]) {
 	    CTEST_ERR("%s:%d expected 0x%02x at offset %" PRIuMAX " got 0x%02x",
-		caller, line, exp[i], (uintmax_t) i, real[i]);
+		caller, line, expected[i], (uintmax_t) i, actual[i]);
 	}
     }
 }
 
-void assert_equal(intmax_t exp, intmax_t real, const char* caller, int line) {
-    if (exp != real) {
-	CTEST_ERR("%s:%d  expected %" PRIdMAX ", got %" PRIdMAX, caller, line, exp, real);
+void assertEquals(intmax_t expected, intmax_t actual) {
+    if (expected != actual) {
+	CTEST_ERR("%s:%d  expected %" PRIdMAX ", got %" PRIdMAX, __FILE__, __LINE__, expected, actual);
     }
 }
 
-void assert_equal_u(uintmax_t exp, uintmax_t real, const char* caller, int line) {
-    if (exp != real) {
-	CTEST_ERR("%s:%d  expected %" PRIuMAX ", got %" PRIuMAX, caller, line, exp, real);
+void assert_not_equal(intmax_t expected, intmax_t actual, const char* caller, int line) {
+    if ((expected) == (actual)) {
+	CTEST_ERR("%s:%d  should not be %" PRIdMAX, caller, line, actual);
     }
 }
 
-void assert_not_equal(intmax_t exp, intmax_t real, const char* caller, int line) {
-    if ((exp) == (real)) {
-	CTEST_ERR("%s:%d  should not be %" PRIdMAX, caller, line, real);
+void assert_not_equal_u(uintmax_t expected, uintmax_t actual, const char* caller, int line) {
+    if ((expected) == (actual)) {
+	CTEST_ERR("%s:%d  should not be %" PRIuMAX, caller, line, actual);
     }
 }
 
-void assert_not_equal_u(uintmax_t exp, uintmax_t real, const char* caller, int line) {
-    if ((exp) == (real)) {
-	CTEST_ERR("%s:%d  should not be %" PRIuMAX, caller, line, real);
+void assert_interval(intmax_t exp1, intmax_t exp2, intmax_t actual, const char* caller, int line) {
+    if (actual < exp1 || actual > exp2) {
+	CTEST_ERR("%s:%d  expected %" PRIdMAX "-%" PRIdMAX ", got %" PRIdMAX, caller, line, exp1, exp2, actual);
     }
 }
 
-void assert_interval(intmax_t exp1, intmax_t exp2, intmax_t real, const char* caller, int line) {
-    if (real < exp1 || real > exp2) {
-	CTEST_ERR("%s:%d  expected %" PRIdMAX "-%" PRIdMAX ", got %" PRIdMAX, caller, line, exp1, exp2, real);
-    }
-}
-
-void assert_dbl_near(double exp, double real, int precision, const char* caller, int line) {
+void assert_dbl_near(double expected, double actual, int precision, const char* caller, int line) {
     // max_digits = 3 + MANTISSA_DIGIT - MIN_EXPONENT = 3 + 53 - (-1023)
     char* expectedString = (char*) calloc(1079, sizeof(char));
     char* realString = (char*) calloc(1079, sizeof(char));
 
     // Get string type of input number
-    if(exp == 0.0f && exp < 0) {
-        sprintf(expectedString, "-%.*f", precision, exp);
+    if(expected == 0.0f && expected < 0) {
+        sprintf(expectedString, "-%.*f", precision, expected);
     } else {
-        sprintf(expectedString, "%.*f", precision, exp);
+        sprintf(expectedString, "%.*f", precision, expected);
     }
 
-    if(real == -0.0f && real < 0) {
-        sprintf(realString, "-%.*f", precision, real);
+    if(actual == -0.0f && actual < 0) {
+        sprintf(realString, "-%.*f", precision, actual);
     } else {
-        sprintf(realString, "%.*f", precision, real);
+        sprintf(realString, "%.*f", precision, actual);
     }
 
     // Compare with string type
@@ -358,22 +354,22 @@ void assert_dbl_near(double exp, double real, int precision, const char* caller,
     free(realString);
 }
 
-void assert_dbl_far(double exp, double real, int precision, const char* caller, int line) {
+void assert_dbl_far(double expected, double actual, int precision, const char* caller, int line) {
     // max_digits = 3 + MANTISSA_DIGIT - MIN_EXPONENT = 3 + 53 - (-1023)
     char* expectedString = (char*) calloc(1079, sizeof(char));
     char* realString = (char*) calloc(1079, sizeof(char));
 
     // Get string type of input number
-    if(exp == 0.0f && exp < 0) {
-        sprintf(expectedString, "-%.*f", precision, exp);
+    if(expected == 0.0f && expected < 0) {
+        sprintf(expectedString, "-%.*f", precision, expected);
     } else {
-        sprintf(expectedString, "%.*f", precision, exp);
+        sprintf(expectedString, "%.*f", precision, expected);
     }
 
-    if(real == -0.0f && real < 0) {
-        sprintf(realString, "-%.*f", precision, real);
+    if(actual == -0.0f && actual < 0) {
+        sprintf(realString, "-%.*f", precision, actual);
     } else {
-        sprintf(realString, "%.*f", precision, real);
+        sprintf(realString, "%.*f", precision, actual);
     }
 
     // Compare with string type
@@ -388,22 +384,22 @@ void assert_dbl_far(double exp, double real, int precision, const char* caller, 
     free(realString);
 }
 
-void assert_float_near(float exp, float real, int precision, const char* caller, int line) {
+void assert_float_near(float expected, float actual, int precision, const char* caller, int line) {
     // max_digits = 3 + DBL_MANT_DIG - DBL_MIN_EXP = 3 + 24 - (-126)
     char* expectedString = (char*) calloc(153, sizeof(char));
     char* realString = (char*) calloc(153, sizeof(char));
 
     // Get string type of input number
-    if(exp == 0.0f && exp < 0) {
-        sprintf(expectedString, "-%.*f", precision, exp);
+    if(expected == 0.0f && expected < 0) {
+        sprintf(expectedString, "-%.*f", precision, expected);
     } else {
-        sprintf(expectedString, "%.*f", precision, exp);
+        sprintf(expectedString, "%.*f", precision, expected);
     }
 
-    if(real == -0.0f && real < 0) {
-        sprintf(realString, "-%.*f", precision, real);
+    if(actual == -0.0f && actual < 0) {
+        sprintf(realString, "-%.*f", precision, actual);
     } else {
-        sprintf(realString, "%.*f", precision, real);
+        sprintf(realString, "%.*f", precision, actual);
     }
 
     // Compare with string type
@@ -418,22 +414,22 @@ void assert_float_near(float exp, float real, int precision, const char* caller,
     free(realString);
 }
 
-void assert_float_far(float exp, float real, int precision, const char* caller, int line) {
+void assert_float_far(float expected, float actual, int precision, const char* caller, int line) {
     // max_digits = 3 + DBL_MANT_DIG - DBL_MIN_EXP = 3 + 24 - (-126)
     char* expectedString = (char*) calloc(153, sizeof(char));
     char* realString = (char*) calloc(153, sizeof(char));
 
     // Get string type of input number
-    if(exp == 0.0f && exp < 0) {
-        sprintf(expectedString, "-%.*f", precision, exp);
+    if(expected == 0.0f && expected < 0) {
+        sprintf(expectedString, "-%.*f", precision, expected);
     } else {
-        sprintf(expectedString, "%.*f", precision, exp);
+        sprintf(expectedString, "%.*f", precision, expected);
     }
 
-    if(real == -0.0f && real < 0) {
-        sprintf(realString, "-%.*f", precision, real);
+    if(actual == -0.0f && actual < 0) {
+        sprintf(realString, "-%.*f", precision, actual);
     } else {
-        sprintf(realString, "%.*f", precision, real);
+        sprintf(realString, "%.*f", precision, actual);
     }
 
     // Compare with string type
@@ -449,26 +445,26 @@ void assert_float_far(float exp, float real, int precision, const char* caller, 
 }
 
 
-void assert_null(void* real, const char* caller, int line) {
-    if ((real) != NULL) {
+void assert_null(void* actual, const char* caller, int line) {
+    if ((actual) != NULL) {
 	CTEST_ERR("%s:%d  should be NULL", caller, line);
     }
 }
 
-void assert_not_null(const void* real, const char* caller, int line) {
-    if (real == NULL) {
+void assert_not_null(const void* actual, const char* caller, int line) {
+    if (actual == NULL) {
 	CTEST_ERR("%s:%d  should not be NULL", caller, line);
     }
 }
 
-void assert_true(int real, const char* caller, int line) {
-    if ((real) == 0) {
+void assert_true(int actual, const char* caller, int line) {
+    if ((actual) == 0) {
 	CTEST_ERR("%s:%d  should be true", caller, line);
     }
 }
 
-void assert_false(int real, const char* caller, int line) {
-    if ((real) != 0) {
+void assert_false(int actual, const char* caller, int line) {
+    if ((actual) != 0) {
 	CTEST_ERR("%s:%d  should be false", caller, line);
     }
 }

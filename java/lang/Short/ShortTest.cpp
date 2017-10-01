@@ -38,11 +38,11 @@ TEST (JavaLang, ShortConstructor) {
 	// 	Given empty value for Short constructor and assign value - Return Long
 	Short emptyShort;
 	emptyShort = 3;
-	ASSERT_EQUAL(3, emptyShort.longValue());
+	assertEquals(3, emptyShort.longValue());
 	
 	// Given value for Short constructor and assign value - Return Integer
 	Short validShort = 3;
-	ASSERT_EQUAL(3, validShort.intValue());
+	assertEquals(3, validShort.intValue());
 	
 }
 
@@ -105,7 +105,7 @@ TEST (JavaLang, ShortOperator) {
 TEST (JavaLang, ShortParseShort) {
 	// Given value for Long constructor and assign value - Return long
 	Short validShortPointer = Short::parseShort("6");
-	ASSERT_EQUAL(6, validShortPointer.shortValue());
+	assertEquals(6, validShortPointer.shortValue());
 }
 
 TEST (JavaLang, ShortToString) {

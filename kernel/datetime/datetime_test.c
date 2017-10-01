@@ -46,7 +46,7 @@ TEST (KernelDateTime, UnixTimestampInMilliseconds) {
 			month,
 			year
 	);
-	ASSERT_EQUAL(timestamp, 1500225603123);
+	assertEquals(timestamp, 1500225603123);
 #endif
 }
 
@@ -62,7 +62,7 @@ TEST (KernelDateTime, TimestampInNanoSeconds) {
 		counter++;
 	}
 	long last_time = timestamp();
-	ASSERT_EQUAL(maxN, counter);
+	assertEquals(maxN, counter);
 	unsigned int delta = ( last_time - first_time ) / 1000;
 	ASSERT_TRUE(delta > 50);
 }

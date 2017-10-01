@@ -42,44 +42,44 @@
 //    Date date;
 //
 //    // Test Date(). This class return since 1900
-//    ASSERT_EQUAL(currentTime->tm_year + 1900, date.getYear());
+//    assertEquals(currentTime->tm_year + 1900, date.getYear());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date(long date)
 //    date = Date(1498042091);  // 2017
-//    ASSERT_EQUAL(2017, date.getYear());
+//    assertEquals(2017, date.getYear());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(sameDate.getYear(), date.getYear());
-//    ASSERT_EQUAL(sameDate.getMonth(), date.getMonth());
-//    ASSERT_EQUAL(sameDate.getDate(), date.getDate());
-//    ASSERT_EQUAL(sameDate.getHours(), date.getHours());
-//    ASSERT_EQUAL(sameDate.getMinutes(), date.getMinutes());
-//    ASSERT_EQUAL(sameDate.getSeconds(), date.getSeconds());
+//    assertEquals(sameDate.getYear(), date.getYear());
+//    assertEquals(sameDate.getMonth(), date.getMonth());
+//    assertEquals(sameDate.getDate(), date.getDate());
+//    assertEquals(sameDate.getHours(), date.getHours());
+//    assertEquals(sameDate.getMinutes(), date.getMinutes());
+//    assertEquals(sameDate.getSeconds(), date.getSeconds());
 //
 //    // Test Date::Date(String inputString)
 //    // Create variable to test
@@ -236,22 +236,22 @@
 //    Date date;
 //
 //    date.setYear(1900);
-//    ASSERT_EQUAL(1900, date.getYear());
+//    assertEquals(1900, date.getYear());
 //
 //    date.setYear(3000);
-//    ASSERT_EQUAL(3000, date.getYear());
+//    assertEquals(3000, date.getYear());
 //
 //    date.setYear(1889);
-//    ASSERT_EQUAL(3789, date.getYear());
+//    assertEquals(3789, date.getYear());
 //
 //    date.setYear(-1);
-//    ASSERT_EQUAL(1899, date.getYear());
+//    assertEquals(1899, date.getYear());
 //
 //    date.setYear(-900);
-//    ASSERT_EQUAL(1000, date.getYear());
+//    assertEquals(1000, date.getYear());
 //
 //    date.setYear(0);
-//    ASSERT_EQUAL(1900, date.getYear());
+//    assertEquals(1900, date.getYear());
 //}
 //
 //TEST(JavaUtil, DateGetYear) {
@@ -262,29 +262,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
-//    ASSERT_EQUAL(currentTime->tm_year + 1900, date.getYear());
+//    assertEquals(currentTime->tm_year + 1900, date.getYear());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(2017, date.getYear());
+//    assertEquals(2017, date.getYear());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(2017, date.getYear());
+//    assertEquals(2017, date.getYear());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(2017, date.getYear());
+//    assertEquals(2017, date.getYear());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(2017, date.getYear());
+//    assertEquals(2017, date.getYear());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(2017, sameDate.getYear());
+//    assertEquals(2017, sameDate.getYear());
 //}
 //
 //TEST(JavaUtil, DateSetMonth) {
@@ -296,67 +296,67 @@
 //    expected = Date(2018, 0, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(12);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 33 => Year+= 2, month = 9.
 //    expected = Date(2019, 9, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(33);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 0
 //    expected = Date(2017, 0, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -1 => Year-= 1, month = 11.
 //    expected = Date(2016, 11, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(-1);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -12 => Year-= 1, month = 0.
 //    expected = Date(2016, 0, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(-12);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -33 => Year-= 3, month = 3.
 //    expected = Date(2014, 3, 13, 10, 01, 13);
 //    actual 	 = Date(2017, 1, 13, 10, 01, 13);
 //    actual.setMonth(-33);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetMonth) {
@@ -367,29 +367,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
-//    ASSERT_EQUAL(currentTime->tm_mon, date.getMonth());
+//    assertEquals(currentTime->tm_mon, date.getMonth());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(02, date.getMonth());
+//    assertEquals(02, date.getMonth());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(02, date.getMonth());
+//    assertEquals(02, date.getMonth());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(02, date.getMonth());
+//    assertEquals(02, date.getMonth());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(02, date.getMonth());
+//    assertEquals(02, date.getMonth());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(02, sameDate.getMonth());
+//    assertEquals(02, sameDate.getMonth());
 //}
 //
 //TEST(JavaUtil, DateSetDate) {
@@ -401,56 +401,56 @@
 //    expected = Date(2017, 2, 30, 10, 01, 13);
 //    actual 	 = Date(2017, 3, 1, 10, 01, 13);
 //    actual.setDate(-1);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 6, date = -75 => month = 3, date = 16
 //    expected = Date(2017, 3, 16, 10, 01, 13);
 //    actual 	 = Date(2017, 6, 1, 10, 01, 13);
 //    actual.setDate(-75);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 3, date = 0 => month = 2, date = 31
 //    expected = Date(2017, 2, 31, 10, 01, 13);
 //    actual 	 = Date(2017, 3, 1, 10, 01, 13);
 //    actual.setDate(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 2, date = 0 => month = 1, date = 28
 //    expected = Date(2017, 1, 28, 10, 01, 13);
 //    actual 	 = Date(2017, 2, 1, 10, 01, 13);
 //    actual.setDate(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 5, date = 32 => month = 6, date = 2
 //    expected = Date(2017, 6, 2, 10, 01, 13);
 //    actual 	 = Date(2017, 5, 1, 10, 01, 13);
 //    actual.setDate(32);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetDate) {
@@ -461,29 +461,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);;
-//    ASSERT_EQUAL(currentTime->tm_mday, date.getDate());
+//    assertEquals(currentTime->tm_mday, date.getDate());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(13, date.getDate());
+//    assertEquals(13, date.getDate());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(13, date.getDate());
+//    assertEquals(13, date.getDate());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(13, date.getDate());
+//    assertEquals(13, date.getDate());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, -28, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(13, date.getDate());
+//    assertEquals(13, date.getDate());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(13, sameDate.getDate());
+//    assertEquals(13, sameDate.getDate());
 //}
 //
 //TEST(JavaUtil, DateSetHours) {
@@ -495,56 +495,56 @@
 //    expected = Date(2017, 2, 12, 23, 01, 13);
 //    actual 	 = Date(2017, 2, 13, 1, 01, 13);
 //    actual.setHours(-1);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = -58 => date -= 3, hour = 14
 //    expected = Date(2017, 2, 10, 14, 01, 13);
 //    actual 	 = Date(2017, 2, 13, 1, 01, 13);
 //    actual.setHours(-58);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = 0
 //    expected = Date(2017, 2, 13, 0, 01, 13);
 //    actual 	 = Date(2017, 2, 13, 1, 01, 13);
 //    actual.setHours(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = 24. Day += 1, hour = 0
 //    expected = Date(2017, 2, 14, 0, 01, 13);
 //    actual 	 = Date(2017, 2, 13, 1, 01, 13);
 //    actual.setHours(24);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = 49. Day += 2, hour = 1
 //    expected = Date(2017, 2, 15, 1, 01, 13);
 //    actual 	 = Date(2017, 2, 13, 1, 01, 13);
 //    actual.setHours(49);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetHour) {
@@ -555,29 +555,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
-//    ASSERT_EQUAL(currentTime->tm_hour, date.getHours());
+//    assertEquals(currentTime->tm_hour, date.getHours());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(0, date.getHours());
+//    assertEquals(0, date.getHours());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(8, date.getHours());
+//    assertEquals(8, date.getHours());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(8, date.getHours());
+//    assertEquals(8, date.getHours());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, -28, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(8, date.getHours());
+//    assertEquals(8, date.getHours());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(8, sameDate.getHours());
+//    assertEquals(8, sameDate.getHours());
 //}
 //
 //TEST(JavaUtil, DateSetMinutes) {
@@ -589,45 +589,45 @@
 //    expected = Date(2017, 2, 13, 9, 59, 13);
 //    actual 	 = Date(2017, 2, 13, 10, 1, 13);
 //    actual.setMinutes(-1);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 0
 //    expected = Date(2017, 2, 13, 10, 0, 13);
 //    actual 	 = Date(2017, 2, 13, 10, 1, 13);
 //    actual.setMinutes(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 60 => hour += 1, minute = 0
 //    expected = Date(2017, 2, 13, 11, 00, 13);
 //    actual 	 = Date(2017, 2, 13, 10, 1, 13);
 //    actual.setMinutes(60);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 150 => hour += 2, minute = 30
 //    expected = Date(2017, 2, 13, 12, 30, 13);
 //    actual 	 = Date(2017, 2, 13, 10, 1, 13);
 //    actual.setMinutes(150);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetMinutes) {
@@ -638,29 +638,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
-//    ASSERT_EQUAL(currentTime->tm_min, date.getMinutes());
+//    assertEquals(currentTime->tm_min, date.getMinutes());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(0, date.getMinutes());
+//    assertEquals(0, date.getMinutes());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(01, date.getMinutes());
+//    assertEquals(01, date.getMinutes());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(01, date.getMinutes());
+//    assertEquals(01, date.getMinutes());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, -28, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(01, date.getMinutes());
+//    assertEquals(01, date.getMinutes());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(01, sameDate.getMinutes());
+//    assertEquals(01, sameDate.getMinutes());
 //}
 //
 //TEST(JavaUtil, DateSetSeconds) {
@@ -672,45 +672,45 @@
 //    expected = Date(2017, 2, 13, 10, 00, 59);
 //    actual   = Date(2017, 2, 13, 10, 01, 1);
 //    actual.setSeconds(-1);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 0
 //    expected = Date(2017, 2, 13, 10, 01, 0);
 //    actual   = Date(2017, 2, 13, 10, 01, 1);
 //    actual.setSeconds(0);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set second = 60 => minute += 1, second = 0
 //    expected = Date(2017, 2, 13, 10, 02, 00);
 //    actual   = Date(2017, 2, 13, 10, 01, 1);
 //    actual.setSeconds(60);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set second = 150 => minute += 2, second = 30
 //    expected = Date(2017, 2, 13, 10, 03, 30);
 //    actual   = Date(2017, 2, 13, 10, 01, 1);
 //    actual.setSeconds(150);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetSeconds) {
@@ -721,29 +721,29 @@
 //    long now = time(nullptr);
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
-//    ASSERT_EQUAL(currentTime->tm_sec, date.getSeconds());
+//    assertEquals(currentTime->tm_sec, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, -28, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(13, sameDate.getSeconds());
+//    assertEquals(13, sameDate.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetTime) {
@@ -752,7 +752,7 @@
 //
 //    // Test the current local time
 //    long now = time(nullptr);
-//    ASSERT_EQUAL(now, date.getTime());
+//    assertEquals(now, date.getTime());
 //}
 //
 //TEST(JavaUtil, DateSetTime) {
@@ -766,68 +766,68 @@
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
 //    date.setTime(now);
-//    ASSERT_EQUAL(currentTime->tm_year + 1900, date.getYear());
-//    ASSERT_EQUAL(currentTime->tm_mon, date.getMonth());
-//    ASSERT_EQUAL(currentTime->tm_mday, date.getDate());
-//    ASSERT_EQUAL(currentTime->tm_hour, date.getHours());
-//    ASSERT_EQUAL(currentTime->tm_min, date.getMinutes());
-//    ASSERT_EQUAL(currentTime->tm_sec, date.getSeconds());
+//    assertEquals(currentTime->tm_year + 1900, date.getYear());
+//    assertEquals(currentTime->tm_mon, date.getMonth());
+//    assertEquals(currentTime->tm_mday, date.getDate());
+//    assertEquals(currentTime->tm_hour, date.getHours());
+//    assertEquals(currentTime->tm_min, date.getMinutes());
+//    assertEquals(currentTime->tm_sec, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date)
 //    tempDate = Date(2017, 02, 13);
 //    tempTime = tempDate.getTime();
 //    date.setTime(tempTime);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(0, date.getHours());
-//    ASSERT_EQUAL(0, date.getMinutes());
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(0, date.getHours());
+//    assertEquals(0, date.getMinutes());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    tempDate = Date(2017, 02, 13, 8, 01);
 //    tempTime = tempDate.getTime();
 //    date.setTime(tempTime);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    tempTime = tempDate.getTime();
 //    date.setTime(tempTime);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date(long date)
 //    tempDate = Date(2017, 2, 13, 8, 1, 13);
 //    tempTime = tempDate.getTime();
 //    date.setTime(tempTime);
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(2, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(1, date.getMinutes());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(2, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(1, date.getMinutes());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date sameDate = date;
 //    tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    tempTime = tempDate.getTime();
 //    date.setTime(tempTime);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(2017, sameDate.getYear());
-//    ASSERT_EQUAL(02, sameDate.getMonth());
-//    ASSERT_EQUAL(13, sameDate.getDate());
-//    ASSERT_EQUAL(8, sameDate.getHours());
-//    ASSERT_EQUAL(01, sameDate.getMinutes());
-//    ASSERT_EQUAL(13, sameDate.getSeconds());
+//    assertEquals(2017, sameDate.getYear());
+//    assertEquals(02, sameDate.getMonth());
+//    assertEquals(13, sameDate.getDate());
+//    assertEquals(8, sameDate.getHours());
+//    assertEquals(01, sameDate.getMinutes());
+//    assertEquals(13, sameDate.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateGetDay) {
@@ -836,31 +836,31 @@
 //
 //    // Test Sun - value 0
 //    date = Date(2017, 8, 17, 8, 01, 13);
-//    ASSERT_EQUAL(0, date.getDay());
+//    assertEquals(0, date.getDay());
 //
 //    // Test Mon - value 1
 //    date = Date(2017, 8, 18, 8, 01, 13);
-//    ASSERT_EQUAL(1, date.getDay());
+//    assertEquals(1, date.getDay());
 //
 //    // Test Tue - value 2
 //    date = Date(2017, 8, 19, 8, 01, 13);
-//    ASSERT_EQUAL(2, date.getDay());
+//    assertEquals(2, date.getDay());
 //
 //    // Test Wed - value 3
 //    date = Date(2017, 8, 13, 8, 01, 13);
-//    ASSERT_EQUAL(3, date.getDay());
+//    assertEquals(3, date.getDay());
 //
 //    // Test Thu - value 4
 //    date = Date(2017, 8, 14, 8, 01, 13);
-//    ASSERT_EQUAL(4, date.getDay());
+//    assertEquals(4, date.getDay());
 //
 //    // Test Fri - value 5
 //    date = Date(2017, 8, 15, 8, 01, 13);
-//    ASSERT_EQUAL(5, date.getDay());
+//    assertEquals(5, date.getDay());
 //
 //    // Test Sar - value 6
 //    date = Date(2017, 8, 16, 8, 01, 13);
-//    ASSERT_EQUAL(6, date.getDay());
+//    assertEquals(6, date.getDay());
 //}
 //
 //TEST(JavaUtil, DateAfter) {
@@ -926,64 +926,64 @@
 //    tm tempCurrentTime;
 //    tm *currentTime = localtime_r(&now, &tempCurrentTime);
 //    date = tempDate.clone();
-//    ASSERT_EQUAL(currentTime->tm_year + 1900, date.getYear());
-//    ASSERT_EQUAL(currentTime->tm_mon, date.getMonth());
-//    ASSERT_EQUAL(currentTime->tm_mday, date.getDate());
-//    ASSERT_EQUAL(currentTime->tm_hour, date.getHours());
-//    ASSERT_EQUAL(currentTime->tm_min, date.getMinutes());
-//    ASSERT_EQUAL(currentTime->tm_sec, date.getSeconds());
+//    assertEquals(currentTime->tm_year + 1900, date.getYear());
+//    assertEquals(currentTime->tm_mon, date.getMonth());
+//    assertEquals(currentTime->tm_mday, date.getDate());
+//    assertEquals(currentTime->tm_hour, date.getHours());
+//    assertEquals(currentTime->tm_min, date.getMinutes());
+//    assertEquals(currentTime->tm_sec, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date)
 //    tempDate = Date(2017, 02, 13);
 //    date = tempDate.clone();
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(0, date.getHours());
-//    ASSERT_EQUAL(0, date.getMinutes());
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(0, date.getHours());
+//    assertEquals(0, date.getMinutes());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    tempDate = Date(2017, 02, 13, 8, 01);
 //    date = tempDate.clone();
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(0, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(0, date.getSeconds());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    date = tempDate.clone();
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date(long date)
 //    Date temp = Date(2017, 02, 13, 8, 01, 13);
 //    tempDate = Date(temp.getTime());
 //    date = tempDate.clone();
-//    ASSERT_EQUAL(2017, date.getYear());
-//    ASSERT_EQUAL(02, date.getMonth());
-//    ASSERT_EQUAL(13, date.getDate());
-//    ASSERT_EQUAL(8, date.getHours());
-//    ASSERT_EQUAL(01, date.getMinutes());
-//    ASSERT_EQUAL(13, date.getSeconds());
+//    assertEquals(2017, date.getYear());
+//    assertEquals(02, date.getMonth());
+//    assertEquals(13, date.getDate());
+//    assertEquals(8, date.getHours());
+//    assertEquals(01, date.getMinutes());
+//    assertEquals(13, date.getSeconds());
 //
 //    // Test Date sameDate = date;
 //    tempDate = Date(2017, 02, 13, 8, 01, 13);
 //    date = tempDate.clone();
 //    Date sameDate = date;
-//    ASSERT_EQUAL(2017, sameDate.getYear());
-//    ASSERT_EQUAL(02, sameDate.getMonth());
-//    ASSERT_EQUAL(13, sameDate.getDate());
-//    ASSERT_EQUAL(8, sameDate.getHours());
-//    ASSERT_EQUAL(01, sameDate.getMinutes());
-//    ASSERT_EQUAL(13, sameDate.getSeconds());
+//    assertEquals(2017, sameDate.getYear());
+//    assertEquals(02, sameDate.getMonth());
+//    assertEquals(13, sameDate.getDate());
+//    assertEquals(8, sameDate.getHours());
+//    assertEquals(01, sameDate.getMinutes());
+//    assertEquals(13, sameDate.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateCompareTo) {
@@ -992,20 +992,20 @@
 //    Date temp = Date(2017, 02, 13, 8, 01, 13);
 //
 //    date = Date(2017, 02, 12, 8, 01, 13);
-//    ASSERT_EQUAL(-1, date.compareTo(temp));
+//    assertEquals(-1, date.compareTo(temp));
 //
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(0, date.compareTo(temp));
+//    assertEquals(0, date.compareTo(temp));
 //
 //    date = Date(2017, 02, 14, 8, 01, 13);
-//    ASSERT_EQUAL(1, date.compareTo(temp));
+//    assertEquals(1, date.compareTo(temp));
 //}
 //
 //TEST(JavaUtil, DateHashCode) {
 //    Date date = Date(2017, 02, 14, 8, 01, 13);
 //    long expected = date.getTime();
 //    long actual = date.hashCode();
-//    ASSERT_EQUAL(expected, actual);
+//    assertEquals(expected, actual);
 //}
 //
 //TEST(JavaUtil, DateGetTimezoneOffset) {
@@ -1019,29 +1019,29 @@
 //    tm *localTimer = localtime_r(&now, &tempLocalTimer);
 //    expectedResult = static_cast<int> (- localTimer->tm_gmtoff / 60);
 //
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //
 //    // Test Date(int year, int month, int date)
 //    date = Date(2017, 02, 13);
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min)
 //    date = Date(2017, 02, 13, 8, 01);
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //
 //    // Test Date(int year, int month, int date, int hrs, int min, int sec)
 //    date = Date(2017, 02, 13, 8, 01, 13);
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //
 //    // Test Date(long date)
 //    Date tempDate = Date(2017, -28, 13, 8, 01, 13);
 //    date = Date(tempDate.getTime());
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //
 //    // Test Date sameDate = date;
 //    date = Date(2017, 02, 13, 8, 01, 13);
 //    Date sameDate = date;
-//    ASSERT_EQUAL(expectedResult, date.getTimezoneOffset());
+//    assertEquals(expectedResult, date.getTimezoneOffset());
 //}
 //
 //TEST(JavaUtil, DateToLocaleString) {
@@ -1209,12 +1209,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set year = 3000
 //    expected 	= Date(3000, 2, 13, 10, 01, 13);
@@ -1222,12 +1222,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set year = 1889
 //    expected 	= Date(1889, 2, 13, 10, 01, 13);
@@ -1235,12 +1235,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 12 => Year+= 1 , month = 0.
 //    expected 	= Date(2018, 0, 13, 10, 01, 13);
@@ -1248,12 +1248,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 33 => Year+= 2, month = 9.
 //    expected 	= Date(2019, 9, 13, 10, 01, 13);
@@ -1261,12 +1261,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 0
 //    expected 	= Date(2017, 0, 13, 10, 01, 13);
@@ -1274,12 +1274,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -1 => Year-= 1, month = 11.
 //    expected 	= Date(2016, 11, 13, 10, 01, 13);
@@ -1287,12 +1287,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -12 => Year-= 1, month = 0.
 //    expected 	= Date(2016, 0, 13, 10, 01, 13);
@@ -1300,12 +1300,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = -33 => Year-= 3, month = 3.
 //    expected 	= Date(2014, 3, 13, 10, 01, 13);
@@ -1313,12 +1313,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 3, date = -1 => month = 2, date = 30
 //    expected 	= Date(2017, 2, 30, 10, 01, 13);
@@ -1326,12 +1326,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 6, date = -75 => month = 3, date = 16
 //    expected 	= Date(2017, 3, 16, 10, 01, 13);
@@ -1339,12 +1339,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 3, date = 0 => month = 2, date = 31
 //    expected 	= Date(2017, 2, 31, 10, 01, 13);
@@ -1352,12 +1352,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 2, date = 0 => month = 1, date = 28
 //    expected 	= Date(2017, 1, 28, 10, 01, 13);
@@ -1365,12 +1365,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set month = 5, date = 32 => month = 6, date = 2
 //    expected 	= Date(2017, 6, 2, 10, 01, 13);
@@ -1378,12 +1378,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = -1 => day -= 1, hour = 23
 //    expected 	= Date(2017, 2, 12, 23, 01, 13);
@@ -1391,11 +1391,11 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
 //
 //    // Set hour = 0
 //    expected 	= Date(2017, 2, 13, 0, 01, 13);
@@ -1403,12 +1403,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = 24. Day += 1, hour = 0
 //    expected 	= Date(2017, 2, 14, 0, 01, 13);
@@ -1416,12 +1416,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set hour = 49. Day += 2, hour = 1
 //    expected 	= Date(2017, 2, 15, 1, 01, 13);
@@ -1429,12 +1429,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = -1 => hour -= 1, minute = 59
 //    expected 	= Date(2017, 2, 13, 9, 59, 13);
@@ -1442,12 +1442,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 0
 //    expected 	= Date(2017, 2, 13, 10, 0, 13);
@@ -1455,12 +1455,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 60 => hour += 1, minute = 0
 //    expected 	= Date(2017, 2, 13, 11, 00, 13);
@@ -1468,12 +1468,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 150 => hour += 2, minute = 30
 //    expected 	= Date(2017, 2, 13, 12, 30, 13);
@@ -1481,12 +1481,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set second = -1 => minute -= 1, second = 59
 //    expected 	= Date(2017, 2, 13, 10, 00, 59);
@@ -1494,12 +1494,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set minute = 0
 //    expected 	= Date(2017, 2, 13, 10, 01, 0);
@@ -1507,12 +1507,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set second = 60 => minute += 1, second = 0
 //    expected 	= Date(2017, 2, 13, 10, 02, 00);
@@ -1520,12 +1520,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //
 //    // Set second = 150 => minute += 2, second = 30
 //    expected 	= Date(2017, 2, 13, 10, 03, 30);
@@ -1533,12 +1533,12 @@
 //    actual = Date(timeActual);
 //    timeChange = expected.getTime() + expected.getTimezoneOffset() * 60;
 //    expected.setTime(timeChange);
-//    ASSERT_EQUAL(expected.getYear(), actual.getYear());
-//    ASSERT_EQUAL(expected.getMonth(), actual.getMonth());
-//    ASSERT_EQUAL(expected.getDate(), actual.getDate());
-//    ASSERT_EQUAL(expected.getHours(), actual.getHours());
-//    ASSERT_EQUAL(expected.getMinutes(), actual.getMinutes());
-//    ASSERT_EQUAL(expected.getSeconds(), actual.getSeconds());
+//    assertEquals(expected.getYear(), actual.getYear());
+//    assertEquals(expected.getMonth(), actual.getMonth());
+//    assertEquals(expected.getDate(), actual.getDate());
+//    assertEquals(expected.getHours(), actual.getHours());
+//    assertEquals(expected.getMinutes(), actual.getMinutes());
+//    assertEquals(expected.getSeconds(), actual.getSeconds());
 //}
 //
 //TEST(JavaUtil, DateToString) {

@@ -102,7 +102,7 @@ TEST (JavaUtil, Base64BasicEncoder) {
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*' };
-	ASSERT_EQUAL(realLength, expectedStringResult.length());
+	assertEquals(realLength, expectedStringResult.length());
 	ASSERT_TRUE(Arrays::equals(expectedResultOfOutputByteArray, outputByteArray));
 }
 
@@ -238,7 +238,7 @@ TEST (JavaUtil, Base64BasicDecoder) {
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*',
 		  '*', '*', '*', '*', '*', '*', '*', '*', '*', '*' };  // "Welcome to Vietnam!"
-	ASSERT_EQUAL(expectedOutputAsString.length(), realLength);
+	assertEquals(expectedOutputAsString.length(), realLength);
 	ASSERT_TRUE(Arrays::equals(expectedOutputArray, outputArray));
 	
 	// Input as String.
