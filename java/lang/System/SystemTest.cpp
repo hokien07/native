@@ -42,5 +42,5 @@ TEST (JavaLang, SystemOut) {
 
 TEST (JavaLang, SystemCurrentTimeMillis) {
 	long currentMilliSeconds = System::currentTimeMillis();
-	ASSERT_TRUE(currentMilliSeconds > 1500199237190);
+	assertTrue(currentMilliSeconds > 1500199237190);
 }

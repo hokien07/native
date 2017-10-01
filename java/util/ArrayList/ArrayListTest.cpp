@@ -110,7 +110,7 @@ TEST(JavaUtil, ArrayListContains) {
     ArrayList<String> validArrayList = {"nakhoadl", "thuydung",
                                         "loint", "dthongvl", "dquang"};
     boolean result = validArrayList.contains("loint");
-    ASSERT_TRUE(result);
+    assertTrue(result);
     result = validArrayList.contains("huuphuoc");
     ASSERT_FALSE(result);
 }
@@ -119,7 +119,7 @@ TEST(JavaUtil, ArrayListIsEmpty) {
 	// Give an empty ArrayList - Should equal
 	ArrayList<Long> emptyArrayList;
 	boolean result = emptyArrayList.isEmpty();
-	ASSERT_TRUE(result);
+	assertTrue(result);
 
 	// Give an valid ArrayList - Should equal
 	ArrayList<Float> validArrayList = {1.2, 1.4};
@@ -255,7 +255,7 @@ TEST(JavaUtil, ArrayListRemoveElement) {
     boolean result = validArrayList.remove("456");
     string stringExpect = (string) "[123, 789]";
     string stringResult = validArrayList.toString();
-    ASSERT_TRUE(result);
+    assertTrue(result);
     ASSERT_STR(stringExpect, stringResult);
 
     // Test case false

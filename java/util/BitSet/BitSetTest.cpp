@@ -170,7 +170,7 @@ TEST(JavaUtil, BitSetEquals) {
     ASSERT_FALSE(bitSet.equals(justString));
     BitSet anotherBitSet(100);
     // Two of bit sets are equals because they contains only 0 bits.
-    ASSERT_TRUE(bitSet.equals(anotherBitSet));
+    assertTrue(bitSet.equals(anotherBitSet));
     anotherBitSet.set(100, true);
     assertEquals(101, anotherBitSet.length());
     assertEquals(128, anotherBitSet.size());
@@ -180,7 +180,7 @@ TEST(JavaUtil, BitSetEquals) {
 
     bitSet.clear();
     anotherBitSet.clear();
-    ASSERT_TRUE(bitSet.equals(anotherBitSet));
+    assertTrue(bitSet.equals(anotherBitSet));
 
     bitSet.set(0, 1024, true);
     anotherBitSet.set(0, 1024, true);
@@ -272,12 +272,12 @@ TEST(JavaUtil, BitSetFlip) {
 TEST(JavaUtil, BitSetHashCode) {
     BitSet bitSet1;
     BitSet bitSet2;
-    ASSERT_TRUE(bitSet1.hashCode() == bitSet2.hashCode());
+    assertTrue(bitSet1.hashCode() == bitSet2.hashCode());
     bitSet1.set(0, 100, true);
     bitSet2.set(0, 100, false);
     ASSERT_FALSE(bitSet1.hashCode() == bitSet2.hashCode());
     bitSet2.set(0, 100, true);
-    ASSERT_TRUE(bitSet1.hashCode() == bitSet2.hashCode());
+    assertTrue(bitSet1.hashCode() == bitSet2.hashCode());
 }
 
 TEST(JavaUtil, BitSetIntersects) {
@@ -287,7 +287,7 @@ TEST(JavaUtil, BitSetIntersects) {
     bitSet2.set(0, 1024, true);
     ASSERT_FALSE(bitSet1.intersects(bitSet2));
     bitSet1.set(512, true);
-    ASSERT_TRUE(bitSet1.intersects(bitSet2));
+    assertTrue(bitSet1.intersects(bitSet2));
 
     bitSet1.clear();
     bitSet2.clear();
@@ -301,11 +301,11 @@ TEST(JavaUtil, BitSetIntersects) {
 
 TEST(JavaUtil, BitSetIsEmpty) {
     BitSet bitSet;
-    ASSERT_TRUE(bitSet.isEmpty());
+    assertTrue(bitSet.isEmpty());
     bitSet.set(1);
     ASSERT_FALSE(bitSet.isEmpty());
     bitSet.clear();
-    ASSERT_TRUE(bitSet.isEmpty());
+    assertTrue(bitSet.isEmpty());
 }
 
 TEST(JavaUtil, BitSetLength) {
@@ -599,7 +599,7 @@ TEST(JavaUtil, BitSetToByteArray) {
     BitSet bitSet;
     Array<byte> expectedResultByteArray = Array<byte>(0);
     Array<byte> resultByteArray = bitSet.toByteArray();
-    ASSERT_TRUE(Arrays::equals(expectedResultByteArray, resultByteArray));
+    assertTrue(Arrays::equals(expectedResultByteArray, resultByteArray));
 
     bitSet.set(0, 8, false);
     bitSet.set(8, 16, true);
@@ -607,7 +607,7 @@ TEST(JavaUtil, BitSetToByteArray) {
     expectedResultByteArray = Array<byte> {0b00000000, 0b11111111};
     resultByteArray = bitSet.toByteArray();
     assertEquals(2, resultByteArray.length);
-    ASSERT_TRUE(Arrays::equals(expectedResultByteArray, resultByteArray));
+    assertTrue(Arrays::equals(expectedResultByteArray, resultByteArray));
 
     bitSet.clear();
     bitSet.set(0, 4, true);
@@ -629,14 +629,14 @@ TEST(JavaUtil, BitSetToByteArray) {
     resultByteArray = bitSet.toByteArray();
     assertEquals(32, expectedResultByteArray.length);
     assertEquals(32, resultByteArray.length);
-    ASSERT_TRUE(Arrays::equals(expectedResultByteArray, resultByteArray));
+    assertTrue(Arrays::equals(expectedResultByteArray, resultByteArray));
 }
 
 TEST(JavaUtil, BitSetToLongArray) {
     BitSet bitSet;
     Array<long> expectedResultLongArray = Array<long>(0);
     Array<long> resultLongArray = bitSet.toLongArray();
-    ASSERT_TRUE(Arrays::equals(expectedResultLongArray, resultLongArray));
+    assertTrue(Arrays::equals(expectedResultLongArray, resultLongArray));
 
     bitSet.set(0, 128, false);
     bitSet.set(128, 254, true);
@@ -646,7 +646,7 @@ TEST(JavaUtil, BitSetToLongArray) {
     // This test is checked on Java.
     expectedResultLongArray = Array<long> {0L, 0L, -1L, -4611686018427387905L};
     resultLongArray = bitSet.toLongArray();
-    ASSERT_TRUE(Arrays::equals(expectedResultLongArray, resultLongArray));
+    assertTrue(Arrays::equals(expectedResultLongArray, resultLongArray));
 }
 
 TEST(JavaUtil, BitSetValueOf) {
@@ -668,7 +668,7 @@ TEST(JavaUtil, BitSetValueOf) {
     expectedResultByteArray.set(254, 255, false);
     expectedResultByteArray.set(255, 256, true);
     BitSet resultByteArray = BitSet::valueOf(inputByteArray);
-    ASSERT_TRUE(expectedResultByteArray.equals(resultByteArray));
+    assertTrue(expectedResultByteArray.equals(resultByteArray));
 
     // This input byte array has 4 zero longs, it doesn't affect to result.
     Array<long> inputLongArray =
@@ -679,15 +679,15 @@ TEST(JavaUtil, BitSetValueOf) {
     expectedResultLongArray.set(254, 255, false);
     expectedResultLongArray.set(255, 256, true);
     BitSet resultLongArray = BitSet::valueOf(inputLongArray);
-    ASSERT_TRUE(expectedResultLongArray.equals(resultLongArray));
+    assertTrue(expectedResultLongArray.equals(resultLongArray));
 }
 
 TEST(JavaUtil, BitSetCompareEqualsOperator) {
     BitSet bitSet1;
     BitSet bitSet2;
-    ASSERT_TRUE(bitSet1 == bitSet2);
+    assertTrue(bitSet1 == bitSet2);
     bitSet1.set(1);
-    ASSERT_TRUE(bitSet1 != bitSet2);
+    assertTrue(bitSet1 != bitSet2);
 }
 
 TEST(JavaUtil, BitSetAssignmentOperator) {
@@ -701,7 +701,7 @@ TEST(JavaUtil, BitSetAssignmentOperator) {
     bitSet2 = bitSet1;
     assertEquals(1024, bitSet2.length());
     assertEquals(true, bitSet2.get(512));
-    ASSERT_TRUE(bitSet1.equals(bitSet2));
+    assertTrue(bitSet1.equals(bitSet2));
 }
 
 TEST(JavaUtil, BitSetAnd) {
@@ -736,7 +736,7 @@ TEST(JavaUtil, BitSetOr) {
     BitSet bitSet2;
     bitSet1.bitOr(bitSet2);
     // bitSet1 == bitSet2, nothing will be changed.
-    ASSERT_TRUE(bitSet1.equals(bitSet2));
+    assertTrue(bitSet1.equals(bitSet2));
 
     bitSet1.set(0, 512, false);
     bitSet1.set(512, 1024, true);

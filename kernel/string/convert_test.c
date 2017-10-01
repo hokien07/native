@@ -332,25 +332,25 @@ TEST (KernelString, ConvertToBoolean) {
 	int boolean0 = string_to_boolean(target0);
 	
 	// Check if the result is TRUE or not
-	ASSERT_TRUE(boolean0);
+	assertTrue(boolean0);
 	
 	// Input a string representing "TRUE" to convert from string to boolean
 	// Than check if the result is TRUE or not
 	char *target1 = "TRUE";
 	int boolean1 = string_to_boolean(target1);
-	ASSERT_TRUE(boolean1);
+	assertTrue(boolean1);
 	
 	// Input a string representing "True" to convert from string to boolean
 	// Than check if the result is TRUE or not
 	char *target2 = "True";
 	int boolean2 = string_to_boolean(target2);
-	ASSERT_TRUE(boolean2);
+	assertTrue(boolean2);
 	
 	// Input a string representing "true" to convert from string to boolean
 	// Than check if the result is TRUE or not
 	char *target3 = "true";
 	int boolean3 = string_to_boolean(target3);
-	ASSERT_TRUE(boolean3);
+	assertTrue(boolean3);
 	
 	// Input a string representing "FALSE" to convert from string to boolean
 	// Than check if the result is FALSE or not

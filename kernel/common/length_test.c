@@ -114,10 +114,10 @@ TEST (KernelCommon, LengthFloat) {
 
 TEST (KernelCommon, IsEmpty) {
 	char *target1 = NULL;
-	ASSERT_TRUE(is_empty(target1));
+	assertTrue(is_empty(target1));
 
 	char *target2 = "";
-	ASSERT_TRUE(is_empty(target2));
+	assertTrue(is_empty(target2));
 
 	char *target3 = "abcd";
 	ASSERT_FALSE(is_empty(target3));

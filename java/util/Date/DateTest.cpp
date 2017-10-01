@@ -870,13 +870,13 @@
 //
 //    // Test case TRUE
 //    date = Date(2017, 8, 11, 8, 01, 13);
-//    ASSERT_TRUE(date.after(tempDate));
+//    assertTrue(date.after(tempDate));
 //
 //    date = Date(2017, 9, 13, 8, 01, 13);
-//    ASSERT_TRUE(date.after(tempDate));
+//    assertTrue(date.after(tempDate));
 //
 //    date = Date(2018, 8, 14, 8, 01, 13);
-//    ASSERT_TRUE(date.after(tempDate));
+//    assertTrue(date.after(tempDate));
 //
 //    // Test case FALSE
 //    date = Date(2017, 8, 10, 8, 01, 13);
@@ -896,13 +896,13 @@
 //
 //    // Test case TRUE
 //    date = Date(2017, 8, 6, 8, 01, 13);
-//    ASSERT_TRUE(date.before(tempDate));
+//    assertTrue(date.before(tempDate));
 //
 //    date = Date(2017, 7, 5, 8, 01, 13);
-//    ASSERT_TRUE(date.before(tempDate));
+//    assertTrue(date.before(tempDate));
 //
 //    date = Date(2016, 8, 5, 8, 01, 13);
-//    ASSERT_TRUE(date.before(tempDate));
+//    assertTrue(date.before(tempDate));
 //
 //    // Test case FALSE
 //    date = Date(2017, 8, 10, 8, 01, 13);

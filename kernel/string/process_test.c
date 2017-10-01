@@ -147,7 +147,7 @@ TEST (KernelString, ProcessSplit) {
 TEST (KernelString, ProcessStartsWith) {
 	char *target = "Hello World";
 	char *prefix = "Hello";
-	ASSERT_TRUE(string_startswith(target, prefix));
+	assertTrue(string_startswith(target, prefix));
 	
 	prefix = "Nope";
 	ASSERT_FALSE(string_startswith(target, prefix));
@@ -159,7 +159,7 @@ TEST (KernelString, ProcessStartsWith) {
 TEST (KernelString, ProcessEndsWith) {
 	char *target = "Hello World";
 	char *suffix = "World";
-	ASSERT_TRUE(string_endswith(target, suffix));
+	assertTrue(string_endswith(target, suffix));
 	
 	suffix = "Nope";
 	ASSERT_FALSE(string_endswith(target, suffix));
@@ -488,7 +488,7 @@ TEST (KernelString, ProcessStandardized) {
 TEST (KernelString, ProcessEquals) {
 	char *target1 = NULL;
 	char *target2 = NULL;
-	ASSERT_TRUE(string_equals(target1, target2));
+	assertTrue(string_equals(target1, target2));
 	
 	target1 = (char *) "hello";
 	target2 = NULL;
@@ -504,7 +504,7 @@ TEST (KernelString, ProcessEquals) {
 	
 	target1 = "abcd";
 	target2 = "abcd";
-	ASSERT_TRUE(string_equals(target1, target2));
+	assertTrue(string_equals(target1, target2));
 }
 
 TEST (KernelString, ProcessReverse) {
@@ -516,7 +516,7 @@ TEST (KernelString, ProcessReverse) {
 	
 	
 	// Test true with correct reverse string
-	ASSERT_TRUE(string_equals(correct_reverse, reverse_of_target));
+	assertTrue(string_equals(correct_reverse, reverse_of_target));
 	
 	// Test fail with wrong reverse string
 	ASSERT_FALSE(string_equals(wrong_reverse, reverse_of_target));
@@ -532,7 +532,7 @@ TEST (KernelString, ProcessMatches) {
 	char *reverse_of_target = string_reverse(target);
 	
 	// Test true with correct reverse string
-	ASSERT_TRUE(string_equals(correct_reverse, reverse_of_target));
+	assertTrue(string_equals(correct_reverse, reverse_of_target));
 	
 	// Test fail with wrong reverse string
 	ASSERT_FALSE(string_equals(wrong_reverse, reverse_of_target));

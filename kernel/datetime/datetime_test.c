@@ -52,7 +52,7 @@ TEST (KernelDateTime, UnixTimestampInMilliseconds) {
 
 TEST (KernelDateTime, TimestampInNanoSeconds) {
 	long first_time = timestamp();
-	ASSERT_TRUE(first_time > 1500198318489000);
+	assertTrue(first_time > 1500198318489000);
 	int maxN = 20000000;
 	int i = 0;
 	int counter = 0;
@@ -64,7 +64,7 @@ TEST (KernelDateTime, TimestampInNanoSeconds) {
 	long last_time = timestamp();
 	assertEquals(maxN, counter);
 	unsigned int delta = ( last_time - first_time ) / 1000;
-	ASSERT_TRUE(delta > 50);
+	assertTrue(delta > 50);
 }
 
 TEST (KernelDateTime, Format) {

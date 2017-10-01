@@ -41,7 +41,7 @@ TEST (JavaUtil, HashMapConstructor) {
 
 	int expectedSize = 0;
 	assertEquals(expectedSize, emptyHashMap.size());
-	ASSERT_TRUE(emptyHashMap.isEmpty());
+	assertTrue(emptyHashMap.isEmpty());
 
 	// Test copy constructor
 	HashMap<String, String> container;
@@ -114,7 +114,7 @@ TEST (JavaUtil, HashMapContainsKey) {
 	hashMap.put(-52, "negative fifty two");
 
 	boolean exist = hashMap.containsKey(-52);
-	ASSERT_TRUE(exist);
+	assertTrue(exist);
 
 	boolean notFound = hashMap.containsKey(100);
 	ASSERT_FALSE(notFound);
@@ -127,7 +127,7 @@ TEST (JavaUtil, HashMapContainsValue) {
 	hashMap.put("30.111", 30.111);
 
 	boolean exist = hashMap.containsValue(15.3);
-	ASSERT_TRUE(exist);
+	assertTrue(exist);
 
 	boolean notFound = hashMap.containsValue(30.22);
 	ASSERT_FALSE(notFound);
@@ -168,7 +168,7 @@ TEST (JavaUtil, HashMapGet) {
 	ASSERT_STR(expectedValue.toString(), result.toString());
 
 	String defaultResult = hashMap.get("wrong_key");
-	ASSERT_TRUE(defaultResult.isEmpty());
+	assertTrue(defaultResult.isEmpty());
 }
 
 TEST (JavaUtil, HashMapIsEmpty) {
@@ -176,7 +176,7 @@ TEST (JavaUtil, HashMapIsEmpty) {
 	HashMap<String, Float> hashMap;
 
 	boolean result = hashMap.isEmpty();
-	ASSERT_TRUE(result);
+	assertTrue(result);
 
 	// Add one more param into hash map to test not empty
 	hashMap.put("some key", 123.33);
@@ -289,7 +289,7 @@ TEST (JavaUtil, HashMapRemoveKey) {
 
 	// Test old key must not be in hash map
 	String getOldKeyResult = hashMap.get("another thing");
-	ASSERT_TRUE(getOldKeyResult.isEmpty());
+	assertTrue(getOldKeyResult.isEmpty());
 }
 
 TEST (JavaUtil, HashMapRemoveKeyValue) {
@@ -312,7 +312,7 @@ TEST (JavaUtil, HashMapRemoveKeyValue) {
 
 	// Test remove true by key mapped to specified value
 	removeResult = hashMap.remove("some key", "123");
-	ASSERT_TRUE(removeResult);
+	assertTrue(removeResult);
 }
 
 TEST (JavaUtil, HashMapReplace) {
@@ -361,7 +361,7 @@ TEST (JavaUtil, HashMapReplaceSpecifiedValue) {
 	String oldValue = "!@#";
 	String newValue = "456";
 	boolean replaceResult = hashMap.replace(key, oldValue, newValue);
-	ASSERT_TRUE(replaceResult);
+	assertTrue(replaceResult);
 
 	// Valid data inside after replace succeed - key must be mapped with newValue
 	String valueAfterReplaced = hashMap.get(key);

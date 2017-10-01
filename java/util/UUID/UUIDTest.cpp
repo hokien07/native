@@ -86,7 +86,7 @@ TEST (JavaUtil, UUIDEquals) {
 	// Given valid an instance of UUID, test equals with ifself
 	UUID uuid = UUID::randomUUID();
 	
-	ASSERT_TRUE(uuid.equals(uuid));
+	assertTrue(uuid.equals(uuid));
 }
 
 TEST (JavaUtil, UUIDGetSignificantBits) {

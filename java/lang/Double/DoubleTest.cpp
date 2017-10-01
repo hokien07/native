@@ -106,24 +106,24 @@ TEST(JavaLang, DoubleArithmeticOperator) {
 
 TEST(JavaLang, DoubleRelationalOperator) {
 	// Test Operator ==
-	ASSERT_TRUE((Double)13.02 == (Double)13.02);
+	assertTrue((Double)13.02 == (Double)13.02);
 	
 	// Test Operator !=
-	ASSERT_TRUE((Double)13.02 != (Double)20.31);
+	assertTrue((Double)13.02 != (Double)20.31);
 	
 	// Test Operator >
-	ASSERT_TRUE((Double)20.31 > (Double)13.02);
+	assertTrue((Double)20.31 > (Double)13.02);
 	
 	// Test Operator <
-	ASSERT_TRUE((Double)13.02 < (Double)20.31);
+	assertTrue((Double)13.02 < (Double)20.31);
 	
 	// Test Operator >=
-	ASSERT_TRUE((Double)33.33 >= (Double)22.22);
-	ASSERT_TRUE((Double)33.33 >= (Double)33.33);
+	assertTrue((Double)33.33 >= (Double)22.22);
+	assertTrue((Double)33.33 >= (Double)33.33);
 	
 	// Test Operator <=
-	ASSERT_TRUE((Double)22.22 <= (Double)33.33);
-	ASSERT_TRUE((Double)22.22 <= (Double)22.22);
+	assertTrue((Double)22.22 <= (Double)33.33);
+	assertTrue((Double)22.22 <= (Double)22.22);
 }
 
 TEST(JavaLang, DoubleLogicalOperator) {
@@ -137,19 +137,19 @@ TEST(JavaLang, DoubleLogicalOperator) {
 	ASSERT_FALSE((Double)1 && (Double)0);
 	
 	// Test Operator && . Case 1   1
-	ASSERT_TRUE((Double)1 && (Double)1);
+	assertTrue((Double)1 && (Double)1);
 	
 	// Test Operator || . Case 0   0
 	ASSERT_FALSE((Double)0 || (Double)0);
 	
 	// Test Operator || . Case 0   1
-	ASSERT_TRUE((Double)0 || (Double)1);
+	assertTrue((Double)0 || (Double)1);
 	
 	// Test Operator || . Case 1   0
-	ASSERT_TRUE((Double)1 || (Double)0);
+	assertTrue((Double)1 || (Double)0);
 	
 	// Test Operator || . Case 1   1
-	ASSERT_TRUE((Double)1 || (Double)1);
+	assertTrue((Double)1 || (Double)1);
 }
 
 TEST(JavaLang, DoubleAssignmentOperator) {
@@ -1437,16 +1437,16 @@ TEST(JavaLang , DoubleHashCodeNotInput) {
 }
 
 TEST(JavaLang , DoubleIsFinite) {
-	ASSERT_TRUE(Double::isFinite(13.02));
-	ASSERT_TRUE(Double::isFinite(130.2));
+	assertTrue(Double::isFinite(13.02));
+	assertTrue(Double::isFinite(130.2));
 	ASSERT_FALSE(Double::isFinite(POSITIVE_INFINITY_DOUBLE));
 	ASSERT_FALSE(Double::isFinite(NEGATIVE_INFINITY_DOUBLE));
 	
 }
 
 TEST(JavaLang , DoubleIsInfinite) {
-	ASSERT_TRUE(Double::isInfinite(POSITIVE_INFINITY_DOUBLE));
-	ASSERT_TRUE(Double::isInfinite(NEGATIVE_INFINITY_DOUBLE));
+	assertTrue(Double::isInfinite(POSITIVE_INFINITY_DOUBLE));
+	assertTrue(Double::isInfinite(NEGATIVE_INFINITY_DOUBLE));
 	ASSERT_FALSE(Double::isInfinite(13.02));
 	ASSERT_FALSE(Double::isInfinite(130.2));
 }
@@ -1455,10 +1455,10 @@ TEST(JavaLang , DoubleIsInfinite2) {
 	Double variableIsInfinite2;
 	
 	variableIsInfinite2 = POSITIVE_INFINITY_DOUBLE;
-	ASSERT_TRUE(variableIsInfinite2.isInfinite());
+	assertTrue(variableIsInfinite2.isInfinite());
 	
 	variableIsInfinite2 = NEGATIVE_INFINITY_DOUBLE;
-	ASSERT_TRUE(variableIsInfinite2.isInfinite());
+	assertTrue(variableIsInfinite2.isInfinite());
 	
 	variableIsInfinite2 = 13.02;
 	ASSERT_FALSE(variableIsInfinite2.isInfinite());
@@ -1466,7 +1466,7 @@ TEST(JavaLang , DoubleIsInfinite2) {
 
 TEST(JavaLang , DoubleIsNaN) {
 	
-	ASSERT_TRUE(Double::isNaN(NaN_NUMBER_DOUBLE));
+	assertTrue(Double::isNaN(NaN_NUMBER_DOUBLE));
 	ASSERT_FALSE(Double::isNaN(NEGATIVE_INFINITY_DOUBLE));
 	ASSERT_FALSE(Double::isNaN(13.02));
 	ASSERT_FALSE(Double::isNaN(130.2));
@@ -1476,7 +1476,7 @@ TEST(JavaLang , DoubleIsNaN2) {
 	Double variableIsInfinite2;
 	
 	variableIsInfinite2 = NaN_NUMBER_DOUBLE;
-	ASSERT_TRUE(variableIsInfinite2.isNaN());
+	assertTrue(variableIsInfinite2.isNaN());
 	
 	variableIsInfinite2 = NEGATIVE_INFINITY_DOUBLE;
 	ASSERT_FALSE(variableIsInfinite2.isNaN());

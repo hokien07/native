@@ -139,14 +139,24 @@ void assert_not_equal_u(uintmax_t expected, uintmax_t actual, const char *caller
 void assert_interval(intmax_t exp1, intmax_t exp2, intmax_t actual, const char *caller, int line);
 #define ASSERT_INTERVAL(exp1, exp2, actual) assert_interval(exp1, exp2, actual, __FILE__, __LINE__)
 
-void assert_null(void *actual, const char *caller, int line);
-#define ASSERT_NULL(actual) assert_null((void*)actual, __FILE__, __LINE__)
+/**
+ * Asserts that an object is null.
+ *
+ * @param actual
+ */
+void assert_null(void *actual);
 
 void assert_not_null(const void *actual, const char *caller, int line);
 #define ASSERT_NOT_NULL(actual) assert_not_null(actual, __FILE__, __LINE__)
 
-void assert_true(int actual, const char *caller, int line);
-#define ASSERT_TRUE(actual) assert_true(actual, __FILE__, __LINE__)
+/**
+ * Asserts that a condition is true.
+ *
+ * @param actual
+ * @param caller
+ * @param line
+ */
+void assertTrue(int actual);
 
 void assert_false(int actual, const char *caller, int line);
 #define ASSERT_FALSE(actual) assert_false(actual, __FILE__, __LINE__)
@@ -444,10 +454,9 @@ void assert_float_far(float expected, float actual, int precision, const char* c
     free(realString);
 }
 
-
-void assert_null(void* actual, const char* caller, int line) {
+void assert_null(void* actual) {
     if ((actual) != NULL) {
-	CTEST_ERR("%s:%d  should be NULL", caller, line);
+	CTEST_ERR("%s:%d  should be NULL", __FILE__, __LINE__);
     }
 }
 
@@ -457,9 +466,9 @@ void assert_not_null(const void* actual, const char* caller, int line) {
     }
 }
 
-void assert_true(int actual, const char* caller, int line) {
+void assertTrue(int actual) {
     if ((actual) == 0) {
-	CTEST_ERR("%s:%d  should be true", caller, line);
+	CTEST_ERR("%s:%d  should be true", __FILE__, __LINE__);
     }
 }
 

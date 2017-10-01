@@ -42,7 +42,7 @@ TEST (JavaUtil, RandomNextInt) {
 	// Test 100 number
 	for (int index = 0; index < 100; index++) {
 		int a = random1.nextInt();
-		ASSERT_TRUE(a >= intMin && a <= intMax); // Check if the return value is in Integer range
+		assertTrue(a >= intMin && a <= intMax); // Check if the return value is in Integer range
 	}
 }
 
@@ -64,14 +64,14 @@ TEST (JavaUtil, RandomNextIntWithBound) {
 	int index;
 	for (index = 0; index < 100; index++) {
 		int a = random1.nextInt(bound);
-		ASSERT_TRUE(a >= 0 && a < bound); // Check if the return value is in [0, bound)
+		assertTrue(a >= 0 && a < bound); // Check if the return value is in [0, bound)
 	}
 	
 	// Test nextInt(bound) with bound = 64 is a power of 2
 	bound = 64;
 	for (index = 0; index < 100; index++) {
 		int a = random1.nextInt(bound);
-		ASSERT_TRUE(a >= 0 && a < bound); // Check if the return value is in [0, bound)
+		assertTrue(a >= 0 && a < bound); // Check if the return value is in [0, bound)
 	}
 }
 
@@ -90,7 +90,7 @@ TEST (JavaUtil, RandomNextBytes) {
 	byte byteMin = 0;
 	int index;
 	for (index = 0; index < byteArray.length; index++) {
-		ASSERT_TRUE(byteArray[ index ] >= byteMin && byteArray[ index ] <= byteMax);
+		assertTrue(byteArray[ index ] >= byteMin && byteArray[ index ] <= byteMax);
 	}
 }
 
@@ -102,7 +102,7 @@ TEST (JavaUtil, RandomNextDouble) {
 	int index;
 	for (index = 0; index < 100; index++) {
 		double generatedDouble = random1.nextDouble();
-		ASSERT_TRUE(generatedDouble >= 0 && generatedDouble < 1.0);
+		assertTrue(generatedDouble >= 0 && generatedDouble < 1.0);
 	}
 }
 
@@ -117,7 +117,7 @@ TEST (JavaUtil, RandomNextLong) {
 	int index;
 	for (index = 0; index < 100; index++) {
 		double generatedLong = random1.nextLong();
-		ASSERT_TRUE(generatedLong >= longMin && generatedLong <= longMax);
+		assertTrue(generatedLong >= longMin && generatedLong <= longMax);
 	}
 }
 
@@ -129,7 +129,7 @@ TEST (JavaUtil, RandomNextFloat) {
 	int index;
 	for (index = 0; index < 100; index++) {
 		float generatedFloat = random1.nextFloat();
-		ASSERT_TRUE(generatedFloat >= 0 && generatedFloat < 1.0);
+		assertTrue(generatedFloat >= 0 && generatedFloat < 1.0);
 	}
 }
 
@@ -141,7 +141,7 @@ TEST (JavaUtil, RandomNextBoolean) {
 	int index;
 	for (index = 0; index < 100; index++) {
 		boolean generatedBool = random1.nextBoolean();
-		ASSERT_TRUE(generatedBool == TRUE || generatedBool == FALSE);
+		assertTrue(generatedBool == TRUE || generatedBool == FALSE);
 	}
 }
 
